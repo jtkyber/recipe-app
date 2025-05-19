@@ -1,0 +1,14 @@
+.container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+
+    .results {
+        height: max-content;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-end;
+        align-content: flex-start;
+        gap: 2rem;
+    }
+}
