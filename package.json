@@ -16,6 +16,7 @@
     "@tanstack/react-router-devtools": "^1.120.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
     "sass": "^1.89.0"
   },
   "devDependencies": {

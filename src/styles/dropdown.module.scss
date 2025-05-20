@@ -1,0 +1,128 @@
+.container {
+    width: 100%;
+    height: max-content;
+    margin: var(--filter-margin);
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+
+    $section-height: 2.5rem;
+    $border-radius: 0.5rem;
+    $section-padding: 0 0.5rem;
+    
+    .dropdown_label_container {
+        width: 100%;
+        height: $section-height;
+        padding: $section-padding;
+        border-radius: $border-radius;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        *:not(.textbox) {
+            pointer-events: none;
+        }
+        
+        &:hover {
+            background-color: rgba(230, 230, 230, 1);
+        }
+
+        .dropdown_label {
+            justify-self: flex-end;
+        }
+
+        .dropdown_active_symbol {
+
+        }
+
+        .textbox {
+            width: 5rem;
+            height: 1.5rem;
+            border: 1px solid var(--input-border-color);
+            border-radius: $border-radius;
+            padding: 0 0.5rem;
+        }
+    }
+
+    .options {
+        width: 100%;
+        height: max-content;
+        display: none;
+        flex-flow: column nowrap;
+
+        &.show {
+            display: flex;
+        }
+
+        .option {
+            width: 100%;
+            height: $section-height;
+            border-radius: $border-radius;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: $section-padding;
+
+            * {
+                pointer-events: none;
+            }
+
+            &:hover {
+                background-color: rgba(230, 230, 230, 1);
+            }
+
+            .label {
+                font-weight: 400;
+                margin-left: 0.5rem;
+            }   
+
+            .checkbox {
+                width: 1rem;
+                height: 1rem;
+                border: 1px solid black;
+                border-radius: 0.15rem;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &[data-checked='true'] {
+                    border-width: 2px;
+
+                    &::after {
+                        content: "";
+                        width: 0.5rem;
+                        height: 0.5rem;
+                        background-color: black;
+                    }
+                }
+            }   
+
+            .radio {
+                width: 1rem;
+                height: 1rem;
+                border: 1px solid black;
+                border-radius: 50%;
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &[data-checked='true'] {
+                    border-width: 2px;
+
+                    &::after {
+                        content: "";
+                        width: 0.5rem;
+                        height: 0.5rem;
+                        border-radius: 50%;
+                        background-color: black;
+                    }
+                }
+            }
+        }
+    }
+}

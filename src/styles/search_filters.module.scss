@@ -1,12 +1,29 @@
 .container {
-    width: 15rem;
+    width: 25rem;
     height: 100%;
     display: flex;
-    align-items: center;
+    flex-flow: column nowrap;
+    position: relative;
+
+    .searchbarContainer {
+        width: 100%;
+        height: 4rem;
+        display: flex;
+        justify-content: center;
+    }   
+
+    .filterContainer {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
 
     .border {
+        position: absolute;
         width: 100%;
         height: 100%;
         border-right: 1px solid black;
+        pointer-events: none;
     }
 }
