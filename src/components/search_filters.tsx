@@ -9,7 +9,11 @@ function SearchFilters() {
 				<RecipeSearchbar />
 			</div>
 			<div className={styles.filterContainer}>
-				<Dropdown options={['Chinese', 'German', 'Greek', 'Cajun']} inputType='checkbox' />
+				<div className={styles.filters}>
+					<Dropdown options={['Chinese', 'German', 'Greek', 'Cajun']} inputType='checkbox' />
+					<Dropdown options={['Chinese', 'German', 'Greek', 'Cajun']} inputType='checkbox' />
+					<Dropdown options={['Chinese', 'German', 'Greek', 'Cajun']} inputType='checkbox' />
+				</div>
 			</div>
 			<div className={styles.border}></div>
 		</div>
