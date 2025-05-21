@@ -1,4 +1,4 @@
-import styles from '../styles/recipe_searchbar.module.scss';
+import styles from '../../styles/search_filter/recipe_searchbar.module.scss';
 
 function RecipeSearchbar() {
 	return (

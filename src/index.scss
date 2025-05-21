@@ -17,7 +17,11 @@
   --input-border-color: rgb(100, 100, 100);
   --placeholder-color: rgb(130, 130, 130);
   --btn-color-dark: rgb(50, 50, 50);
-  --filter-margin: 0 1rem;
+  --filter-margin: 0 0.5rem;
+
+  --dropdown-section-height: 2.5rem;
+  --dropdown-section-padding: 0 0.5rem;
+  --dropdown-border-radius: 0.5rem;
 }
 
 * {

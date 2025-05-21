@@ -1,1 +1,1 @@
-export type InputType = 'checkbox' | 'radio' | 'text';
+export type InputType = 'checkbox' | 'radio' | 'text' | 'number';
