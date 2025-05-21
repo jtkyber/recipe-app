@@ -27,8 +27,14 @@
         // .dropdown_label {
         // }
 
-        // .dropdown_active_symbol {
-        // }
+        .dropdown_active_symbol {
+            $symbol-offset: 0.25rem;
+            transform: translateY(-$symbol-offset);
+
+            &.dropped {
+                transform: translateY($symbol-offset);
+            }
+        }
 
         .textbox {
             width: 5rem;

@@ -1,3 +1,4 @@
+import { createRef, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
 	addCuisine,
@@ -6,7 +7,9 @@ import {
 	removeCuisine,
 	removeIngredient,
 	removeType,
-	type FilterProperties,
+	setMaxReadyTime,
+	toggleInstructionsRequired,
+	type FilterProperty,
 } from '../../redux/slices/searchFilterSlice';
 import styles from '../../styles/search_filter/search_filters.module.scss';
 import type { InputType } from '../../types/dropdown';
@@ -17,25 +20,69 @@ import RecipeSearchbar from './recipe_searchbar';
 function SearchFilters() {
 	const filters = useAppSelector(state => state.searchFilter);
 	const dispatch = useAppDispatch();
+	const filtersDivRef = createRef<HTMLDivElement>();
 
-	const handle_input: (e: React.MouseEvent<Element, MouseEvent>, inputType: InputType) => void = (
-		e,
-		inputType
-	) => {
-		const target = e.target as HTMLDivElement;
+	useEffect(set_textboxes, []);
+	useEffect(set_checkboxes, [filters]);
+
+	function set_textboxes() {
+		const filterKeys = Object.keys(filters) as FilterProperty[];
+		for (const key of filterKeys) {
+			if (key === 'maxReadyTime') {
+				const allOptions = filtersDivRef.current?.querySelectorAll(
+					`[data-filter=${key}]`
+				) as NodeListOf<HTMLDivElement>;
+
+				for (const option of allOptions) {
+					const input = option.querySelector('#number') as HTMLInputElement;
+					input.value = filters[key].toString();
+				}
+			}
+		}
+	}
+
+	function set_checkboxes() {
+		const set_values = (key: FilterProperty) => {
+			const allOptions = filtersDivRef.current?.querySelectorAll(
+				`[data-filter=${key}]`
+			) as NodeListOf<HTMLDivElement>;
+
+			for (const option of allOptions) {
+				const input = option.querySelector('#checkbox') as HTMLDivElement;
+				if (!option.dataset.filter) continue;
+
+				if (Array.isArray(filters[key])) {
+					input.dataset.checked = filters[key].includes(option.id).toString();
+				} else {
+					input.dataset.checked = filters[key].toString();
+				}
+			}
+		};
+
+		const filterKeys = Object.keys(filters) as FilterProperty[];
+		for (const key of filterKeys) {
+			if (['cuisine', 'ingredients', 'type', 'instructionsRequired'].includes(key)) {
+				set_values(key);
+			}
+		}
+	}
+
+	const handle_input: (e: React.FormEvent<HTMLDivElement>, inputType: InputType) => void = (e, inputType) => {
+		const target = e.target as HTMLDivElement & HTMLInputElement;
+
 		switch (inputType) {
 			case 'checkbox':
 				toggle_checkbox(target);
+				break;
+			case 'number':
+				set_number(target);
 				break;
 		}
 	};
 
 	const toggle_checkbox = (selectedOption: HTMLDivElement) => {
-		// const input = selectedOption.querySelector('#checkbox') as HTMLDivElement;
-		// input.dataset.checked = input.dataset.checked === 'true' ? 'false' : 'true';
-
-		const filterName = selectedOption.dataset.filter?.toLowerCase() as FilterProperties;
-		const label = selectedOption.id.toLowerCase();
+		const filterName = selectedOption.dataset.filter as FilterProperty;
+		const label = selectedOption.id;
 
 		switch (filterName) {
 			case 'cuisine':
@@ -53,18 +100,23 @@ function SearchFilters() {
 					dispatch(removeType(label));
 				} else dispatch(addType(label));
 				break;
+			case 'instructionsRequired':
+				dispatch(toggleInstructionsRequired());
+				break;
 		}
 	};
 
-	// const select_radio = (selectedOption: HTMLDivElement) => {
-	// 	const allOptions = optionsRef.current?.children;
-	// 	if (!allOptions) return;
-	// 	for (const option of allOptions) {
-	// 		const input = option.querySelector('#radio') as HTMLDivElement;
-	// 		if (option === selectedOption) input.dataset.checked = 'true';
-	// 		else input.dataset.checked = 'false';
-	// 	}
-	// };
+	const set_number = (input: HTMLInputElement) => {
+		const option = input.parentElement as HTMLDivElement;
+		const filterName = option.dataset.filter as FilterProperty;
+		const value = parseInt(input.value);
+
+		switch (filterName) {
+			case 'maxReadyTime':
+				dispatch(setMaxReadyTime(value));
+				break;
+		}
+	};
 
 	return (
 		<div className={styles.container}>
@@ -72,7 +124,7 @@ function SearchFilters() {
 				<RecipeSearchbar />
 			</div>
 			<div className={styles.filterContainer}>
-				<div className={styles.filters}>
+				<div ref={filtersDivRef} className={styles.filters}>
 					<Dropdown
 						filterName='cuisine'
 						options={['Chinese', 'German', 'Greek', 'Cajun']}

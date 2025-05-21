@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import './index.scss';
 import store from './redux/store.ts';
 import { routeTree } from './routeTree.gen.ts';
-
 const router = createRouter({ routeTree });
 
 declare module '@tanstack/react-router' {
