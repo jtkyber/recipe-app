@@ -21,7 +21,7 @@
         }
         
         &:hover {
-            background-color: rgba(230, 230, 230, 1);
+            background-color: var(--section-highlight-color);
         }
 
         // .dropdown_label {
@@ -45,12 +45,14 @@
         }
     }
 
+    
     .options {
         width: 100%;
         height: max-content;
         display: none;
         flex-flow: column nowrap;
         padding-left: 0.5rem;
+        align-items: center;
 
         * {
             font-weight: 400;
@@ -58,6 +60,19 @@
 
         &.show {
             display: flex;
+        }
+
+        .optionSearchbar {
+            width: 8rem;
+            height: 1.5rem;
+            border: 1px solid var(--input-border-color);
+            border-radius: 1rem;
+            padding: 0 0.5rem;
+            font-size: small;
+
+            &:focus {
+                outline: none;
+            }
         }
     }
 }

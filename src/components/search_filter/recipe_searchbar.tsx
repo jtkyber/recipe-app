@@ -4,7 +4,7 @@ function RecipeSearchbar() {
 	return (
 		<div className={styles.container}>
 			<input className={styles.search_input} type='text' placeholder='Search recipes...' />
-			<button className={styles.search_button_test}>&#x2192;</button>
+			<button className={styles.search_button}>&#x2192;</button>
 		</div>
 	);
 }

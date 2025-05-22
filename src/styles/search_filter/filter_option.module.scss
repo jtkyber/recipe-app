@@ -15,7 +15,7 @@
     }
 
     &:hover {
-        background-color: rgba(230, 230, 230, 1);
+        background-color: var(--section-highlight-color);
     }
 
     .checkbox {

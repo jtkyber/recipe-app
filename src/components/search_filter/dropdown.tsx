@@ -18,6 +18,13 @@ function Dropdown({
 	children: string | JSX.Element | JSX.Element[];
 }) {
 	const [dropped, setDropped] = useState(false);
+	const [searchFilterText, setSearchFilterText] = useState('');
+
+	const handle_searchbar_input: React.ChangeEventHandler = e => {
+		const target = e.target as HTMLInputElement;
+		const text: string = target.value.toLowerCase();
+		setSearchFilterText(text);
+	};
 
 	return (
 		<div className={styles.container}>
@@ -28,21 +35,29 @@ function Dropdown({
 				</h2>
 			</div>
 			<div className={`${styles.options} ${dropped ? styles.show : null}`}>
+				<input
+					onChange={handle_searchbar_input}
+					type='text'
+					className={styles.optionSearchbar}
+					placeholder='Filter...'
+				/>
 				{inputType === 'radio' ? (
 					<FilterOption name='None' filter={filterName} inputType={inputType} handle_input={handle_input}>
 						None
 					</FilterOption>
 				) : null}
-				{options.map((option, index) => (
-					<FilterOption
-						name={option}
-						filter={filterName}
-						key={index}
-						inputType={inputType}
-						handle_input={handle_input}>
-						{option}
-					</FilterOption>
-				))}
+				{options
+					.filter(o => o.toLowerCase().includes(searchFilterText))
+					.map((option, index) => (
+						<FilterOption
+							name={option}
+							filter={filterName}
+							key={index}
+							inputType={inputType}
+							handle_input={handle_input}>
+							{option}
+						</FilterOption>
+					))}
 			</div>
 		</div>
 	);
