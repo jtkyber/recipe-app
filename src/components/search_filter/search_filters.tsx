@@ -13,6 +13,7 @@ import {
 } from '../../redux/slices/searchFilterSlice';
 import styles from '../../styles/search_filter/search_filters.module.scss';
 import type { InputType } from '../../types/dropdown';
+import { cuisineValues, mealTypeValues } from '../../utils/filter_values';
 import Dropdown from './dropdown';
 import FilterOption from './filter_option';
 import RecipeSearchbar from './recipe_searchbar';
@@ -127,23 +128,26 @@ function SearchFilters() {
 				<div ref={filtersDivRef} className={styles.filters}>
 					<Dropdown
 						filterName='cuisine'
-						options={['Chinese', 'German', 'Greek', 'Cajun']}
+						options={cuisineValues}
 						inputType='checkbox'
-						handle_input={handle_input}>
+						handle_input={handle_input}
+						set_checkboxes={set_checkboxes}>
 						Cuisine
 					</Dropdown>
 					<Dropdown
 						filterName='ingredients'
 						options={['Chicken', 'lettuce']}
 						inputType='checkbox'
-						handle_input={handle_input}>
+						handle_input={handle_input}
+						set_checkboxes={set_checkboxes}>
 						Ingredients
 					</Dropdown>
 					<Dropdown
 						filterName='type'
-						options={['Dinner', 'Lunch', 'Drink']}
+						options={mealTypeValues}
 						inputType='checkbox'
-						handle_input={handle_input}>
+						handle_input={handle_input}
+						set_checkboxes={set_checkboxes}>
 						Meal Type
 					</Dropdown>
 					<FilterOption

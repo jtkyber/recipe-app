@@ -10,12 +10,14 @@ function Dropdown({
 	inputType,
 	handle_input,
 	children,
+	set_checkboxes,
 }: {
 	filterName: FilterProperty;
 	options: string[];
 	inputType: InputType;
 	handle_input: (e: React.FormEvent<HTMLDivElement>, inputType: InputType) => void;
 	children: string | JSX.Element | JSX.Element[];
+	set_checkboxes?: () => void;
 }) {
 	const [dropped, setDropped] = useState(false);
 	const [searchFilterText, setSearchFilterText] = useState('');
@@ -24,6 +26,7 @@ function Dropdown({
 		const target = e.target as HTMLInputElement;
 		const text: string = target.value.toLowerCase();
 		setSearchFilterText(text);
+		if (set_checkboxes) set_checkboxes();
 	};
 
 	return (
@@ -46,18 +49,17 @@ function Dropdown({
 						None
 					</FilterOption>
 				) : null}
-				{options
-					.filter(o => o.toLowerCase().includes(searchFilterText))
-					.map((option, index) => (
-						<FilterOption
-							name={option}
-							filter={filterName}
-							key={index}
-							inputType={inputType}
-							handle_input={handle_input}>
-							{option}
-						</FilterOption>
-					))}
+				{options.map(option => (
+					<FilterOption
+						name={option}
+						filter={filterName}
+						key={option}
+						inputType={inputType}
+						handle_input={handle_input}
+						show={option.toLowerCase().includes(searchFilterText.toLowerCase())}>
+						{option}
+					</FilterOption>
+				))}
 			</div>
 		</div>
 	);

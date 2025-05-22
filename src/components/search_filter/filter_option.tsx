@@ -10,6 +10,7 @@ function FilterOption({
 	handle_input,
 	inputAttributes,
 	children,
+	show = true,
 }: {
 	name: string; // Must match casing & spelling in API
 	filter: FilterProperty;
@@ -17,6 +18,7 @@ function FilterOption({
 	handle_input: (e: React.FormEvent<HTMLDivElement>, inputType: InputType) => void;
 	inputAttributes?: InputHTMLAttributes<any>;
 	children: string | ReactElement;
+	show?: boolean;
 }) {
 	return (
 		<div
@@ -24,7 +26,8 @@ function FilterOption({
 			data-filter={filter}
 			onClick={(e: React.FormEvent<HTMLDivElement>) => handle_input(e, inputType)}
 			onChange={(e: React.FormEvent<HTMLDivElement>) => handle_input(e, inputType)}
-			className={styles.option}>
+			className={styles.option}
+			style={{ display: show ? 'flex' : 'none' }}>
 			<h4 className={styles.label}>{children}</h4>
 			{inputType === 'checkbox' ? (
 				<div {...inputAttributes} id='checkbox' data-checked={false} className={styles.checkbox}></div>

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 
 interface ISearchFilterState {
+	query: string;
 	cuisine: string[];
 	ingredients: string[];
 	type: string[];
@@ -11,6 +12,7 @@ interface ISearchFilterState {
 }
 
 export const initialState: ISearchFilterState = {
+	query: '',
 	cuisine: [],
 	ingredients: [],
 	type: [],
@@ -22,6 +24,9 @@ export const searchFilterSlice = createSlice({
 	name: 'searchFilter',
 	initialState,
 	reducers: {
+		setQuery: (state, action: PayloadAction<string>) => {
+			state.query = action.payload;
+		},
 		addCuisine: (state, action: PayloadAction<string>) => {
 			state.cuisine = [...state.cuisine, action.payload];
 		},
@@ -53,6 +58,7 @@ export const searchFilterSlice = createSlice({
 });
 
 export const {
+	setQuery,
 	addCuisine,
 	removeCuisine,
 	addIngredient,

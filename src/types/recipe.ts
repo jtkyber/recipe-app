@@ -50,3 +50,9 @@ export interface IRecipe {
 	veryPolular: boolean;
 	weightWatchersSmartPoints: number;
 }
+export interface ISearchResult {
+	number: number;
+	offset: number;
+	results: IRecipe[];
+	totalResults: number;
+}
