@@ -1,4 +1,6 @@
-import { createRef, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { createRef, useEffect, useState } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
 	addCuisine,
@@ -11,9 +13,12 @@ import {
 	toggleInstructionsRequired,
 	type FilterProperty,
 } from '../../redux/slices/searchFilterSlice';
+import optionStyles from '../../styles/search_filter/filter_option.module.scss';
 import styles from '../../styles/search_filter/search_filters.module.scss';
 import type { InputType } from '../../types/dropdown';
+import { get_parent_with_class_name } from '../../utils/dom_tools';
 import { cuisineValues, mealTypeValues } from '../../utils/filter_values';
+import AutocompleteDropdown from './autocompleteDropdown';
 import Dropdown from './dropdown';
 import FilterOption from './filter_option';
 import RecipeSearchbar from './recipe_searchbar';
@@ -23,21 +28,62 @@ function SearchFilters() {
 	const dispatch = useAppDispatch();
 	const filtersDivRef = createRef<HTMLDivElement>();
 
+	const [activeTextbox, setActiveTextbox] = useState<HTMLInputElement | null>(null);
+	const [autocompleteText, setAutocompleteText] = useState<string>('');
+	const debouncedAutocompleteText = useDebouncedCallback((value: any) => {
+		setAutocompleteText(value);
+	}, 500);
+
+	const { refetch, data: autocompleteOptions } = useQuery({
+		queryKey: ['autocomplete'],
+		queryFn: get_autocomplete_ingredients,
+		enabled: false,
+	});
+
+	useEffect(() => {
+		const filtersDiv = filtersDivRef.current;
+		if (!filtersDiv) return;
+
+		filtersDiv.addEventListener('focusin', handle_focus_in, true);
+		filtersDiv.addEventListener('focusout', handle_focus_out, true);
+
+		return () => {
+			if (!filtersDiv) return;
+
+			filtersDiv.removeEventListener('focusin', handle_focus_in, true);
+			filtersDiv.removeEventListener('focusout', handle_focus_out, true);
+		};
+	}, []);
 	useEffect(set_textboxes, []);
 	useEffect(set_checkboxes, [filters]);
+	useEffect(() => {
+		refetch();
+	}, [autocompleteText]);
+
+	function handle_focus_in(e: Event) {
+		const target = e.target;
+		if (!(target instanceof HTMLInputElement)) return;
+		setActiveTextbox(target);
+	}
+	function handle_focus_out() {
+		setActiveTextbox(null);
+		setAutocompleteText('');
+	}
 
 	function set_textboxes() {
 		const filterKeys = Object.keys(filters) as FilterProperty[];
-		for (const key of filterKeys) {
-			if (key === 'maxReadyTime') {
-				const allOptions = filtersDivRef.current?.querySelectorAll(
-					`[data-filter=${key}]`
-				) as NodeListOf<HTMLDivElement>;
 
-				for (const option of allOptions) {
-					const input = option.querySelector('#number') as HTMLInputElement;
-					input.value = filters[key].toString();
-				}
+		for (const key of filterKeys) {
+			const allOptions = filtersDivRef.current?.querySelectorAll(
+				`[data-filter=${key}]`
+			) as NodeListOf<HTMLDivElement>;
+
+			for (const option of allOptions) {
+				const inputType = option.dataset.inputType as InputType;
+				if (inputType !== 'number' && inputType !== 'text') continue;
+
+				const input = option.querySelector(inputType === 'number' ? '#number' : '#text') as HTMLInputElement;
+				input.value = filters[key].toString();
 			}
 		}
 	}
@@ -62,7 +108,7 @@ function SearchFilters() {
 
 		const filterKeys = Object.keys(filters) as FilterProperty[];
 		for (const key of filterKeys) {
-			if (['cuisine', 'ingredients', 'type', 'instructionsRequired'].includes(key)) {
+			if (['cuisine', 'type', 'instructionsRequired'].includes(key)) {
 				set_values(key);
 			}
 		}
@@ -73,15 +119,18 @@ function SearchFilters() {
 
 		switch (inputType) {
 			case 'checkbox':
-				toggle_checkbox(target);
+				handle_checkbox(target);
 				break;
 			case 'number':
-				set_number(target);
+				handle_textbox(target);
+				break;
+			case 'text':
+				handle_textbox(target);
 				break;
 		}
 	};
 
-	const toggle_checkbox = (selectedOption: HTMLDivElement) => {
+	const handle_checkbox = (selectedOption: HTMLDivElement) => {
 		const filterName = selectedOption.dataset.filter as FilterProperty;
 		const label = selectedOption.id;
 
@@ -107,14 +156,37 @@ function SearchFilters() {
 		}
 	};
 
-	const set_number = (input: HTMLInputElement) => {
-		const option = input.parentElement as HTMLDivElement;
+	async function get_autocomplete_ingredients() {
+		if (!autocompleteText.length) return [];
+
+		const res = await fetch(
+			'https://api.spoonacular.com/food/ingredients/autocomplete?' +
+				new URLSearchParams({
+					query: autocompleteText,
+					number: '10',
+				}),
+			{
+				headers: {
+					'x-api-key': 'd939cc9ac6484c338f00802dc2647e5b',
+				},
+			}
+		);
+		if (!res.ok) throw new Error('Unable to fetch ingredients');
+		const data = await res.json();
+		return data;
+	}
+
+	const handle_textbox = (input: HTMLInputElement) => {
+		const option = get_parent_with_class_name(input, optionStyles.option) as HTMLDivElement;
 		const filterName = option.dataset.filter as FilterProperty;
-		const value = parseInt(input.value);
+		const value = input.value;
 
 		switch (filterName) {
 			case 'maxReadyTime':
-				dispatch(setMaxReadyTime(value));
+				dispatch(setMaxReadyTime(parseInt(value)));
+				break;
+			case 'ingredients':
+				debouncedAutocompleteText(value);
 				break;
 		}
 	};
@@ -135,14 +207,6 @@ function SearchFilters() {
 						Cuisine
 					</Dropdown>
 					<Dropdown
-						filterName='ingredients'
-						options={['Chicken', 'lettuce']}
-						inputType='checkbox'
-						handle_input={handle_input}
-						set_checkboxes={set_checkboxes}>
-						Ingredients
-					</Dropdown>
-					<Dropdown
 						filterName='type'
 						options={mealTypeValues}
 						inputType='checkbox'
@@ -151,24 +215,40 @@ function SearchFilters() {
 						Meal Type
 					</Dropdown>
 					<FilterOption
-						name='Instructions Required'
-						filter='instructionsRequired'
-						inputType='checkbox'
-						handle_input={handle_input}>
-						Instructions Required
+						name='Ingredients'
+						filter='ingredients'
+						inputType='text'
+						handle_input={handle_input}
+						inputAttributes={{ placeholder: 'Search...' }}
+						selectedItems={filters.ingredients}
+						isSolo={true}>
+						Ingredients
 					</FilterOption>
 					<FilterOption
 						name='Max Ready Time'
 						filter='maxReadyTime'
 						inputType='number'
 						handle_input={handle_input}
-						inputAttributes={{ min: 0 }}>
+						inputAttributes={{ min: 0 }}
+						isSolo={true}>
 						<>
 							Max Ready Time<span style={{ fontWeight: 200, fontSize: '0.9em' }}>(mins)</span>
 						</>
 					</FilterOption>
+					<FilterOption
+						name='Instructions Required'
+						filter='instructionsRequired'
+						inputType='checkbox'
+						handle_input={handle_input}
+						isSolo={true}>
+						Instructions Required
+					</FilterOption>
 				</div>
 			</div>
+
+			{activeTextbox instanceof HTMLInputElement && autocompleteOptions?.length ? (
+				<AutocompleteDropdown activeTextbox={activeTextbox} />
+			) : null}
 			<div className={styles.border}></div>
 		</div>
 	);

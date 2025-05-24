@@ -1,0 +1,23 @@
+.container {
+    position: fixed;
+    height: max-content;
+    background-color: rgb(150, 150, 150);
+    border: 1px solid black;
+    border-radius: var(--dropdown-border-radius);
+    z-index: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1px;
+
+    h5 {
+        padding: 0.2rem 0.5rem;
+        cursor: pointer;
+        position: relative;
+        background-color: var(--bg-color-main);
+        font-weight: 500;
+        
+        &:hover {
+            background-color: var(--section-highlight-color);
+        }
+    }
+}

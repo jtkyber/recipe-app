@@ -30,7 +30,7 @@ function Dropdown({
 	};
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.dropdownContainer}>
 			<div onClick={() => setDropped(!dropped)} className={styles.dropdown_label_container}>
 				<h4 className={styles.dropdown_label}>{children}</h4>
 				<h2 className={`${styles.dropdown_active_symbol} ${dropped ? styles.dropped : null}`}>

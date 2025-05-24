@@ -14,6 +14,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --bg-color-main: white;
   --input-border-color: rgb(100, 100, 100);
   --placeholder-color: rgb(130, 130, 130);
   --btn-bg-color: rgb(50, 50, 50);
@@ -24,6 +25,7 @@
   --dropdown-section-height: 2.5rem;
   --dropdown-section-padding: 0 0.5rem;
   --dropdown-border-radius: 0.5rem;
+  --filter-option-label-font-weight: 600;
 }
 
 * {
@@ -70,7 +72,7 @@ button {
 @media (prefers-color-scheme: light) or (prefers-color-scheme: dark) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: var(--bg-color-main);
   }
   // a:hover {
   //   color: #747bff;
