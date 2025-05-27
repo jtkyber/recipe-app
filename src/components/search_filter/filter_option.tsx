@@ -16,7 +16,7 @@ function FilterOption({
 	isSolo = false,
 }: {
 	name: string; // Must match casing & spelling in API
-	filter: FilterProperty;
+	filter: FilterProperty | 'diet' | 'intolerances' | 'excluded_ingredients';
 	inputType: InputType;
 	handle_input: (e: React.FormEvent<HTMLDivElement>, inputType: InputType) => void;
 	inputAttributes?: InputHTMLAttributes<any>;
