@@ -58,9 +58,10 @@
     
                 &::after {
                     content: "";
-                    width: 0.5rem;
-                    height: 0.5rem;
+                    width: 0.45rem;
+                    height: 0.45rem;
                     background-color: black;
+                    margin: 0px 0px 1px 0px;
                 }
             }
         }   
@@ -126,6 +127,7 @@
             align-items: center;
             cursor: pointer;
             color: black;
+            pointer-events: all;
             
             &::after {
                 content: "X";

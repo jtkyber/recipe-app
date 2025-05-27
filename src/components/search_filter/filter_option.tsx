@@ -33,6 +33,7 @@ function FilterOption({
 		switch (filter) {
 			case 'ingredients':
 				dispatch(removeIngredient(itemToRemove));
+				break;
 		}
 	};
 

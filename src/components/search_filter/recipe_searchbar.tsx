@@ -21,7 +21,7 @@ function RecipeSearchbar() {
 				}),
 			{
 				headers: {
-					'x-api-key': 'd939cc9ac6484c338f00802dc2647e5b',
+					'x-api-key': import.meta.env.VITE_SPOONACULAR_API_KEY,
 				},
 			}
 		);

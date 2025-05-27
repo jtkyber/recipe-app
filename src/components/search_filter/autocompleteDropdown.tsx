@@ -31,6 +31,7 @@ function AutocompleteDropdown({ activeTextbox }: { activeTextbox: HTMLInputEleme
 	const handle_option_click: React.MouseEventHandler = e => {
 		const option = (e.target as HTMLHeadingElement).id;
 		dispatch(addIngredient(option));
+		activeTextbox.value = '';
 	};
 
 	return (
