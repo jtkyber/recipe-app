@@ -1,0 +1,23 @@
+@mixin selected_autocomplete_item {
+  font-weight: 400;
+  background-color: rgb(200, 200, 200);
+  min-height: 1.4rem;
+  padding: 0 0.5rem;
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: black;
+  pointer-events: all;
+  
+  &::after {
+      content: "X";
+      margin-left: 0.4rem;
+      font-size: small;
+      font-weight: 800;
+  }
+
+  &:hover {
+      background-color: var(--section-highlight-color);
+  }
+}

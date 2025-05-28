@@ -1,13 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { addIngredient, type FilterProperty } from '../../redux/slices/searchFilterSlice';
+import { useEffect, useState, type MouseEventHandler } from 'react';
+import { useAppSelector } from '../../redux/hooks';
+import { type FilterProperty } from '../../redux/slices/searchFilterSlice';
 import styles from '../../styles/search_filter/autocompleteDropdown.module.scss';
 import optionStyles from '../../styles/search_filter/filter_option.module.scss';
 import { get_parent_with_class_name } from '../../utils/dom_tools';
 
-function AutocompleteDropdown({ activeTextbox }: { activeTextbox: HTMLInputElement }) {
-	const dispatch = useAppDispatch();
+function AutocompleteDropdown({
+	activeTextbox,
+	handle_autocomplete_click,
+}: {
+	activeTextbox: HTMLInputElement;
+	handle_autocomplete_click: MouseEventHandler;
+}) {
 	const filters = useAppSelector(state => state.searchFilter);
 	const [filter, setFilter] = useState<string[]>([]);
 
@@ -28,12 +33,6 @@ function AutocompleteDropdown({ activeTextbox }: { activeTextbox: HTMLInputEleme
 		enabled: false,
 	});
 
-	const handle_option_click: React.MouseEventHandler = e => {
-		const option = (e.target as HTMLHeadingElement).id;
-		dispatch(addIngredient(option));
-		activeTextbox.value = '';
-	};
-
 	return (
 		<div
 			style={{
@@ -48,7 +47,7 @@ function AutocompleteDropdown({ activeTextbox }: { activeTextbox: HTMLInputEleme
 						.map(option => {
 							const { name } = option;
 							return (
-								<h5 id={name} onMouseDown={handle_option_click} key={name}>
+								<h5 id={name} onMouseDown={handle_autocomplete_click} key={name}>
 									{name}
 								</h5>
 							);

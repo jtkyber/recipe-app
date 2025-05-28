@@ -4,10 +4,10 @@ function Navigation() {
 	return (
 		<nav className={styles.container}>
 			<div className={styles.left}>
-				<h3>Nav Bar Left</h3>
+				<h2>Recipe App</h2>
 			</div>
 			<div className={styles.right}>
-				<h3>Nav Bar Right</h3>
+				<h4>Nav Bar Right</h4>
 			</div>
 		</nav>
 	);

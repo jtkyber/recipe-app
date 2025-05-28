@@ -10,11 +10,8 @@ export const Route = createFileRoute('/')({
 function Index() {
 	return (
 		<div className={styles.container}>
-			<h2 className={styles.homeTitle}>Recipe Search</h2>
-			<div className={styles.searchContainer}>
-				<SearchFilters />
-				<SearchResultContainer />
-			</div>
+			<SearchFilters />
+			<SearchResultContainer />
 		</div>
 	);
 }

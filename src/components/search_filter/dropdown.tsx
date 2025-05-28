@@ -2,6 +2,7 @@ import { useState, type CSSProperties, type JSX } from 'react';
 import type { FilterProperty } from '../../redux/slices/searchFilterSlice';
 import styles from '../../styles/search_filter/dropdown.module.scss';
 import type { InputType } from '../../types/dropdown';
+import type { SignUpSelectionType } from '../../types/sign_up';
 import FilterOption from './filter_option';
 
 function Dropdown({
@@ -10,15 +11,15 @@ function Dropdown({
 	inputType,
 	handle_input,
 	children,
-	set_checkboxes,
+	selectedDropdownItems,
 	label_container_styles,
 }: {
-	filterName: FilterProperty | 'diet' | 'intolerances' | 'excluded_ingredients';
+	filterName: FilterProperty | SignUpSelectionType;
 	options: string[];
 	inputType: InputType;
 	handle_input: (e: React.FormEvent<HTMLDivElement>, inputType: InputType) => void;
 	children: string | JSX.Element | JSX.Element[];
-	set_checkboxes?: () => void;
+	selectedDropdownItems?: string[];
 	label_container_styles?: CSSProperties;
 }) {
 	const [dropped, setDropped] = useState(false);
@@ -28,7 +29,6 @@ function Dropdown({
 		const target = e.target as HTMLInputElement;
 		const text: string = target.value.toLowerCase();
 		setSearchFilterText(text);
-		if (set_checkboxes) set_checkboxes();
 	};
 
 	return (
@@ -52,16 +52,22 @@ function Dropdown({
 					/>
 				) : null}
 				{inputType === 'radio' ? (
-					<FilterOption name='None' filter={filterName} inputType={inputType} handle_input={handle_input}>
+					<FilterOption
+						id='None'
+						filter={filterName}
+						inputType={inputType}
+						selectedDropdownItems={selectedDropdownItems}
+						handle_input={handle_input}>
 						None
 					</FilterOption>
 				) : null}
 				{options.map(option => (
 					<FilterOption
-						name={option}
+						id={option}
 						filter={filterName}
 						key={option}
 						inputType={inputType}
+						selectedDropdownItems={selectedDropdownItems}
 						handle_input={handle_input}
 						show={option.toLowerCase().includes(searchFilterText.toLowerCase())}>
 						{option}

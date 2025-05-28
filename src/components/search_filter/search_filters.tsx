@@ -55,7 +55,6 @@ function SearchFilters() {
 		};
 	}, []);
 	useEffect(set_textboxes, []);
-	useEffect(set_checkboxes, [filters]);
 	useEffect(() => {
 		refetch();
 	}, [autocompleteText]);
@@ -84,32 +83,6 @@ function SearchFilters() {
 
 				const input = option.querySelector(inputType === 'number' ? '#number' : '#text') as HTMLInputElement;
 				input.value = filters[key].toString();
-			}
-		}
-	}
-
-	function set_checkboxes() {
-		const set_values = (key: FilterProperty) => {
-			const allOptions = filtersDivRef.current?.querySelectorAll(
-				`[data-filter=${key}]`
-			) as NodeListOf<HTMLDivElement>;
-
-			for (const option of allOptions) {
-				const input = option.querySelector('#checkbox') as HTMLDivElement;
-				if (!option.dataset.filter) continue;
-
-				if (Array.isArray(filters[key])) {
-					input.dataset.checked = filters[key].includes(option.id).toString();
-				} else {
-					input.dataset.checked = filters[key].toString();
-				}
-			}
-		};
-
-		const filterKeys = Object.keys(filters) as FilterProperty[];
-		for (const key of filterKeys) {
-			if (['cuisine', 'type', 'instructionsRequired'].includes(key)) {
-				set_values(key);
 			}
 		}
 	}
@@ -167,7 +140,7 @@ function SearchFilters() {
 				}),
 			{
 				headers: {
-					'x-api-key': 'd939cc9ac6484c338f00802dc2647e5b',
+					'x-api-key': import.meta.env.VITE_SPOONACULAR_API_KEY,
 				},
 			}
 		);
@@ -191,6 +164,12 @@ function SearchFilters() {
 		}
 	};
 
+	const handle_autocomplete_click: React.MouseEventHandler = e => {
+		const option = (e.target as HTMLHeadingElement).id;
+		dispatch(addIngredient(option));
+		if (activeTextbox) activeTextbox.value = '';
+	};
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.searchbarContainer}>
@@ -203,7 +182,7 @@ function SearchFilters() {
 						options={cuisineValues}
 						inputType='checkbox'
 						handle_input={handle_input}
-						set_checkboxes={set_checkboxes}>
+						selectedDropdownItems={filters.cuisine}>
 						Cuisine
 					</Dropdown>
 					<Dropdown
@@ -211,21 +190,21 @@ function SearchFilters() {
 						options={mealTypeValues}
 						inputType='checkbox'
 						handle_input={handle_input}
-						set_checkboxes={set_checkboxes}>
+						selectedDropdownItems={filters.type}>
 						Meal Type
 					</Dropdown>
 					<FilterOption
-						name='Ingredients'
+						id='Ingredients'
 						filter='ingredients'
 						inputType='text'
 						handle_input={handle_input}
 						inputAttributes={{ placeholder: 'Search...' }}
-						selectedItems={filters.ingredients}
+						selectedAutocompleteItems={filters.ingredients}
 						isSolo={true}>
 						Ingredients
 					</FilterOption>
 					<FilterOption
-						name='Max Ready Time'
+						id='Max Ready Time'
 						filter='maxReadyTime'
 						inputType='number'
 						handle_input={handle_input}
@@ -236,20 +215,23 @@ function SearchFilters() {
 						</>
 					</FilterOption>
 					<FilterOption
-						name='Instructions Required'
+						id='true'
 						filter='instructionsRequired'
 						inputType='checkbox'
 						handle_input={handle_input}
-						isSolo={true}>
+						isSolo={true}
+						selectedDropdownItems={[filters.instructionsRequired.toString()]}>
 						Instructions Required
 					</FilterOption>
 				</div>
 			</div>
 
 			{activeTextbox instanceof HTMLInputElement && autocompleteOptions?.length ? (
-				<AutocompleteDropdown activeTextbox={activeTextbox} />
+				<AutocompleteDropdown
+					activeTextbox={activeTextbox}
+					handle_autocomplete_click={handle_autocomplete_click}
+				/>
 			) : null}
-			<div className={styles.border}></div>
 		</div>
 	);
 }

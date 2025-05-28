@@ -3,26 +3,29 @@ import { useAppDispatch } from '../../redux/hooks';
 import { removeIngredient, type FilterProperty } from '../../redux/slices/searchFilterSlice';
 import styles from '../../styles/search_filter/filter_option.module.scss';
 import type { InputType } from '../../types/dropdown';
+import type { SignUpSelectionType } from '../../types/sign_up';
 
 function FilterOption({
-	name,
+	id,
 	filter,
 	inputType,
 	handle_input,
 	inputAttributes,
 	children,
 	show = true,
-	selectedItems = [],
+	selectedAutocompleteItems = [],
+	selectedDropdownItems = [],
 	isSolo = false,
 }: {
-	name: string; // Must match casing & spelling in API
-	filter: FilterProperty | 'diet' | 'intolerances' | 'excluded_ingredients';
+	id: string; // Must match casing & spelling in API
+	filter: FilterProperty | SignUpSelectionType;
 	inputType: InputType;
 	handle_input: (e: React.FormEvent<HTMLDivElement>, inputType: InputType) => void;
 	inputAttributes?: InputHTMLAttributes<any>;
 	children: string | ReactElement;
 	show?: boolean;
-	selectedItems?: string[];
+	selectedDropdownItems?: string[];
+	selectedAutocompleteItems?: string[];
 	isSolo?: boolean;
 }) {
 	const dispatch = useAppDispatch();
@@ -39,7 +42,7 @@ function FilterOption({
 
 	return (
 		<div
-			id={name}
+			id={id}
 			data-filter={filter}
 			data-input-type={inputType}
 			data-is-solo={isSolo}
@@ -50,9 +53,17 @@ function FilterOption({
 			<div className={styles.optionContainer}>
 				<h4 className={styles.label}>{children}</h4>
 				{inputType === 'checkbox' ? (
-					<div {...inputAttributes} id='checkbox' data-checked={false} className={styles.checkbox}></div>
+					<div
+						{...inputAttributes}
+						id='checkbox'
+						data-checked={selectedDropdownItems.includes(id)}
+						className={styles.checkbox}></div>
 				) : inputType === 'radio' ? (
-					<div {...inputAttributes} id='radio' data-checked={false} className={styles.radio}></div>
+					<div
+						{...inputAttributes}
+						id='radio'
+						data-checked={selectedDropdownItems.includes(id)}
+						className={styles.radio}></div>
 				) : inputType === 'text' ? (
 					<input {...inputAttributes} id='text' className={styles.textbox} type='text' autoComplete='off' />
 				) : inputType === 'number' ? (
@@ -65,9 +76,9 @@ function FilterOption({
 					/>
 				) : null}
 			</div>
-			{selectedItems.length ? (
+			{selectedAutocompleteItems.length ? (
 				<div className={styles.selectedItemsContainer}>
-					{selectedItems?.map(item => {
+					{selectedAutocompleteItems?.map(item => {
 						return (
 							<h5 onClick={remove_selected} className={styles.item} key={item}>
 								{item}
