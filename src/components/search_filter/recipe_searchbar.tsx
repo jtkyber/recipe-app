@@ -13,9 +13,11 @@ function RecipeSearchbar() {
 			'https://api.spoonacular.com/recipes/complexSearch?' +
 				new URLSearchParams({
 					query: filters.query,
+					sort: 'meta-score',
 					cuisine: filters.cuisine.join(','),
 					includeIngredients: filters.ingredients.join(','),
 					type: filters.type.join(','),
+					addRecipeInformation: 'true',
 					instructionsRequired: filters.instructionsRequired.toString(),
 					maxReadyTime: filters.maxReadyTime.toString(),
 				}),
@@ -27,6 +29,7 @@ function RecipeSearchbar() {
 		);
 		if (!res.ok) throw new Error('Unable to fetch recipes');
 		const data = await res.json();
+		console.log(data);
 		return data;
 	};
 

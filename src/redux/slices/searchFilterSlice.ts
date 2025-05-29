@@ -11,7 +11,7 @@ interface ISearchFilterState {
 	maxReadyTime: number;
 }
 
-export const initialState: ISearchFilterState = {
+const initialState: ISearchFilterState = {
 	query: '',
 	cuisine: [],
 	ingredients: [],

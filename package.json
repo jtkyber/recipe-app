@@ -14,6 +14,7 @@
     "@tanstack/react-query": "^5.76.1",
     "@tanstack/react-router": "^1.120.3",
     "@tanstack/react-router-devtools": "^1.120.6",
+    "html-react-parser": "^5.2.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
