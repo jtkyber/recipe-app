@@ -6,7 +6,7 @@ import AutocompleteDropdown from '../components/search_filter/autocompleteDropdo
 import Dropdown from '../components/search_filter/dropdown';
 import styles from '../styles/sign_up.module.scss';
 import type { SignUpSelectionType } from '../types/sign_up';
-import { dietValues } from '../utils/filter_values';
+import { dietValues, intoleranceValues } from '../utils/filter_values';
 
 export const Route = createFileRoute('/sign_up')({
 	component: RouteComponent,
@@ -94,11 +94,11 @@ function RouteComponent() {
 	const handle_checkbox = (selectedOption: HTMLDivElement, selectionType: SignUpSelectionType) => {
 		const input = selectedOption.querySelector('#checkbox') as HTMLDivElement;
 		if (input.dataset.checked === 'false') {
-			if (selectionType === 'intolerances' || selectionType === 'excluded_ingredients') {
+			if (selectionType === 'intolerances') {
 				setIntolerances([...intolerances, selectedOption.id]);
 			}
 		} else {
-			if (selectionType === 'intolerances' || selectionType === 'excluded_ingredients') {
+			if (selectionType === 'intolerances') {
 				const index = intolerances.indexOf(selectedOption.id);
 				const newIntoleranceList = intolerances.slice(0, index).concat(intolerances.slice(index + 1));
 				setIntolerances(newIntoleranceList);
@@ -181,6 +181,7 @@ function RouteComponent() {
 							<div ref={selectedIngredientsRef} className={styles.selected_ingredients}>
 								{excludedIngredients?.map(ing => (
 									<h5
+										key={ing}
 										id={ing}
 										onClick={handle_selected_ingredient_click}
 										className={styles.selected_ingredient}>
@@ -205,7 +206,7 @@ function RouteComponent() {
 						<div className={styles.intolerances}>
 							<Dropdown
 								filterName='intolerances'
-								options={dietValues}
+								options={intoleranceValues}
 								inputType='checkbox'
 								handle_input={handle_input}
 								selectedDropdownItems={intolerances}

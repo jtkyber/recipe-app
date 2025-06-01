@@ -1,24 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { RootState } from '../store';
+// import { createSlice } from '@reduxjs/toolkit';
+// import type { RootState } from '../store';
 
-interface IResultOptionState {
-	view: 'grid' | 'list';
-}
+// interface IResultOptionState {}
 
-const initialState: IResultOptionState = {
-	view: 'grid',
-};
+// const initialState: IResultOptionState = {};
 
-export const resultOptionSlice = createSlice({
-	name: 'resultOptions',
-	initialState,
-	reducers: {
-		toggleView: state => {
-			state.view = state.view === 'grid' ? 'list' : 'grid';
-		},
-	},
-});
+// export const resultOptionSlice = createSlice({
+// 	name: 'resultOptions',
+// 	initialState,
+// 	reducers: {},
+// });
 
-export const { toggleView } = resultOptionSlice.actions;
-export const selectResultOptions = (state: RootState) => state.resultsOptions;
-export default resultOptionSlice.reducer;
+// // export const {} = resultOptionSlice.actions;
+// export const selectResultOptions = (state: RootState) => state.resultsOptions;
+// export default resultOptionSlice.reducer;

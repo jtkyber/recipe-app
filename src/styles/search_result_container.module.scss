@@ -1,37 +1,31 @@
 .container {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    scrollbar-gutter: stable both-edges;
-    padding: 1rem 2rem;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	scrollbar-gutter: stable both-edges;
+	padding: 1rem 2rem;
 
-    .options {
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
+	.options {
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
 
-        .view {
-            cursor: pointer;
-            user-select: none;
-        }
-    }
+		.view {
+			cursor: pointer;
+			user-select: none;
+		}
+	}
 
-    .results {
-        width: 100%;
-        height: max-content;
-        display: flex;
-        padding-top: 1rem;
-        padding-bottom: 5rem;
-        flex-flow: column nowrap;
-        align-items: center;
-        justify-content: flex-start;
-
-        &.gridView {
-            flex-flow: row wrap;
-            align-items: flex-end;
-            justify-content: flex-start;
-            gap: 2rem 4rem;
-        }
-    }
+	.results {
+		width: 100%;
+		height: max-content;
+		display: flex;
+		padding-top: 1rem;
+		padding-bottom: 5rem;
+		flex-flow: row wrap;
+		align-items: flex-end;
+		justify-content: flex-start;
+		gap: 2rem 4rem;
+	}
 }

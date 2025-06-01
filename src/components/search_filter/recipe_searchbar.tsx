@@ -3,6 +3,7 @@ import { type ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setQuery } from '../../redux/slices/searchFilterSlice';
 import styles from '../../styles/search_filter/recipe_searchbar.module.scss';
+import type { ISearchResult } from '../../types/recipe';
 
 function RecipeSearchbar() {
 	const filters = useAppSelector(state => state.searchFilter);
@@ -10,26 +11,23 @@ function RecipeSearchbar() {
 
 	const get_recipes = async () => {
 		const res = await fetch(
-			'https://api.spoonacular.com/recipes/complexSearch?' +
+			'http://localhost:3000/getRecipes?' +
 				new URLSearchParams({
-					query: filters.query,
-					sort: 'meta-score',
+					searchQuery: filters.query,
+					sortOption: 'meta-score',
 					cuisine: filters.cuisine.join(','),
-					includeIngredients: filters.ingredients.join(','),
-					type: filters.type.join(','),
-					addRecipeInformation: 'true',
+					ingredients: filters.ingredients.join(','),
+					mealType: filters.type.join(','),
 					instructionsRequired: filters.instructionsRequired.toString(),
 					maxReadyTime: filters.maxReadyTime.toString(),
-				}),
-			{
-				headers: {
-					'x-api-key': import.meta.env.VITE_SPOONACULAR_API_KEY,
-				},
-			}
+					number: '10',
+				})
 		);
 		if (!res.ok) throw new Error('Unable to fetch recipes');
-		const data = await res.json();
-		console.log(data);
+		const data = (await res.json()) as ISearchResult;
+		console.log(
+			`Points remaining: ${data.pointsRemaining} \nPoints spent this request: ${data.pointsSpentThisRequest}`
+		);
 		return data;
 	};
 

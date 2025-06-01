@@ -42,6 +42,7 @@ export interface IRecipe {
 	spoonacularScore: number;
 	spoonacularSourceUrl: string;
 	summary: string;
+	shortSummary: string;
 	sustainable: boolean;
 	title: string;
 	vegan: boolean;
@@ -55,4 +56,6 @@ export interface ISearchResult {
 	offset: number;
 	results: IRecipe[];
 	totalResults: number;
+	pointsRemaining: number;
+	pointsSpentThisRequest: number;
 }
