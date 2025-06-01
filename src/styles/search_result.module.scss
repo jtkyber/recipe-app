@@ -3,8 +3,6 @@
 	cursor: pointer;
 	align-self: flex-start;
 	width: 18rem;
-	height: max-content;
-	max-width: none;
 	gap: 0.5rem;
 	display: grid;
 	grid-template-columns: 1fr;
@@ -12,12 +10,10 @@
 	grid-template-areas:
 		'mealImage'
 		'title'
-		'stars';
+		'bottomSection';
 	justify-content: center;
-	aspect-ratio: unset;
 	box-shadow: 0.05rem 0.05rem 0.5rem rgba(0, 0, 0, 0.7);
 	user-select: none;
-	border: none;
 	box-sizing: border-box;
 	padding: 0;
 	border-radius: 0.5rem;
@@ -27,13 +23,12 @@
 	}
 
 	.meal_image {
+		width: 100%;
+		height: auto;
 		grid-area: mealImage;
 		object-fit: cover;
-		user-select: none;
-		width: 100%;
-		aspect-ratio: 16/10;
 		object-position: center;
-		border-radius: 0;
+		// aspect-ratio: 16/10;
 	}
 
 	.title {
@@ -45,34 +40,63 @@
 		text-align: start;
 	}
 
-	.stars {
-		grid-area: stars;
+	.bottomSection {
+		grid-area: bottomSection;
 		width: 100%;
-		align-self: end;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
 
-		.star {
-			width: 100%;
-			height: max-content;
+		.stars {
+			width: max-content;
+			display: flex;
+			flex-flow: row nowrap;
+			gap: 0.2rem;
+
+			.star {
+				width: max-content;
+				height: max-content;
+
+				svg {
+					height: 0.8rem;
+					width: auto;
+
+					path {
+						stroke-width: 5px;
+					}
+				}
+
+				&.half {
+					svg > path {
+						fill: url(#grad);
+					}
+				}
+
+				&.empty {
+					svg > path {
+						fill: none;
+					}
+				}
+			}
+		}
+
+		.timeToReadyContainer {
+			width: max-content;
+			display: flex;
+			flex-flow: row nowrap;
+			gap: 0.2rem;
 
 			svg {
-				height: 1rem;
-				width: auto;
+				width: 1rem;
+				height: auto;
 
-				path {
-					stroke-width: 5px;
+				* {
+					stroke: black;
+					fill: black;
 				}
 			}
 
-			&.half {
-				svg > path {
-					fill: url(#grad);
-				}
-			}
-
-			&.empty {
-				svg > path {
-					fill: none;
-				}
+			.timeToReady {
 			}
 		}
 	}

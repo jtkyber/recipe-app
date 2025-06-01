@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { type ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setQuery } from '../../redux/slices/searchFilterSlice';
@@ -10,21 +11,20 @@ function RecipeSearchbar() {
 	const dispatch = useAppDispatch();
 
 	const get_recipes = async () => {
-		const res = await fetch(
-			'http://localhost:3000/getRecipes?' +
-				new URLSearchParams({
-					searchQuery: filters.query,
-					sortOption: 'meta-score',
-					cuisine: filters.cuisine.join(','),
-					ingredients: filters.ingredients.join(','),
-					mealType: filters.type.join(','),
-					instructionsRequired: filters.instructionsRequired.toString(),
-					maxReadyTime: filters.maxReadyTime.toString(),
-					number: '10',
-				})
-		);
-		if (!res.ok) throw new Error('Unable to fetch recipes');
-		const data = (await res.json()) as ISearchResult;
+		const res = await axios.get('http://localhost:3000/getRecipes?', {
+			params: {
+				searchQuery: filters.query,
+				sortOption: 'meta-score',
+				cuisine: filters.cuisine.join(','),
+				ingredients: filters.ingredients.join(','),
+				mealType: filters.type.join(','),
+				instructionsRequired: filters.instructionsRequired.toString(),
+				maxReadyTime: filters.maxReadyTime.toString(),
+				number: '10',
+			},
+		});
+		if (!res) throw new Error('Unable to fetch recipes');
+		const data = res.data as ISearchResult;
 		console.log(
 			`Points remaining: ${data.pointsRemaining} \nPoints spent this request: ${data.pointsSpentThisRequest}`
 		);

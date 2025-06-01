@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { createRef, useEffect, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -132,20 +133,17 @@ function SearchFilters() {
 	async function get_autocomplete_ingredients() {
 		if (!autocompleteText.length) return [];
 
-		const res = await fetch(
-			'https://api.spoonacular.com/food/ingredients/autocomplete?' +
-				new URLSearchParams({
-					query: autocompleteText,
-					number: '10',
-				}),
-			{
-				headers: {
-					'x-api-key': import.meta.env.VITE_SPOONACULAR_API_KEY,
-				},
-			}
-		);
-		if (!res.ok) throw new Error('Unable to fetch ingredients');
-		const data = await res.json();
+		const res = await axios('https://api.spoonacular.com/food/ingredients/autocomplete?', {
+			params: {
+				query: autocompleteText,
+				number: '10',
+			},
+			headers: {
+				'x-api-key': import.meta.env.VITE_SPOONACULAR_API_KEY,
+			},
+		});
+		if (!res) throw new Error('Unable to fetch ingredients');
+		const data = res.data;
 		return data;
 	}
 

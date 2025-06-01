@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
+import axios from 'axios';
 import { createRef, useEffect, useState, type ChangeEvent } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import AutocompleteDropdown from '../components/search_filter/autocompleteDropdown';
@@ -51,20 +52,17 @@ function RouteComponent() {
 	async function get_autocomplete_ingredients() {
 		if (!autocompleteText.length) return [];
 
-		const res = await fetch(
-			'https://api.spoonacular.com/food/ingredients/autocomplete?' +
-				new URLSearchParams({
-					query: autocompleteText,
-					number: '10',
-				}),
-			{
-				headers: {
-					'x-api-key': import.meta.env.VITE_SPOONACULAR_API_KEY,
-				},
-			}
-		);
-		if (!res.ok) throw new Error('Unable to fetch ingredients');
-		const data = await res.json();
+		const res = await axios('https://api.spoonacular.com/food/ingredients/autocomplete?', {
+			params: {
+				query: autocompleteText,
+				number: '10',
+			},
+			headers: {
+				'x-api-key': import.meta.env.VITE_SPOONACULAR_API_KEY,
+			},
+		});
+		if (!res) throw new Error('Unable to fetch ingredients');
+		const data = res.data;
 		return data;
 	}
 
