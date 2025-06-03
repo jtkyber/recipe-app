@@ -1,72 +1,74 @@
 :root {
-  width: 100%;
-  height: 100%;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+	width: 100%;
+	height: 100%;
+	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
 
-  color-scheme: light;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+	color-scheme: light;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 
-  --bg-color-main: white;
-  --input-border-color: rgb(100, 100, 100);
-  --placeholder-color: rgb(130, 130, 130);
-  --btn-bg-color: rgb(50, 50, 50);
-  --btn-color: whitesmoke;
-  --filter-margin: 0 0.5rem;
-  --section-highlight-color: rgba(230, 230, 230, 1);
+	--bg-color-main: white;
+	--input-border-color: rgb(100, 100, 100);
+	--placeholder-color: rgb(130, 130, 130);
+	--btn-bg-color: rgb(50, 50, 50);
+	--btn-color: whitesmoke;
+	--filter-margin: 0 0.5rem;
+	--section-highlight-color: rgba(230, 230, 230, 1);
 
-  --dropdown-section-height: 2.5rem;
-  --dropdown-section-padding: 0 0.5rem;
-  --dropdown-border-radius: 0.5rem;
-  --filter-option-label-font-weight: 600;
+	--dropdown-section-height: 2.5rem;
+	--dropdown-section-padding: 0 0.5rem;
+	--dropdown-border-radius: 0.5rem;
+	--filter-option-label-font-weight: 600;
 
-  --section-border-style: 1px solid rgb(220, 220, 220);
+	--section-border-style: 1px solid rgb(220, 220, 220);
+
+	--skeleton-primary-color: rgb(230, 230, 230);
+	--skeleton-secondary-color: rgb(190, 190, 190);
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  overflow: hidden;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	overflow: hidden;
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+	font-weight: 500;
+	color: #646cff;
+	text-decoration: inherit;
 }
 // a:hover {
 //   color: #535bf2;
 // }
 
 input {
-  outline: none;
-  border: 1px solid black;
+	outline: none;
+	border: 1px solid black;
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
+	width: 100vw;
+	height: 100vh;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+	font-size: 3.2em;
+	line-height: 1.1;
 }
 
 button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
+	font-family: inherit;
+	cursor: pointer;
+	border: none;
 }
-
 
 // button:hover {
 //   border-color: #646cff;
@@ -77,14 +79,14 @@ button {
 // }
 
 @media (prefers-color-scheme: light) or (prefers-color-scheme: dark) {
-  :root {
-    color: #213547;
-    background-color: var(--bg-color-main);
-  }
-  // a:hover {
-  //   color: #747bff;
-  // }
-  button {
-    background-color: #f9f9f9;
-  }
+	:root {
+		color: #213547;
+		background-color: var(--bg-color-main);
+	}
+	// a:hover {
+	//   color: #747bff;
+	// }
+	button {
+		background-color: #f9f9f9;
+	}
 }

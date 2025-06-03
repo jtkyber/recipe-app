@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import styles from '../styles/search_result_container.module.scss';
 import type { IRecipe, ISearchResult } from '../types/recipe';
+import RecipeResultSkeleton from './recipe_result_skeleton';
 import SearchResult from './search_result';
 
 function SearchResultContainer() {
@@ -16,13 +17,11 @@ function SearchResultContainer() {
 		<div className={styles.container}>
 			<div className={styles.options}></div>
 			<div className={styles.results}>
-				{fetchStatus === 'idle' ? (
-					data?.results.map((recipe: IRecipe) => {
-						return <SearchResult key={recipe.id} recipe={recipe} />;
-					})
-				) : (
-					<h4>Loading...</h4>
-				)}
+				{fetchStatus === 'idle'
+					? data?.results.map((recipe: IRecipe) => {
+							return <SearchResult key={recipe.id} recipe={recipe} />;
+						})
+					: Array.from({ length: 10 }, (_, index) => <RecipeResultSkeleton key={index} />)}
 			</div>
 		</div>
 	);

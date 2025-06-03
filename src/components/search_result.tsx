@@ -3,8 +3,13 @@ import type { IRecipe } from '../types/recipe';
 import ClockSVG from './svg/clock';
 import StarSVG from './svg/starSVG';
 
-function SearchResult({ recipe }: { recipe: IRecipe }) {
-	const { title, image, spoonacularScore, readyInMinutes } = recipe;
+function SearchResult({ recipe }: { recipe: IRecipe | null }) {
+	const { title, image, spoonacularScore, readyInMinutes } = recipe || {
+		title: '',
+		image: '',
+		spoonacularScore: 0,
+		readyInMinutes: 0,
+	};
 	const starRating = Math.round((spoonacularScore / 20) * 2) / 2;
 
 	return (

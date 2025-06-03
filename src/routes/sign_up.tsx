@@ -98,7 +98,7 @@ function RouteComponent() {
 			const err: IAxiosErrorData = error.response?.data;
 			switch (err?.code) {
 				case '23505':
-					console.log('User already exists');
+					alert('User already exists');
 					break;
 				default:
 					console.log(err);
