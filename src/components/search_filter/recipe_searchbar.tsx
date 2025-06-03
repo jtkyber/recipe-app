@@ -8,6 +8,7 @@ import type { ISearchResult } from '../../types/recipe';
 
 function RecipeSearchbar() {
 	const filters = useAppSelector(state => state.searchFilter);
+	const user = useAppSelector(state => state.user);
 	const dispatch = useAppDispatch();
 
 	const get_recipes = async () => {
@@ -15,6 +16,9 @@ function RecipeSearchbar() {
 			params: {
 				searchQuery: filters.query,
 				sortOption: 'meta-score',
+				diet: user.diet,
+				intolerances: user.intolerances.join(','),
+				excludedIngredients: user.excludedIngredients,
 				cuisine: filters.cuisine.join(','),
 				ingredients: filters.ingredients.join(','),
 				mealType: filters.type.join(','),

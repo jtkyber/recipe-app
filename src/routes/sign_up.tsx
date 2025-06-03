@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useRouter } from '@tanstack/react-router';
 import axios from 'axios';
 import { createRef, useEffect, useState, type ChangeEvent, type ChangeEventHandler } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import AutocompleteDropdown from '../components/search_filter/autocompleteDropdown';
 import Dropdown from '../components/search_filter/dropdown';
-import { useAppDispatch } from '../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setUser } from '../redux/slices/userSlice';
 import styles from '../styles/sign_up.module.scss';
 import type { IAxiosErrorData } from '../types/errors';
@@ -19,6 +19,8 @@ export const Route = createFileRoute('/sign_up')({
 
 function RouteComponent() {
 	const dispatch = useAppDispatch();
+	const user = useAppSelector(state => state.user);
+
 	const [activeTextbox, setActiveTextbox] = useState<HTMLInputElement | null>(null);
 	const [autocompleteText, setAutocompleteText] = useState<string>('');
 	const [diet, setDiet] = useState<string>('');
@@ -27,6 +29,8 @@ function RouteComponent() {
 
 	const formRef = createRef<HTMLFormElement>();
 	const selectedIngredientsRef = createRef<HTMLDivElement>();
+
+	const router = useRouter();
 
 	const debouncedAutocompleteText = useDebouncedCallback((value: any) => {
 		setAutocompleteText(value);
@@ -57,6 +61,14 @@ function RouteComponent() {
 	useEffect(() => {
 		refetchAutocomplete();
 	}, [autocompleteText]);
+	useEffect(() => {
+		if (user.id > 0) {
+			router.navigate({
+				to: '/',
+				replace: false,
+			});
+		}
+	}, [user]);
 
 	async function sign_up(e: any): Promise<any> {
 		try {
@@ -82,11 +94,9 @@ function RouteComponent() {
 			if (!res) throw new Error('Sign up failed');
 			const data: IUser = res.data;
 			dispatch(setUser(data));
-			formRef.current.reset();
-			return data;
 		} catch (error: any) {
 			const err: IAxiosErrorData = error.response?.data;
-			switch (err.code) {
+			switch (err?.code) {
 				case '23505':
 					console.log('User already exists');
 					break;
