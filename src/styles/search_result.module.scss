@@ -12,10 +12,9 @@
 		'title'
 		'bottomSection';
 	justify-content: center;
-	box-shadow: 0.05rem 0.05rem 0.5rem rgba(0, 0, 0, 0.7);
+	box-shadow: 0.08rem 0.08rem 0.5rem rgba(0, 0, 0, 0.7);
 	user-select: none;
 	box-sizing: border-box;
-	padding: 0;
 	border-radius: 0.5rem;
 
 	> *:not(.meal_image) {
@@ -28,7 +27,6 @@
 		grid-area: mealImage;
 		object-fit: cover;
 		object-position: center;
-		// aspect-ratio: 16/10;
 	}
 
 	.title {

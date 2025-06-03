@@ -1,12 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import axios from 'axios';
-import { createRef, useEffect, useState, type ChangeEvent } from 'react';
+import { createRef, useEffect, useState, type ChangeEvent, type ChangeEventHandler } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import AutocompleteDropdown from '../components/search_filter/autocompleteDropdown';
 import Dropdown from '../components/search_filter/dropdown';
+import { useAppDispatch } from '../redux/hooks';
+import { setUser } from '../redux/slices/userSlice';
 import styles from '../styles/sign_up.module.scss';
+import type { IAxiosErrorData } from '../types/errors';
 import type { SignUpSelectionType } from '../types/sign_up';
+import type { IUser } from '../types/user';
 import { dietValues, intoleranceValues } from '../utils/filter_values';
 
 export const Route = createFileRoute('/sign_up')({
@@ -14,18 +18,21 @@ export const Route = createFileRoute('/sign_up')({
 });
 
 function RouteComponent() {
+	const dispatch = useAppDispatch();
 	const [activeTextbox, setActiveTextbox] = useState<HTMLInputElement | null>(null);
 	const [autocompleteText, setAutocompleteText] = useState<string>('');
 	const [diet, setDiet] = useState<string>('');
 	const [intolerances, setIntolerances] = useState<string[]>([]);
 	const [excludedIngredients, setExcludedIngredients] = useState<string[]>([]);
+
 	const formRef = createRef<HTMLFormElement>();
 	const selectedIngredientsRef = createRef<HTMLDivElement>();
+
 	const debouncedAutocompleteText = useDebouncedCallback((value: any) => {
 		setAutocompleteText(value);
 	}, 500);
 
-	const { refetch, data: autocompleteOptions } = useQuery({
+	const { refetch: refetchAutocomplete, data: autocompleteOptions } = useQuery({
 		queryKey: ['autocomplete'],
 		queryFn: get_autocomplete_ingredients,
 		enabled: false,
@@ -37,17 +44,57 @@ function RouteComponent() {
 
 		form.addEventListener('focusin', handle_focus_in, true);
 		form.addEventListener('focusout', handle_focus_out, true);
+		form.addEventListener('input', handle_form_change, true);
 
 		return () => {
 			if (!form) return;
 
 			form.removeEventListener('focusin', handle_focus_in, true);
 			form.removeEventListener('focusout', handle_focus_out, true);
+			form.removeEventListener('input', handle_form_change, true);
 		};
 	}, []);
 	useEffect(() => {
-		refetch();
+		refetchAutocomplete();
 	}, [autocompleteText]);
+
+	async function sign_up(e: any): Promise<any> {
+		try {
+			// Prevent page reload but still check validity of inputs
+			if (!formRef.current?.checkValidity()) return;
+			e.preventDefault();
+
+			const username = formRef.current?.querySelector('#username') as HTMLInputElement;
+			const password = formRef.current?.querySelector('#password') as HTMLInputElement;
+			const confirmPassword = formRef.current?.querySelector('#confirmPassword') as HTMLInputElement;
+
+			if (!(username?.value && password?.value && confirmPassword?.value)) return;
+
+			const res = await axios.post('http://localhost:3000/signUp', {
+				username: username.value.trim(),
+				password: password.value,
+				confirmPassword: confirmPassword.value,
+				excludedIngredients: excludedIngredients,
+				diet: diet,
+				intolerances: intolerances,
+			});
+
+			if (!res) throw new Error('Sign up failed');
+			const data: IUser = res.data;
+			dispatch(setUser(data));
+			formRef.current.reset();
+			return data;
+		} catch (error: any) {
+			const err: IAxiosErrorData = error.response?.data;
+			switch (err.code) {
+				case '23505':
+					console.log('User already exists');
+					break;
+				default:
+					console.log(err);
+			}
+		}
+	}
 
 	async function get_autocomplete_ingredients() {
 		if (!autocompleteText.length) return [];
@@ -74,6 +121,17 @@ function RouteComponent() {
 	function handle_focus_out() {
 		setActiveTextbox(null);
 		setAutocompleteText('');
+	}
+
+	function handle_form_change(e: Event) {
+		const target = e.target;
+		if (target instanceof HTMLInputElement) {
+			if (target.value) {
+				target.classList.add(styles.has_text);
+			} else {
+				target.classList.remove(styles.has_text);
+			}
+		}
 	}
 
 	const handle_radio = (selectedOption: HTMLDivElement, selectionType: SignUpSelectionType) => {
@@ -141,6 +199,34 @@ function RouteComponent() {
 		setExcludedIngredients(newIngredientList);
 	};
 
+	const check_password_match: ChangeEventHandler = () => {
+		const password = formRef.current?.querySelector('#password') as HTMLInputElement;
+		const confirmPassword = formRef.current?.querySelector('#confirmPassword') as HTMLInputElement;
+		const inputFocused = document.activeElement === password || document.activeElement === confirmPassword;
+
+		const toggleClass = (className: string, action: 'add' | 'remove') => {
+			switch (action) {
+				case 'add':
+					password.classList.add(styles[className]);
+					confirmPassword.classList.add(styles[className]);
+					break;
+				case 'remove':
+					password.classList.remove(styles[className]);
+					confirmPassword.classList.remove(styles[className]);
+					break;
+			}
+		};
+
+		if (password.value === confirmPassword.value) {
+			if (inputFocused) toggleClass('matches', 'add');
+			else toggleClass('matches', 'remove');
+			toggleClass('noMatch', 'remove');
+		} else {
+			toggleClass('noMatch', 'add');
+			toggleClass('matches', 'remove');
+		}
+	};
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.left_container}>
@@ -160,20 +246,34 @@ function RouteComponent() {
 							Already have an account?<a>Login</a>
 						</p>
 					</header>
-					<form ref={formRef} className={styles.sign_up_form} action=''>
+					<form ref={formRef} className={styles.sign_up_form}>
 						<div className={styles.username}>
-							<input type='text' maxLength={36} required />
+							<input id='username' type='text' maxLength={36} required />
 						</div>
 						<div className={styles.password_container}>
 							<div className={styles.password}>
-								<input type='password' required />
+								<input
+									onFocus={check_password_match}
+									onBlur={check_password_match}
+									onChange={check_password_match}
+									id='password'
+									type='password'
+									required
+								/>
 							</div>
 							<div className={styles.confirm_password}>
-								<input type='password' required />
+								<input
+									onFocus={check_password_match}
+									onBlur={check_password_match}
+									onChange={check_password_match}
+									id='confirmPassword'
+									type='password'
+									required
+								/>
 							</div>
 						</div>
 						<div className={styles.excluded_ingredients}>
-							<input onChange={handle_ingredient_input} type='text' required />
+							<input id='excludedIngredients' onChange={handle_ingredient_input} type='text' />
 						</div>
 						{excludedIngredients.length ? (
 							<div ref={selectedIngredientsRef} className={styles.selected_ingredients}>
@@ -220,6 +320,11 @@ function RouteComponent() {
 								handle_autocomplete_click={handle_autocomplete_click}
 							/>
 						) : null}
+						<div className={styles.submitBtnContainer}>
+							<button type='submit' onClick={sign_up}>
+								Join
+							</button>
+						</div>
 					</form>
 				</div>
 			</div>
