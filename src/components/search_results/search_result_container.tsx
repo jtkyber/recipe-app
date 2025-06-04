@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import styles from '../styles/search_result_container.module.scss';
-import type { IRecipe, ISearchResult } from '../types/recipe';
+import styles from '../../styles/search_results/search_result_container.module.scss';
+import type { IRecipe, ISearchResult } from '../../types/recipe';
 import RecipeResultSkeleton from './recipe_result_skeleton';
 import SearchResult from './search_result';
 

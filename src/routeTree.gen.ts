@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SignupImport } from './routes/sign_up'
 import { Route as IndexImport } from './routes/index'
+import { Route as RecipeIdImport } from './routes/recipe.$id'
 
 // Create/Update Routes
 
@@ -25,6 +26,12 @@ const SignupRoute = SignupImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RecipeIdRoute = RecipeIdImport.update({
+  id: '/recipe/$id',
+  path: '/recipe/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,6 +53,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
+    '/recipe/$id': {
+      id: '/recipe/$id'
+      path: '/recipe/$id'
+      fullPath: '/recipe/$id'
+      preLoaderRoute: typeof RecipeIdImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -54,36 +68,41 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sign_up': typeof SignupRoute
+  '/recipe/$id': typeof RecipeIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sign_up': typeof SignupRoute
+  '/recipe/$id': typeof RecipeIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/sign_up': typeof SignupRoute
+  '/recipe/$id': typeof RecipeIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sign_up'
+  fullPaths: '/' | '/sign_up' | '/recipe/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign_up'
-  id: '__root__' | '/' | '/sign_up'
+  to: '/' | '/sign_up' | '/recipe/$id'
+  id: '__root__' | '/' | '/sign_up' | '/recipe/$id'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SignupRoute: typeof SignupRoute
+  RecipeIdRoute: typeof RecipeIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SignupRoute: SignupRoute,
+  RecipeIdRoute: RecipeIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,7 +116,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/sign_up"
+        "/sign_up",
+        "/recipe/$id"
       ]
     },
     "/": {
@@ -105,6 +125,9 @@ export const routeTree = rootRoute
     },
     "/sign_up": {
       "filePath": "sign_up.tsx"
+    },
+    "/recipe/$id": {
+      "filePath": "recipe.$id.tsx"
     }
   }
 }

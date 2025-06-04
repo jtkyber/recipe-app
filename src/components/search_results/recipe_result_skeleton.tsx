@@ -1,4 +1,4 @@
-import styles from '../styles/recipe_result_skeleton.module.scss';
+import styles from '../../styles/search_results/recipe_result_skeleton.module.scss';
 
 function RecipeResultSkeleton() {
 	return (

@@ -1,7 +1,7 @@
-import styles from '../styles/search_result.module.scss';
-import type { IRecipe } from '../types/recipe';
-import ClockSVG from './svg/clock';
-import StarSVG from './svg/starSVG';
+import styles from '../../styles/search_results/search_result.module.scss';
+import type { IRecipe } from '../../types/recipe';
+import ClockSVG from '../svg/clock';
+import StarSVG from '../svg/starSVG';
 
 function SearchResult({ recipe }: { recipe: IRecipe | null }) {
 	const { title, image, spoonacularScore, readyInMinutes } = recipe || {
