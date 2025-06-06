@@ -6,7 +6,7 @@ export interface IIngredient {
 }
 
 export interface IRecipeInstructionStep {
-	equipment: string[];
+	equipment: any;
 	ingredients: IIngredient[];
 	number: number;
 	step: string;
@@ -17,9 +17,37 @@ export interface IRecipeInstruction {
 	steps: IRecipeInstructionStep[];
 }
 
+export interface IMeasure {
+	amount: number;
+	unitLong: string;
+	unitShort: string;
+}
+
+export interface IMeasures {
+	metric: IMeasure;
+	us: IMeasure;
+}
+
+export interface IExtendedIngredientsItem {
+	aisle: string;
+	amount: number;
+	consistency: string;
+	id: number;
+	image: any;
+	measures: IMeasures;
+	meta: any;
+	name: string;
+	nameClean: string;
+	original: string;
+	originalName: string;
+	unit: string;
+}
+
 export interface IRecipe {
 	aggregateLikes: number;
+	instructions: string;
 	analyzedInstructions: IRecipeInstruction[];
+	extendedIngredients: IExtendedIngredientsItem[];
 	cheap: boolean;
 	creditsText: string;
 	cuisines: string[];
@@ -42,14 +70,14 @@ export interface IRecipe {
 	spoonacularScore: number;
 	spoonacularSourceUrl: string;
 	summary: string;
-	shortSummary: string;
+	shortSummary?: string;
 	sustainable: boolean;
 	title: string;
 	vegan: boolean;
 	vegetarian: boolean;
 	veryHealthy: boolean;
-	veryPolular: boolean;
-	weightWatchersSmartPoints: number;
+	veryPolular?: boolean;
+	weightWatcherSmartPoints: number;
 }
 export interface ISearchResult {
 	number: number;

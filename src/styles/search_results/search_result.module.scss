@@ -45,39 +45,6 @@
 		flex-flow: row nowrap;
 		justify-content: space-between;
 
-		.stars {
-			width: max-content;
-			display: flex;
-			flex-flow: row nowrap;
-			gap: 0.2rem;
-
-			.star {
-				width: max-content;
-				height: max-content;
-
-				svg {
-					height: 0.8rem;
-					width: auto;
-
-					path {
-						stroke-width: 5px;
-					}
-				}
-
-				&.half {
-					svg > path {
-						fill: url(#grad);
-					}
-				}
-
-				&.empty {
-					svg > path {
-						fill: none;
-					}
-				}
-			}
-		}
-
 		.timeToReadyContainer {
 			width: max-content;
 			display: flex;

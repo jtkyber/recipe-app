@@ -1,7 +1,7 @@
 import styles from '../../styles/search_results/search_result.module.scss';
 import type { IRecipe } from '../../types/recipe';
+import Stars from '../stars';
 import ClockSVG from '../svg/clock';
-import StarSVG from '../svg/starSVG';
 
 function SearchResult({ recipe }: { recipe: IRecipe | null }) {
 	const { title, image, spoonacularScore, readyInMinutes } = recipe || {
@@ -17,18 +17,7 @@ function SearchResult({ recipe }: { recipe: IRecipe | null }) {
 			<h3 className={styles.title}>{title}</h3>
 			<img className={styles.meal_image} src={image} alt='Meal Image' />
 			<div className={styles.bottomSection}>
-				<div className={styles.stars}>
-					{Array.from({ length: 5 }, (_, index) => {
-						const currentStarFillAmt = Math.min(Math.max(starRating - index, 0), 1);
-						return (
-							<span
-								key={index}
-								className={`${styles.star} ${currentStarFillAmt === 0 ? styles.empty : null} ${currentStarFillAmt === 0.5 ? styles.half : null}`}>
-								<StarSVG />
-							</span>
-						);
-					})}
-				</div>
+				<Stars starRating={starRating} />
 				<div className={styles.timeToReadyContainer}>
 					<ClockSVG />
 					<span className={styles.timeToReady}>{readyInMinutes}mins</span>
