@@ -1,16 +1,4 @@
-@keyframes pulse {
-	0% {
-		opacity: 1;
-	}
-
-	50% {
-		opacity: 0.5;
-	}
-
-	100% {
-		opacity: 1;
-	}
-}
+@use '../mixins';
 
 .container {
 	width: 18rem;
@@ -22,7 +10,7 @@
 	flex-flow: column nowrap;
 	gap: 1rem;
 
-	animation: pulse 2s linear 0s infinite;
+	@include mixins.skeleton_animation;
 
 	.img {
 		width: 100%;

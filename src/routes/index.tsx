@@ -4,14 +4,14 @@ import SearchResultContainer from '../components/search_results/search_result_co
 import styles from '../styles/home.module.scss';
 
 export const Route = createFileRoute('/')({
-	// beforeLoad: ({ context }) => {
-	// 	const isLoggedIn = context.isLoggedIn();
-	// 	if (!isLoggedIn) {
-	// 		throw redirect({
-	// 			to: '/sign_up',
-	// 		});
-	// 	}
-	// },
+	beforeLoad: ({ context }) => {
+		const isLoggedIn = context.isLoggedIn();
+		if (!isLoggedIn) {
+			throw redirect({
+				to: '/sign_up',
+			});
+		}
+	},
 	component: Index,
 });
 

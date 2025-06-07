@@ -133,13 +133,10 @@ function SearchFilters() {
 	async function get_autocomplete_ingredients() {
 		if (!autocompleteText.length) return [];
 
-		const res = await axios('https://api.spoonacular.com/food/ingredients/autocomplete?', {
+		const res = await axios('http://localhost:3000/getRecipeAutocomplete?', {
 			params: {
-				query: autocompleteText,
-				number: '10',
-			},
-			headers: {
-				'x-api-key': import.meta.env.VITE_SPOONACULAR_API_KEY,
+				text: autocompleteText,
+				count: '10',
 			},
 		});
 		if (!res) throw new Error('Unable to fetch ingredients');

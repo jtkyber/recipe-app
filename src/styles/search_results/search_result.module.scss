@@ -17,6 +17,12 @@
 	box-sizing: border-box;
 	border-radius: 0.5rem;
 
+	transition: transform 0.1s linear;
+
+	&:hover {
+		transform: scale(1.03);
+	}
+
 	> *:not(.meal_image) {
 		padding: 0 0.5rem;
 	}

@@ -70,7 +70,6 @@ export interface IRecipe {
 	spoonacularScore: number;
 	spoonacularSourceUrl: string;
 	summary: string;
-	shortSummary?: string;
 	sustainable: boolean;
 	title: string;
 	vegan: boolean;
