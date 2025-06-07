@@ -6,7 +6,7 @@ import ClockSVG from '../components/svg/clock';
 import styles from '../styles/recipe.module.scss';
 import type { IExtendedIngredientsItem, IRecipe, IRecipeInstructionStep } from '../types/recipe';
 
-export const Route = createFileRoute('/recipe/$id')({
+export const Route = createFileRoute('/recipes/$id')({
 	loader: ({ params }) => fetch_recipe(params.id),
 	component: RouteComponent,
 });
@@ -36,7 +36,6 @@ async function fetch_recipe(id: string): Promise<IRecipe> {
 	});
 	const data = await res.data;
 	clean_recipe(data);
-	console.log(data);
 	return data;
 }
 

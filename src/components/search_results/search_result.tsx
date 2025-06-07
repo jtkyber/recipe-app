@@ -20,7 +20,7 @@ function SearchResult({ recipe }: { recipe: IRecipe | null }) {
 		if (!idString) return;
 
 		router.navigate({
-			to: `/recipe/$id`,
+			to: `/recipes/$id`,
 			params: { id: idString },
 			replace: false,
 		});

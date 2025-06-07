@@ -13,7 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SignupImport } from './routes/sign_up'
 import { Route as IndexImport } from './routes/index'
-import { Route as RecipeIdImport } from './routes/recipe.$id'
+import { Route as RecipesIdImport } from './routes/recipes.$id'
 
 // Create/Update Routes
 
@@ -29,9 +29,9 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const RecipeIdRoute = RecipeIdImport.update({
-  id: '/recipe/$id',
-  path: '/recipe/$id',
+const RecipesIdRoute = RecipesIdImport.update({
+  id: '/recipes/$id',
+  path: '/recipes/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -53,11 +53,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
-    '/recipe/$id': {
-      id: '/recipe/$id'
-      path: '/recipe/$id'
-      fullPath: '/recipe/$id'
-      preLoaderRoute: typeof RecipeIdImport
+    '/recipes/$id': {
+      id: '/recipes/$id'
+      path: '/recipes/$id'
+      fullPath: '/recipes/$id'
+      preLoaderRoute: typeof RecipesIdImport
       parentRoute: typeof rootRoute
     }
   }
@@ -68,41 +68,41 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sign_up': typeof SignupRoute
-  '/recipe/$id': typeof RecipeIdRoute
+  '/recipes/$id': typeof RecipesIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sign_up': typeof SignupRoute
-  '/recipe/$id': typeof RecipeIdRoute
+  '/recipes/$id': typeof RecipesIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/sign_up': typeof SignupRoute
-  '/recipe/$id': typeof RecipeIdRoute
+  '/recipes/$id': typeof RecipesIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sign_up' | '/recipe/$id'
+  fullPaths: '/' | '/sign_up' | '/recipes/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign_up' | '/recipe/$id'
-  id: '__root__' | '/' | '/sign_up' | '/recipe/$id'
+  to: '/' | '/sign_up' | '/recipes/$id'
+  id: '__root__' | '/' | '/sign_up' | '/recipes/$id'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SignupRoute: typeof SignupRoute
-  RecipeIdRoute: typeof RecipeIdRoute
+  RecipesIdRoute: typeof RecipesIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SignupRoute: SignupRoute,
-  RecipeIdRoute: RecipeIdRoute,
+  RecipesIdRoute: RecipesIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -117,7 +117,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/sign_up",
-        "/recipe/$id"
+        "/recipes/$id"
       ]
     },
     "/": {
@@ -126,8 +126,8 @@ export const routeTree = rootRoute
     "/sign_up": {
       "filePath": "sign_up.tsx"
     },
-    "/recipe/$id": {
-      "filePath": "recipe.$id.tsx"
+    "/recipes/$id": {
+      "filePath": "recipes.$id.tsx"
     }
   }
 }

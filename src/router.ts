@@ -1,3 +1,4 @@
+import type { EnhancedStore } from '@reduxjs/toolkit';
 import { createRouter } from '@tanstack/react-router';
 import store from './redux/store';
 import { routeTree } from './routeTree.gen';
@@ -6,6 +7,7 @@ import type { IUser } from './types/user';
 export interface RouterContext {
 	getUserData: () => IUser;
 	isLoggedIn: () => boolean;
+	store: EnhancedStore;
 }
 
 const getUserData = () => store.getState().user;
@@ -16,6 +18,7 @@ export const router = createRouter({
 	context: {
 		getUserData,
 		isLoggedIn,
+		store: store,
 	},
 });
 
