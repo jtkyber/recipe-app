@@ -11,6 +11,7 @@ import styles from '../styles/sign_up.module.scss';
 import type { IAxiosErrorData } from '../types/errors';
 import type { SignUpSelectionType } from '../types/sign_up';
 import type { IUser } from '../types/user';
+import { setCookie } from '../utils/cookies';
 import { dietValues, intoleranceValues } from '../utils/filter_values';
 
 export const Route = createFileRoute('/sign_up')({
@@ -86,7 +87,7 @@ function RouteComponent() {
 
 			const data: IUser = res.data;
 
-			document.cookie = data.id.toString();
+			setCookie('id', data.id.toString(), 7);
 
 			dispatch(setUser(data));
 

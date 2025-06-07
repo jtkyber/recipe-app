@@ -6,11 +6,12 @@ import { setUser } from '../redux/slices/userSlice';
 import type { RouterContext } from '../router';
 import styles from '../styles/layout.module.scss';
 import type { IUser } from '../types/user';
+import { getCookie, setCookie } from '../utils/cookies';
 
 export const Route = createRootRouteWithContext<RouterContext>()({
 	loader: async ({ context, location }) => {
 		const loggedIn = context.isLoggedIn();
-		const cookie = document.cookie;
+		const cookie = getCookie('id');
 
 		if (!loggedIn && cookie.length) {
 			const res = await axios.get('http://localhost:3000/getUser', {
@@ -22,6 +23,11 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 			if (data.id) {
 				const dispatch = context.store.dispatch;
 				dispatch(setUser(data));
+			} else {
+				setCookie('id', '', -1);
+				throw redirect({
+					to: '/sign_up',
+				});
 			}
 		} else if (location.pathname === '/' && !loggedIn) {
 			throw redirect({
