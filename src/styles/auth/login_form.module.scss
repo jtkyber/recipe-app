@@ -1,0 +1,29 @@
+@use '../mixins.scss';
+
+.login_form {
+	display: flex;
+	flex-flow: column nowrap;
+	width: 30rem;
+	gap: 1rem;
+
+	$input_section_padding: 1.5rem;
+
+	.submitBtnContainer {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+
+		button {
+			width: 100%;
+			background-color: black;
+			color: whitesmoke;
+			padding: 0.8rem 1rem;
+			border-radius: 0.5rem;
+			font-weight: 600;
+
+			&:hover {
+				opacity: 0.6;
+			}
+		}
+	}
+}

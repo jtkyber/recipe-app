@@ -1,7 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import SearchFilters from '../components/search_filter/search_filters';
-import SearchResultContainer from '../components/search_results/search_result_container';
-import styles from '../styles/home.module.scss';
+import styles from '../styles/index.module.scss';
 
 export const Route = createFileRoute('/')({
 	component: Index,
@@ -10,8 +8,7 @@ export const Route = createFileRoute('/')({
 function Index() {
 	return (
 		<div className={styles.container}>
-			<SearchFilters />
-			<SearchResultContainer />
+			<h3>Landing page</h3>
 		</div>
 	);
 }

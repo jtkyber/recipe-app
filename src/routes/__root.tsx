@@ -26,12 +26,12 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 			} else {
 				setCookie('id', '', -1);
 				throw redirect({
-					to: '/sign_up',
+					to: '/login',
 				});
 			}
-		} else if (location.pathname === '/' && !loggedIn) {
+		} else if (location.pathname === '/search' && !loggedIn) {
 			throw redirect({
-				to: '/sign_up',
+				to: '/login',
 			});
 		}
 	},

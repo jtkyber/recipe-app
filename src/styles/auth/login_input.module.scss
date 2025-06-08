@@ -1,0 +1,66 @@
+input {
+	width: 100%;
+	height: 2.5rem;
+	border-radius: var(--dropdown-border-radius);
+	padding-left: 0.5rem;
+	border-color: lightgray;
+}
+
+.password input:valid {
+	&.matches {
+		border-color: limegreen;
+	}
+	&.noMatch {
+		border-color: red;
+	}
+}
+
+.confirm_password input:valid {
+	&.matches {
+		border-color: limegreen;
+	}
+	&.noMatch {
+		border-color: red;
+	}
+}
+
+.container {
+	position: relative;
+	width: 100%;
+	padding-top: 1.5rem;
+
+	&::after {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		font-size: 0.9rem;
+		font-weight: 400;
+		pointer-events: none;
+		transform: translate(0.5rem, 0.5rem);
+		transition:
+			transform 0.15s ease-out,
+			opacity 0.15s ease-out;
+		opacity: 0.5;
+	}
+
+	&.username::after {
+		content: 'Username';
+	}
+	&.password::after {
+		content: 'Password';
+	}
+	&.confirm_password::after {
+		content: 'Confirm Password';
+	}
+	&.excluded_ingredients::after {
+		content: 'Ingredients to avoid';
+	}
+
+	&:has(.has_text) {
+		&::after {
+			transform: translate(0, -1.8rem);
+			opacity: 1;
+		}
+	}
+}

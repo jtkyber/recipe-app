@@ -1,24 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 import axios from 'axios';
-import { createRef, useEffect, useState, type ChangeEvent, type ChangeEventHandler } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
-import AutocompleteDropdown from '../components/search_filter/autocompleteDropdown';
-import Dropdown from '../components/search_filter/dropdown';
 import { useAppDispatch } from '../redux/hooks';
 import { setUser } from '../redux/slices/userSlice';
-import styles from '../styles/sign_up.module.scss';
+import inputStyles from '../styles/auth/login_input.module.scss';
+import styles from '../styles/auth/signup_form.module.scss';
 import type { IAxiosErrorData } from '../types/errors';
 import type { SignUpSelectionType } from '../types/sign_up';
 import type { IUser } from '../types/user';
 import { setCookie } from '../utils/cookies';
 import { dietValues, intoleranceValues } from '../utils/filter_values';
+import LoginInput from './login_input';
+import AutocompleteDropdown from './search_filter/autocompleteDropdown';
+import Dropdown from './search_filter/dropdown';
 
-export const Route = createFileRoute('/sign_up')({
-	component: RouteComponent,
-});
-
-function RouteComponent() {
+function SignupForm() {
 	const dispatch = useAppDispatch();
 
 	const [activeTextbox, setActiveTextbox] = useState<HTMLInputElement | null>(null);
@@ -48,14 +46,12 @@ function RouteComponent() {
 
 		form.addEventListener('focusin', handle_focus_in, true);
 		form.addEventListener('focusout', handle_focus_out, true);
-		form.addEventListener('input', handle_form_change, true);
 
 		return () => {
 			if (!form) return;
 
 			form.removeEventListener('focusin', handle_focus_in, true);
 			form.removeEventListener('focusout', handle_focus_out, true);
-			form.removeEventListener('input', handle_form_change, true);
 		};
 	}, []);
 	useEffect(() => {
@@ -91,7 +87,7 @@ function RouteComponent() {
 
 			dispatch(setUser(data));
 
-			if (data.id > 0) navigate({ to: '/' });
+			if (data.id > 0) navigate({ to: '/search' });
 		} catch (error: any) {
 			const err: IAxiosErrorData = error.response?.data;
 			switch (err?.code) {
@@ -128,17 +124,6 @@ function RouteComponent() {
 		setAutocompleteText('');
 	}
 
-	function handle_form_change(e: Event) {
-		const target = e.target;
-		if (target instanceof HTMLInputElement) {
-			if (target.value) {
-				target.classList.add(styles.has_text);
-			} else {
-				target.classList.remove(styles.has_text);
-			}
-		}
-	}
-
 	const handle_radio = (selectedOption: HTMLDivElement, selectionType: SignUpSelectionType) => {
 		const form = document.querySelector(`.${styles.sign_up_form}`) as HTMLFormElement;
 
@@ -167,7 +152,7 @@ function RouteComponent() {
 		}
 	};
 
-	const handle_ingredient_input: (e: ChangeEvent) => void = e => {
+	const handle_ingredient_input: (e: React.ChangeEvent) => void = e => {
 		const target = e.target as HTMLInputElement;
 		debouncedAutocompleteText(target.value);
 	};
@@ -204,7 +189,7 @@ function RouteComponent() {
 		setExcludedIngredients(newIngredientList);
 	};
 
-	const check_password_match: ChangeEventHandler = () => {
+	const check_password_match: React.ChangeEventHandler = () => {
 		const password = formRef.current?.querySelector('#password') as HTMLInputElement;
 		const confirmPassword = formRef.current?.querySelector('#confirmPassword') as HTMLInputElement;
 		const inputFocused = document.activeElement === password || document.activeElement === confirmPassword;
@@ -212,12 +197,12 @@ function RouteComponent() {
 		const toggleClass = (className: string, action: 'add' | 'remove') => {
 			switch (action) {
 				case 'add':
-					password.classList.add(styles[className]);
-					confirmPassword.classList.add(styles[className]);
+					password.classList.add(inputStyles[className]);
+					confirmPassword.classList.add(inputStyles[className]);
 					break;
 				case 'remove':
-					password.classList.remove(styles[className]);
-					confirmPassword.classList.remove(styles[className]);
+					password.classList.remove(inputStyles[className]);
+					confirmPassword.classList.remove(inputStyles[className]);
 					break;
 			}
 		};
@@ -233,106 +218,97 @@ function RouteComponent() {
 	};
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.left_container}>
-				<div className={styles.text_container}>
-					<h2>Title text</h2>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus rem deleniti, quis soluta
-						ratione, et dolor fugit laboriosam earum similique magnam quibusdam.
-					</p>
-				</div>
+		<form ref={formRef} className={styles.sign_up_form}>
+			<LoginInput
+				className={'username'}
+				inputAttr={{ id: 'username', type: 'text', maxLength: 36, required: true }}
+			/>
+			<div className={styles.password_container}>
+				<LoginInput
+					className={'password'}
+					inputAttr={{
+						onFocus: check_password_match,
+						onBlur: check_password_match,
+						onChange: check_password_match,
+						id: 'password',
+						type: 'password',
+						required: true,
+					}}
+				/>
+
+				<LoginInput
+					className={'confirm_password'}
+					inputAttr={{
+						onFocus: check_password_match,
+						onBlur: check_password_match,
+						onChange: check_password_match,
+						id: 'confirmPassword',
+						type: 'password',
+						required: true,
+					}}
+				/>
 			</div>
-			<div className={styles.form_container_scrollable}>
-				<div className={styles.form_container}>
-					<header>
-						<h1>Join Recipe App</h1>
-						<p>
-							Already have an account?<a>Login</a>
-						</p>
-					</header>
-					<form ref={formRef} className={styles.sign_up_form}>
-						<div className={styles.username}>
-							<input id='username' type='text' maxLength={36} required />
-						</div>
-						<div className={styles.password_container}>
-							<div className={styles.password}>
-								<input
-									onFocus={check_password_match}
-									onBlur={check_password_match}
-									onChange={check_password_match}
-									id='password'
-									type='password'
-									required
-								/>
-							</div>
-							<div className={styles.confirm_password}>
-								<input
-									onFocus={check_password_match}
-									onBlur={check_password_match}
-									onChange={check_password_match}
-									id='confirmPassword'
-									type='password'
-									required
-								/>
-							</div>
-						</div>
-						<div className={styles.excluded_ingredients}>
-							<input id='excludedIngredients' onChange={handle_ingredient_input} type='text' />
-						</div>
-						{excludedIngredients.length ? (
-							<div ref={selectedIngredientsRef} className={styles.selected_ingredients}>
-								{excludedIngredients?.map(ing => (
-									<h5
-										key={ing}
-										id={ing}
-										onClick={handle_selected_ingredient_click}
-										className={styles.selected_ingredient}>
-										{ing}
-									</h5>
-								))}
-							</div>
-						) : null}
-						<div className={styles.diet}>
-							<Dropdown
-								filterName='diet'
-								options={dietValues}
-								inputType='radio'
-								handle_input={handle_input}
-								selectedDropdownItems={[diet]}
-								label_container_styles={{
-									border: '1px solid lightgrey',
-								}}>
-								Diet
-							</Dropdown>
-						</div>
-						<div className={styles.intolerances}>
-							<Dropdown
-								filterName='intolerances'
-								options={intoleranceValues}
-								inputType='checkbox'
-								handle_input={handle_input}
-								selectedDropdownItems={intolerances}
-								label_container_styles={{
-									border: '1px solid lightgrey',
-								}}>
-								Intolerances
-							</Dropdown>
-						</div>
-						{activeTextbox instanceof HTMLInputElement && autocompleteOptions?.length ? (
-							<AutocompleteDropdown
-								activeTextbox={activeTextbox}
-								handle_autocomplete_click={handle_autocomplete_click}
-							/>
-						) : null}
-						<div className={styles.submitBtnContainer}>
-							<button type='submit' onClick={sign_up}>
-								Join
-							</button>
-						</div>
-					</form>
+
+			<LoginInput
+				className={'excluded_ingredients'}
+				inputAttr={{
+					onChange: handle_ingredient_input,
+					id: 'excludedIngredients',
+					type: 'text',
+				}}
+			/>
+			{excludedIngredients.length ? (
+				<div ref={selectedIngredientsRef} className={styles.selected_ingredients}>
+					{excludedIngredients?.map(ing => (
+						<h5
+							key={ing}
+							id={ing}
+							onClick={handle_selected_ingredient_click}
+							className={styles.selected_ingredient}>
+							{ing}
+						</h5>
+					))}
 				</div>
+			) : null}
+			<div className={styles.diet}>
+				<Dropdown
+					filterName='diet'
+					options={dietValues}
+					inputType='radio'
+					handle_input={handle_input}
+					selectedDropdownItems={[diet]}
+					label_container_styles={{
+						border: '1px solid lightgrey',
+					}}>
+					Diet
+				</Dropdown>
 			</div>
-		</div>
+			<div className={styles.intolerances}>
+				<Dropdown
+					filterName='intolerances'
+					options={intoleranceValues}
+					inputType='checkbox'
+					handle_input={handle_input}
+					selectedDropdownItems={intolerances}
+					label_container_styles={{
+						border: '1px solid lightgrey',
+					}}>
+					Intolerances
+				</Dropdown>
+			</div>
+			{activeTextbox instanceof HTMLInputElement && autocompleteOptions?.length ? (
+				<AutocompleteDropdown
+					activeTextbox={activeTextbox}
+					handle_autocomplete_click={handle_autocomplete_click}
+				/>
+			) : null}
+			<div className={styles.submitBtnContainer}>
+				<button type='submit' onClick={sign_up}>
+					Join
+				</button>
+			</div>
+		</form>
 	);
 }
+
+export default SignupForm;

@@ -18,7 +18,7 @@ function RecipeSearchbar() {
 				sortOption: 'meta-score',
 				diet: user.diet,
 				intolerances: user.intolerances.join(','),
-				excludedIngredients: user.excludedIngredients,
+				excludedIngredients: user.excludedIngredients.join(','),
 				cuisine: filters.cuisine.join(','),
 				ingredients: filters.ingredients.join(','),
 				mealType: filters.type.join(','),

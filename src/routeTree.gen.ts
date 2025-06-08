@@ -11,15 +11,36 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as SignupImport } from './routes/sign_up'
+import { Route as SearchImport } from './routes/search'
+import { Route as SavedImport } from './routes/saved'
+import { Route as ProfileImport } from './routes/profile'
+import { Route as LoginImport } from './routes/login'
 import { Route as IndexImport } from './routes/index'
 import { Route as RecipesIdImport } from './routes/recipes.$id'
 
 // Create/Update Routes
 
-const SignupRoute = SignupImport.update({
-  id: '/sign_up',
-  path: '/sign_up',
+const SearchRoute = SearchImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SavedRoute = SavedImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileRoute = ProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,11 +67,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/sign_up': {
-      id: '/sign_up'
-      path: '/sign_up'
-      fullPath: '/sign_up'
-      preLoaderRoute: typeof SignupImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileImport
+      parentRoute: typeof rootRoute
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedImport
+      parentRoute: typeof rootRoute
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchImport
       parentRoute: typeof rootRoute
     }
     '/recipes/$id': {
@@ -67,41 +109,63 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/sign_up': typeof SignupRoute
+  '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/search': typeof SearchRoute
   '/recipes/$id': typeof RecipesIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/sign_up': typeof SignupRoute
+  '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/search': typeof SearchRoute
   '/recipes/$id': typeof RecipesIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/sign_up': typeof SignupRoute
+  '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/search': typeof SearchRoute
   '/recipes/$id': typeof RecipesIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sign_up' | '/recipes/$id'
+  fullPaths: '/' | '/login' | '/profile' | '/saved' | '/search' | '/recipes/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sign_up' | '/recipes/$id'
-  id: '__root__' | '/' | '/sign_up' | '/recipes/$id'
+  to: '/' | '/login' | '/profile' | '/saved' | '/search' | '/recipes/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/profile'
+    | '/saved'
+    | '/search'
+    | '/recipes/$id'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  SignupRoute: typeof SignupRoute
+  LoginRoute: typeof LoginRoute
+  ProfileRoute: typeof ProfileRoute
+  SavedRoute: typeof SavedRoute
+  SearchRoute: typeof SearchRoute
   RecipesIdRoute: typeof RecipesIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  SignupRoute: SignupRoute,
+  LoginRoute: LoginRoute,
+  ProfileRoute: ProfileRoute,
+  SavedRoute: SavedRoute,
+  SearchRoute: SearchRoute,
   RecipesIdRoute: RecipesIdRoute,
 }
 
@@ -116,15 +180,27 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/sign_up",
+        "/login",
+        "/profile",
+        "/saved",
+        "/search",
         "/recipes/$id"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/sign_up": {
-      "filePath": "sign_up.tsx"
+    "/login": {
+      "filePath": "login.tsx"
+    },
+    "/profile": {
+      "filePath": "profile.tsx"
+    },
+    "/saved": {
+      "filePath": "saved.tsx"
+    },
+    "/search": {
+      "filePath": "search.tsx"
     },
     "/recipes/$id": {
       "filePath": "recipes.$id.tsx"
