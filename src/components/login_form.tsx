@@ -1,6 +1,7 @@
 import { useNavigate } from '@tanstack/react-router';
 import axios from 'axios';
 import { createRef } from 'react';
+import { db } from '../db';
 import { useAppDispatch } from '../redux/hooks';
 import { setUser } from '../redux/slices/userSlice';
 import styles from '../styles/auth/login_form.module.scss';
@@ -38,10 +39,16 @@ function LoginForm() {
 
 			dispatch(setUser(data));
 
-			if (data.id > 0) navigate({ to: '/search' });
+			if (data.id > 0) {
+				if (data.savedRecipes?.length) {
+					await db.savedRecipes.where('id').noneOf(data.savedRecipes).delete();
+				} else await db.savedRecipes.clear();
+
+				navigate({ to: '/search' });
+			}
 		} catch (error: any) {
 			const err: IAxiosErrorData = error.response?.data;
-			console.log(err);
+			console.error(err || error);
 		}
 	};
 
