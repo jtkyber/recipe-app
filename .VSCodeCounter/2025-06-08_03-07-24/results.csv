@@ -1,0 +1,74 @@
+"filename", "language", "HTML", "JavaScript", "Markdown", "JSON", "TypeScript", "JSON with Comments", "SCSS", "XML", "TypeScript JSX", "comment", "blank", "total"
+"/home/jkyber/Documents/websites/recipe-app/README.md", "Markdown", 0, 0, 45, 0, 0, 0, 0, 0, 0, 0, 10, 55
+"/home/jkyber/Documents/websites/recipe-app/eslint.config.js", "JavaScript", 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 2, 27
+"/home/jkyber/Documents/websites/recipe-app/index.html", "HTML", 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 14
+"/home/jkyber/Documents/websites/recipe-app/package-lock.json", "JSON", 0, 0, 0, 5006, 0, 0, 0, 0, 0, 0, 1, 5007
+"/home/jkyber/Documents/websites/recipe-app/package.json", "JSON", 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 1, 41
+"/home/jkyber/Documents/websites/recipe-app/public/vite.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1
+"/home/jkyber/Documents/websites/recipe-app/recipe_temp.json", "JSON", 0, 0, 0, 38044, 0, 0, 0, 0, 0, 0, 1, 38045
+"/home/jkyber/Documents/websites/recipe-app/src/assets/react.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1
+"/home/jkyber/Documents/websites/recipe-app/src/components/login_form.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 51, 1, 14, 66
+"/home/jkyber/Documents/websites/recipe-app/src/components/login_input.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 21, 0, 5, 26
+"/home/jkyber/Documents/websites/recipe-app/src/components/navigation.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 34, 0, 5, 39
+"/home/jkyber/Documents/websites/recipe-app/src/components/search_filter/autocompleteDropdown.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 54, 0, 7, 61
+"/home/jkyber/Documents/websites/recipe-app/src/components/search_filter/dropdown.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 77, 0, 5, 82
+"/home/jkyber/Documents/websites/recipe-app/src/components/search_filter/filter_option.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 5, 95
+"/home/jkyber/Documents/websites/recipe-app/src/components/search_filter/recipe_searchbar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 58, 0, 7, 65
+"/home/jkyber/Documents/websites/recipe-app/src/components/search_filter/search_filters.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 210, 0, 25, 235
+"/home/jkyber/Documents/websites/recipe-app/src/components/search_results/recipe_result_skeleton.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 3, 17
+"/home/jkyber/Documents/websites/recipe-app/src/components/search_results/search_result.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 38, 0, 7, 45
+"/home/jkyber/Documents/websites/recipe-app/src/components/search_results/search_result_container.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 27, 0, 4, 31
+"/home/jkyber/Documents/websites/recipe-app/src/components/signup_form.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 276, 1, 38, 315
+"/home/jkyber/Documents/websites/recipe-app/src/components/stars.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 19, 0, 3, 22
+"/home/jkyber/Documents/websites/recipe-app/src/components/svg/clock.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 29, 0, 2, 31
+"/home/jkyber/Documents/websites/recipe-app/src/components/svg/starSVG.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 2, 20
+"/home/jkyber/Documents/websites/recipe-app/src/index.scss", "SCSS", 0, 0, 0, 0, 0, 0, 65, 0, 0, 13, 15, 93
+"/home/jkyber/Documents/websites/recipe-app/src/main.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 3, 29
+"/home/jkyber/Documents/websites/recipe-app/src/redux/hooks.ts", "TypeScript", 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 2, 6
+"/home/jkyber/Documents/websites/recipe-app/src/redux/slices/resultOptionSlice.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 5, 17
+"/home/jkyber/Documents/websites/recipe-app/src/redux/slices/searchFilterSlice.ts", "TypeScript", 0, 0, 0, 0, 69, 0, 0, 0, 0, 0, 5, 74
+"/home/jkyber/Documents/websites/recipe-app/src/redux/slices/userSlice.ts", "TypeScript", 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 4, 30
+"/home/jkyber/Documents/websites/recipe-app/src/redux/store.ts", "TypeScript", 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 3, 15
+"/home/jkyber/Documents/websites/recipe-app/src/routeTree.gen.ts", "TypeScript", 0, 0, 0, 0, 142, 0, 0, 0, 0, 45, 24, 211
+"/home/jkyber/Documents/websites/recipe-app/src/router.ts", "TypeScript", 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 5, 30
+"/home/jkyber/Documents/websites/recipe-app/src/routes/__root.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 45, 0, 3, 48
+"/home/jkyber/Documents/websites/recipe-app/src/routes/index.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 3, 15
+"/home/jkyber/Documents/websites/recipe-app/src/routes/login.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 49, 0, 4, 53
+"/home/jkyber/Documents/websites/recipe-app/src/routes/profile.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 3, 10
+"/home/jkyber/Documents/websites/recipe-app/src/routes/recipes.$id.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 154, 3, 23, 180
+"/home/jkyber/Documents/websites/recipe-app/src/routes/saved.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 3, 10
+"/home/jkyber/Documents/websites/recipe-app/src/routes/search.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 3, 18
+"/home/jkyber/Documents/websites/recipe-app/src/styles/auth/login.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 75, 0, 0, 2, 15, 92
+"/home/jkyber/Documents/websites/recipe-app/src/styles/auth/login_form.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 6, 30
+"/home/jkyber/Documents/websites/recipe-app/src/styles/auth/login_input.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 60, 0, 0, 0, 7, 67
+"/home/jkyber/Documents/websites/recipe-app/src/styles/auth/signup_form.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 43, 0, 0, 1, 11, 55
+"/home/jkyber/Documents/websites/recipe-app/src/styles/index.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1, 3
+"/home/jkyber/Documents/websites/recipe-app/src/styles/layout.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 1, 7
+"/home/jkyber/Documents/websites/recipe-app/src/styles/mixins.scss", "SCSS", 0, 0, 0, 0, 0, 0, 35, 0, 0, 0, 7, 42
+"/home/jkyber/Documents/websites/recipe-app/src/styles/navigation.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 5, 34
+"/home/jkyber/Documents/websites/recipe-app/src/styles/recipe.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 177, 0, 0, 2, 37, 216
+"/home/jkyber/Documents/websites/recipe-app/src/styles/search_filter/autocompleteDropdown.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 21, 0, 0, 0, 2, 23
+"/home/jkyber/Documents/websites/recipe-app/src/styles/search_filter/dropdown.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 70, 0, 0, 0, 13, 83
+"/home/jkyber/Documents/websites/recipe-app/src/styles/search_filter/filter_option.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 108, 0, 0, 0, 19, 127
+"/home/jkyber/Documents/websites/recipe-app/src/styles/search_filter/recipe_searchbar.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 40, 0, 0, 0, 5, 45
+"/home/jkyber/Documents/websites/recipe-app/src/styles/search_filter/search_filters.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 35, 0, 0, 0, 3, 38
+"/home/jkyber/Documents/websites/recipe-app/src/styles/search_page.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 7
+"/home/jkyber/Documents/websites/recipe-app/src/styles/search_results/recipe_result_skeleton.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 44, 0, 0, 0, 8, 52
+"/home/jkyber/Documents/websites/recipe-app/src/styles/search_results/search_result.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 68, 0, 0, 0, 12, 80
+"/home/jkyber/Documents/websites/recipe-app/src/styles/search_results/search_result_container.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 4, 31
+"/home/jkyber/Documents/websites/recipe-app/src/styles/stars.module.scss", "SCSS", 0, 0, 0, 0, 0, 0, 27, 0, 0, 0, 6, 33
+"/home/jkyber/Documents/websites/recipe-app/src/types/dropdown.ts", "TypeScript", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2
+"/home/jkyber/Documents/websites/recipe-app/src/types/errors.ts", "TypeScript", 0, 0, 0, 0, 13, 0, 0, 0, 0, 0, 1, 14
+"/home/jkyber/Documents/websites/recipe-app/src/types/recipe.ts", "TypeScript", 0, 0, 0, 0, 82, 0, 0, 0, 0, 0, 7, 89
+"/home/jkyber/Documents/websites/recipe-app/src/types/sign_up.ts", "TypeScript", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2
+"/home/jkyber/Documents/websites/recipe-app/src/types/user.ts", "TypeScript", 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 1, 8
+"/home/jkyber/Documents/websites/recipe-app/src/utils/cookies.ts", "TypeScript", 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 3, 23
+"/home/jkyber/Documents/websites/recipe-app/src/utils/dom_tools.ts", "TypeScript", 0, 0, 0, 0, 6, 0, 0, 0, 0, 1, 1, 8
+"/home/jkyber/Documents/websites/recipe-app/src/utils/filter_values.ts", "TypeScript", 0, 0, 0, 0, 72, 0, 0, 0, 0, 0, 4, 76
+"/home/jkyber/Documents/websites/recipe-app/src/vite-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2
+"/home/jkyber/Documents/websites/recipe-app/test_recipe.json", "JSON", 0, 0, 0, 1097, 0, 0, 0, 0, 0, 0, 1, 1098
+"/home/jkyber/Documents/websites/recipe-app/tsconfig.app.json", "JSON", 0, 0, 0, 23, 0, 0, 0, 0, 0, 2, 3, 28
+"/home/jkyber/Documents/websites/recipe-app/tsconfig.json", "JSON with Comments", 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 1, 8
+"/home/jkyber/Documents/websites/recipe-app/tsconfig.node.json", "JSON", 0, 0, 0, 21, 0, 0, 0, 0, 0, 2, 3, 26
+"/home/jkyber/Documents/websites/recipe-app/vite.config.ts", "TypeScript", 0, 0, 0, 0, 6, 0, 0, 0, 0, 1, 1, 8
+"Total", "-", 13, 25, 45, 44231, 486, 7, 963, 2, 1331, 87, 447, 47637

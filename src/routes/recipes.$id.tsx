@@ -3,11 +3,15 @@ import axios from 'axios';
 import { useEffect, useRef, useState, type ChangeEventHandler } from 'react';
 import Stars from '../components/stars';
 import ClockSVG from '../components/svg/clock';
+import HeartSVG from '../components/svg/heart';
+import { db } from '../db';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { setSavedRecipes } from '../redux/slices/userSlice';
 import styles from '../styles/recipe.module.scss';
 import type { IExtendedIngredientsItem, IRecipe, IRecipeInstructionStep } from '../types/recipe';
 
 export const Route = createFileRoute('/recipes/$id')({
-	loader: ({ params }) => fetch_recipe(params.id),
+	loader: ({ params }) => get_recipe(params.id),
 	component: RouteComponent,
 });
 
@@ -26,7 +30,17 @@ const clean_recipe = (recipe: IRecipe) => {
 	recipe.extendedIngredients = newIngredients;
 };
 
-async function fetch_recipe(id: string): Promise<IRecipe> {
+const get_recipe_from_indexedDB = async (id: string): Promise<IRecipe | null> => {
+	const recipe = await db.savedRecipes.get(parseInt(id));
+
+	if (!recipe?.id) return null;
+
+	clean_recipe(recipe);
+
+	return recipe;
+};
+
+const fetch_recipe = async (id: string): Promise<IRecipe> => {
 	// 715415
 	// 655668
 	const res = await axios.get('http://localhost:3000/getRecipeInformation?', {
@@ -37,6 +51,14 @@ async function fetch_recipe(id: string): Promise<IRecipe> {
 	const data = await res.data;
 	clean_recipe(data);
 	return data;
+};
+
+async function get_recipe(id: string): Promise<IRecipe> {
+	const recipe = await get_recipe_from_indexedDB(id);
+
+	if (recipe?.id) return recipe;
+
+	return await fetch_recipe(id);
 }
 
 function RouteComponent() {
@@ -44,6 +66,8 @@ function RouteComponent() {
 
 	const starRating = Math.round((recipe.spoonacularScore / 20) * 2) / 2;
 
+	const user = useAppSelector(state => state.user);
+	const dispatch = useAppDispatch();
 	const [servingSize, setServingSize] = useState<number>(recipe.servings);
 	const [shortSummary, setShortSummary] = useState<string>('');
 
@@ -51,7 +75,9 @@ function RouteComponent() {
 
 	useEffect(() => {
 		if (hasRun.current) return;
-		fetch_summary();
+
+		if (recipe?.shortSummary) setShortSummary(recipe.shortSummary);
+		else fetch_summary();
 		hasRun.current = true;
 	}, []);
 
@@ -82,9 +108,50 @@ function RouteComponent() {
 		setShortSummary(data);
 	}
 
+	const recipeSaved = user.savedRecipes.includes(recipe.id);
+
+	const toggle_save_recipe_id_to_db = async (): Promise<
+		| {
+				payload: number[];
+				wasAdded: boolean;
+		  }
+		| undefined
+	> => {
+		try {
+			const res = await axios.put(`${import.meta.env.VITE_API_BASE}/toggleSaveRecipe`, {
+				id: user.id,
+				recipeId: recipe.id,
+			});
+
+			const data = await res.data;
+			if (data.err) throw new Error('Unable to save or remove recipe');
+			return data;
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const toggle_save_recipe_to_indexedDB = async (wasAdded: boolean): Promise<number | null> => {
+		if (wasAdded) {
+			recipe.shortSummary = shortSummary;
+			return await db.savedRecipes.add(recipe);
+		} else {
+			await db.savedRecipes.delete(recipe.id);
+			return null;
+		}
+	};
+
+	const toggle_save_recipe = async () => {
+		const savedRecipeIDs = await toggle_save_recipe_id_to_db();
+		if (savedRecipeIDs === undefined) return;
+
+		await toggle_save_recipe_to_indexedDB(savedRecipeIDs.wasAdded);
+
+		dispatch(setSavedRecipes(savedRecipeIDs.payload));
+	};
+
 	return (
 		<div className={styles.bg_container}>
-			{/* <img className={styles.background_img} src={recipe.image} alt='Recipe Background Image' /> */}
 			<div className={styles.container}>
 				<div className={styles.recipe_container}>
 					<h1 className={styles.title}>{recipe.title}</h1>
@@ -112,6 +179,15 @@ function RouteComponent() {
 							<div className={styles.piece}></div>
 						</div>
 					)}
+
+					<div className={styles.save_container}>
+						<button
+							onClick={toggle_save_recipe}
+							className={`${styles.save_button} ${recipeSaved ? styles.is_saved : null}`}>
+							<h3 className={styles.save_text}>{recipeSaved ? 'Saved' : 'Save'}</h3>
+							<HeartSVG />
+						</button>
+					</div>
 
 					<div className={styles.image_container}>
 						<img className={styles.image} src={recipe.image} alt='Recipe Image' />

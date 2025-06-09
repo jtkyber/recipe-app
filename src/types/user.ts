@@ -4,4 +4,5 @@ export interface IUser {
 	diet: string;
 	intolerances: string[];
 	excludedIngredients: string[];
+	savedRecipes: number[];
 }

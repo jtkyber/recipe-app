@@ -1,4 +1,4 @@
-import { Link, useRouter } from '@tanstack/react-router';
+import { Link, useRouterState } from '@tanstack/react-router';
 import heartImg from '../assets/heart.png';
 import profileImg from '../assets/profile.png';
 import { useAppSelector } from '../redux/hooks';
@@ -7,16 +7,18 @@ import type { IUser } from '../types/user';
 
 function Navigation() {
 	const user: IUser = useAppSelector(state => state.user);
-	const router = useRouter();
+	const routerState = useRouterState();
+
+	const routeId = routerState.matches[routerState.matches.length - 1]?.routeId;
 
 	return (
 		<nav className={styles.container}>
 			<div className={styles.left}>
 				<h2>Recipe App</h2>
 			</div>
-			{router.latestLocation.pathname === '/' || router.latestLocation.pathname === '/search' ? (
-				<div className={styles.right}>
-					{user.id ? (
+			<div className={styles.right}>
+				{['/', '/search', '/recipes/$id'].includes(routeId) ? (
+					user.id ? (
 						<>
 							<Link to='/saved'>
 								<img className={styles.heartImg} src={heartImg} alt='Heart Image' />
@@ -28,9 +30,13 @@ function Navigation() {
 						</>
 					) : (
 						<h3>Log In</h3>
-					)}
-				</div>
-			) : router.latestLocation.pathname === '/sign_up' ? null : null}
+					)
+				) : routeId === '/saved' ? (
+					<Link to='/profile'>
+						<img className={styles.profileImg} src={profileImg} alt='Profile Image' />
+					</Link>
+				) : routeId === '/login' ? null : null}
+			</div>
 		</nav>
 	);
 }

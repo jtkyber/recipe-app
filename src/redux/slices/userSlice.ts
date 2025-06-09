@@ -8,6 +8,7 @@ const initialState: IUser = {
 	diet: '',
 	intolerances: [],
 	excludedIngredients: [],
+	savedRecipes: [],
 };
 
 export const userSlice = createSlice({
@@ -20,10 +21,14 @@ export const userSlice = createSlice({
 			state.diet = action.payload.diet;
 			state.intolerances = action.payload.intolerances;
 			state.excludedIngredients = action.payload.excludedIngredients;
+			state.savedRecipes = action.payload.savedRecipes;
+		},
+		setSavedRecipes: (state, action: PayloadAction<number[]>) => {
+			state.savedRecipes = action.payload;
 		},
 	},
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setSavedRecipes } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;
