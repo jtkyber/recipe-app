@@ -29,7 +29,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 					to: '/login',
 				});
 			}
-		} else if (location.pathname === '/search' && !loggedIn) {
+		} else if (['/search', 'saved'].includes(location.pathname) && !loggedIn) {
 			throw redirect({
 				to: '/login',
 			});
