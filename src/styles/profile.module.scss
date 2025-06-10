@@ -1,0 +1,15 @@
+.scrollable_container {
+	width: 100%;
+	height: 100%;
+	padding: 2rem 1rem;
+
+	.form {
+		width: 25rem;
+		height: max-content;
+		margin: auto;
+
+		.username {
+			text-align: center;
+		}
+	}
+}

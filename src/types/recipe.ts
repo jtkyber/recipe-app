@@ -87,3 +87,8 @@ export interface ISearchResult {
 	pointsRemaining: number;
 	pointsSpentThisRequest: number;
 }
+
+export interface IAutocompleteIngredient {
+	name: 'string';
+	image: 'string';
+}

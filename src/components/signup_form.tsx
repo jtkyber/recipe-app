@@ -1,62 +1,31 @@
-import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import axios from 'axios';
-import { createRef, useEffect, useState } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
+import { createRef, useState } from 'react';
 import { useAppDispatch } from '../redux/hooks';
 import { setUser } from '../redux/slices/userSlice';
 import inputStyles from '../styles/auth/login_input.module.scss';
 import styles from '../styles/auth/signup_form.module.scss';
 import type { IAxiosErrorData } from '../types/errors';
+import type { AutocompleteInputName } from '../types/input';
+import type { IAutocompleteIngredient } from '../types/recipe';
 import type { SignUpSelectionType } from '../types/sign_up';
 import type { IUser } from '../types/user';
 import { setCookie } from '../utils/cookies';
 import { dietValues, intoleranceValues } from '../utils/filter_values';
+import AutocompleteInput from './autocomplete_input';
 import LoginInput from './login_input';
-import AutocompleteDropdown from './search_filter/autocompleteDropdown';
 import Dropdown from './search_filter/dropdown';
 
 function SignupForm() {
 	const dispatch = useAppDispatch();
 
-	const [activeTextbox, setActiveTextbox] = useState<HTMLInputElement | null>(null);
-	const [autocompleteText, setAutocompleteText] = useState<string>('');
 	const [diet, setDiet] = useState<string>('');
 	const [intolerances, setIntolerances] = useState<string[]>([]);
 	const [excludedIngredients, setExcludedIngredients] = useState<string[]>([]);
 
 	const formRef = createRef<HTMLFormElement>();
-	const selectedIngredientsRef = createRef<HTMLDivElement>();
 
 	const navigate = useNavigate();
-
-	const debouncedAutocompleteText = useDebouncedCallback((value: any) => {
-		setAutocompleteText(value);
-	}, 500);
-
-	const { refetch: refetchAutocomplete, data: autocompleteOptions } = useQuery({
-		queryKey: ['autocomplete'],
-		queryFn: get_autocomplete_ingredients,
-		enabled: false,
-	});
-
-	useEffect(() => {
-		const form = formRef.current;
-		if (!form) return;
-
-		form.addEventListener('focusin', handle_focus_in, true);
-		form.addEventListener('focusout', handle_focus_out, true);
-
-		return () => {
-			if (!form) return;
-
-			form.removeEventListener('focusin', handle_focus_in, true);
-			form.removeEventListener('focusout', handle_focus_out, true);
-		};
-	}, []);
-	useEffect(() => {
-		refetchAutocomplete();
-	}, [autocompleteText]);
 
 	async function sign_up(e: any): Promise<any> {
 		try {
@@ -100,28 +69,18 @@ function SignupForm() {
 		}
 	}
 
-	async function get_autocomplete_ingredients() {
-		if (!autocompleteText.length) return [];
+	async function get_autocomplete_ingredients(text: string): Promise<string[]> {
+		if (!text.length) return [];
 
 		const res = await axios('http://localhost:3000/getRecipeAutocomplete?', {
 			params: {
-				text: autocompleteText,
+				text: text,
 				count: '10',
 			},
 		});
 		if (!res) throw new Error('Unable to fetch ingredients');
-		const data = res.data;
-		return data;
-	}
-
-	function handle_focus_in(e: Event) {
-		const target = e.target;
-		if (!(target instanceof HTMLInputElement)) return;
-		setActiveTextbox(target);
-	}
-	function handle_focus_out() {
-		setActiveTextbox(null);
-		setAutocompleteText('');
+		const data: IAutocompleteIngredient[] = res.data;
+		return data.map(d => d.name);
 	}
 
 	const handle_radio = (selectedOption: HTMLDivElement, selectionType: SignUpSelectionType) => {
@@ -152,11 +111,6 @@ function SignupForm() {
 		}
 	};
 
-	const handle_ingredient_input: (e: React.ChangeEvent) => void = e => {
-		const target = e.target as HTMLInputElement;
-		debouncedAutocompleteText(target.value);
-	};
-
 	const handle_input: (e: React.FormEvent<HTMLDivElement>) => void = e => {
 		const target = e.target as HTMLDivElement & HTMLInputElement;
 		const filter = target.dataset.filter;
@@ -171,11 +125,11 @@ function SignupForm() {
 		}
 	};
 
-	const handle_autocomplete_click: React.MouseEventHandler = e => {
-		const option = (e.target as HTMLHeadingElement).id;
-		if (activeTextbox && !excludedIngredients.includes(option)) {
-			setExcludedIngredients([...excludedIngredients, option]);
-			activeTextbox.value = '';
+	const add_item = (item: string, inputName: AutocompleteInputName): void => {
+		switch (inputName) {
+			case 'excluded_ingredients':
+				setExcludedIngredients([...excludedIngredients, item]);
+				break;
 		}
 	};
 
@@ -249,27 +203,14 @@ function SignupForm() {
 				/>
 			</div>
 
-			<LoginInput
-				className={'excluded_ingredients'}
-				inputAttr={{
-					onChange: handle_ingredient_input,
-					id: 'excludedIngredients',
-					type: 'text',
-				}}
+			<AutocompleteInput
+				name='excluded_ingredients'
+				handle_selected_ingredient_click={handle_selected_ingredient_click}
+				add_item={add_item}
+				get_autocomplete_list={get_autocomplete_ingredients}
+				selected={excludedIngredients}
 			/>
-			{excludedIngredients.length ? (
-				<div ref={selectedIngredientsRef} className={styles.selected_ingredients}>
-					{excludedIngredients?.map(ing => (
-						<h5
-							key={ing}
-							id={ing}
-							onClick={handle_selected_ingredient_click}
-							className={styles.selected_ingredient}>
-							{ing}
-						</h5>
-					))}
-				</div>
-			) : null}
+
 			<div className={styles.diet}>
 				<Dropdown
 					filterName='diet'
@@ -296,12 +237,6 @@ function SignupForm() {
 					Intolerances
 				</Dropdown>
 			</div>
-			{activeTextbox instanceof HTMLInputElement && autocompleteOptions?.length ? (
-				<AutocompleteDropdown
-					activeTextbox={activeTextbox}
-					handle_autocomplete_click={handle_autocomplete_click}
-				/>
-			) : null}
 			<div className={styles.submitBtnContainer}>
 				<button type='submit' onClick={sign_up}>
 					Join

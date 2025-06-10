@@ -1,60 +1,55 @@
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState, type MouseEventHandler } from 'react';
-import { useAppSelector } from '../../redux/hooks';
-import { type FilterProperty } from '../../redux/slices/searchFilterSlice';
+import { createRef, useEffect, useState, type MouseEventHandler } from 'react';
 import styles from '../../styles/search_filter/autocompleteDropdown.module.scss';
-import optionStyles from '../../styles/search_filter/filter_option.module.scss';
-import { get_parent_with_class_name } from '../../utils/dom_tools';
 
 function AutocompleteDropdown({
+	options,
 	activeTextbox,
 	handle_autocomplete_click,
+	selected,
 }: {
+	options: string[];
 	activeTextbox: HTMLInputElement;
 	handle_autocomplete_click: MouseEventHandler;
+	selected: string[];
 }) {
-	const filters = useAppSelector(state => state.searchFilter);
-	const [filter, setFilter] = useState<string[]>([]);
+	const container_ref = createRef<HTMLDivElement>();
+	const [position, setPosition] = useState<{
+		top: number;
+		left: number;
+		width: number;
+	}>();
 
-	useEffect(set_current_filter, [activeTextbox]);
+	useEffect(() => {
+		adjust_position();
 
-	function set_current_filter() {
-		const optionElement = get_parent_with_class_name(activeTextbox, optionStyles.option);
-		const filterName = optionElement?.dataset.filter as FilterProperty;
-		const filterTemp = filters[filterName];
-		if (Array.isArray(filterTemp)) setFilter(filterTemp);
+		window.addEventListener('scroll', adjust_position, true);
+
+		return () => {
+			window.removeEventListener('scroll', adjust_position, true);
+		};
+	}, []);
+
+	function adjust_position() {
+		setPosition({
+			top: activeTextbox.getBoundingClientRect().y + activeTextbox.getBoundingClientRect().height,
+			left: activeTextbox.getBoundingClientRect().x,
+			width: activeTextbox.getBoundingClientRect().width,
+		});
 	}
 
-	const { data, fetchStatus } = useQuery<{ name: string; image: string }[]>({
-		queryKey: ['autocomplete'],
-		queryFn: () => {
-			throw new Error('This queryFn should not be called');
-		},
-		enabled: false,
-	});
-
-	return (
-		<div
-			style={{
-				top: activeTextbox.getBoundingClientRect().y + activeTextbox.getBoundingClientRect().height,
-				left: activeTextbox.getBoundingClientRect().x,
-				width: activeTextbox.getBoundingClientRect().width,
-			}}
-			className={styles.container}>
-			{fetchStatus === 'idle'
-				? data
-						?.filter(d => !filter.includes(d.name))
-						.map(option => {
-							const { name } = option;
-							return (
-								<h5 id={name} onMouseDown={handle_autocomplete_click} key={name}>
-									{name}
-								</h5>
-							);
-						})
-				: null}
+	return position ? (
+		<div ref={container_ref} style={position} className={styles.container}>
+			{options
+				.filter(o => !selected.includes(o))
+				.map(name => {
+					return (
+						<h5 id={name} onMouseDown={handle_autocomplete_click} key={name}>
+							{name}
+						</h5>
+					);
+				})}
 		</div>
-	);
+	) : null;
 }
 
 export default AutocompleteDropdown;

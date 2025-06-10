@@ -198,6 +198,7 @@ function SearchFilters() {
 						isSolo={true}>
 						Ingredients
 					</FilterOption>
+
 					<FilterOption
 						id='Max Ready Time'
 						filter='maxReadyTime'
@@ -223,8 +224,10 @@ function SearchFilters() {
 
 			{activeTextbox instanceof HTMLInputElement && autocompleteOptions?.length ? (
 				<AutocompleteDropdown
+					options={autocompleteOptions.map((o: any) => o.name)}
 					activeTextbox={activeTextbox}
 					handle_autocomplete_click={handle_autocomplete_click}
+					selected={filters.ingredients}
 				/>
 			) : null}
 		</div>
