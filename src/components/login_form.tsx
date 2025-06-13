@@ -8,7 +8,7 @@ import styles from '../styles/auth/login_form.module.scss';
 import type { IAxiosErrorData } from '../types/errors';
 import type { IUser } from '../types/user';
 import { setCookie } from '../utils/cookies';
-import LoginInput from './login_input';
+import SpecialInput from './special_input';
 
 function LoginForm() {
 	const formRef = createRef<HTMLFormElement>();
@@ -54,12 +54,15 @@ function LoginForm() {
 
 	return (
 		<form ref={formRef} action='' className={styles.login_form}>
-			<LoginInput
-				className={'username'}
+			<SpecialInput
+				placeholder={'username'}
 				inputAttr={{ id: 'username', type: 'text', maxLength: 36, required: true }}
 			/>
 
-			<LoginInput className={'password'} inputAttr={{ id: 'password', type: 'password', required: true }} />
+			<SpecialInput
+				placeholder={'password'}
+				inputAttr={{ id: 'password', type: 'password', required: true }}
+			/>
 			<div className={styles.submitBtnContainer}>
 				<button type='submit' onClick={login}>
 					Join

@@ -2,8 +2,8 @@ import { createRef, useEffect, useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import styles from '../styles/autocomplete_input.module.scss';
 import type { AutocompleteInputName } from '../types/input';
-import LoginInput from './login_input';
 import AutocompleteDropdown from './search_filter/autocompleteDropdown';
+import SpecialInput from './special_input';
 
 function AutocompleteInput({
 	name,
@@ -73,8 +73,8 @@ function AutocompleteInput({
 
 	return (
 		<div ref={containerRef} className={styles.autocomplete_container}>
-			<LoginInput
-				className={name}
+			<SpecialInput
+				placeholder={name}
 				inputAttr={{
 					onChange: handle_ingredient_input,
 					id: name,

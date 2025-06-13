@@ -13,8 +13,8 @@ import type { IUser } from '../types/user';
 import { setCookie } from '../utils/cookies';
 import { dietValues, intoleranceValues } from '../utils/filter_values';
 import AutocompleteInput from './autocomplete_input';
-import LoginInput from './login_input';
 import Dropdown from './search_filter/dropdown';
+import SpecialInput from './special_input';
 
 function SignupForm() {
 	const dispatch = useAppDispatch();
@@ -173,13 +173,13 @@ function SignupForm() {
 
 	return (
 		<form ref={formRef} className={styles.sign_up_form}>
-			<LoginInput
-				className={'username'}
+			<SpecialInput
+				placeholder={'username'}
 				inputAttr={{ id: 'username', type: 'text', maxLength: 36, required: true }}
 			/>
 			<div className={styles.password_container}>
-				<LoginInput
-					className={'password'}
+				<SpecialInput
+					placeholder={'password'}
 					inputAttr={{
 						onFocus: check_password_match,
 						onBlur: check_password_match,
@@ -190,8 +190,8 @@ function SignupForm() {
 					}}
 				/>
 
-				<LoginInput
-					className={'confirm_password'}
+				<SpecialInput
+					placeholder={'confirm password'}
 					inputAttr={{
 						onFocus: check_password_match,
 						onBlur: check_password_match,

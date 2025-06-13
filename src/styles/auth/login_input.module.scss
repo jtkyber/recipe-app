@@ -27,12 +27,14 @@ input {
 .container {
 	position: relative;
 	width: 100%;
-	padding-top: 1.5rem;
+	overflow: visible;
+	margin: 1.5rem 0;
 
-	&::after {
+	.placeholder {
 		position: absolute;
 		width: 100%;
 		height: 100%;
+		top: 0;
 		left: 0;
 		font-size: 0.9rem;
 		font-weight: 400;
@@ -42,23 +44,11 @@ input {
 			transform 0.15s ease-out,
 			opacity 0.15s ease-out;
 		opacity: 0.5;
-	}
-
-	&.username::after {
-		content: 'Username';
-	}
-	&.password::after {
-		content: 'Password';
-	}
-	&.confirm_password::after {
-		content: 'Confirm Password';
-	}
-	&.excluded_ingredients::after {
-		content: 'Ingredients to avoid';
+		text-transform: capitalize;
 	}
 
 	&:has(.has_text) {
-		&::after {
+		.placeholder {
 			transform: translate(0, -1.8rem);
 			opacity: 1;
 		}

@@ -1,5 +1,4 @@
 import { createRootRouteWithContext, Outlet, redirect } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import axios from 'axios';
 import Navigation from '../components/navigation';
 import { setUser } from '../redux/slices/userSlice';
@@ -46,7 +45,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 			<div className={styles.container}>
 				<Navigation />
 				<Outlet />
-				<TanStackRouterDevtools />
+				{/* <TanStackRouterDevtools /> */}
 			</div>
 		);
 	},
