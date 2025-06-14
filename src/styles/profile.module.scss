@@ -15,7 +15,7 @@
 		overflow-y: auto;
 
 		.settings_header {
-			width: 100%;
+			width: max-content;
 			text-align: left;
 			margin-bottom: 2rem;
 		}
@@ -52,8 +52,9 @@
 	}
 
 	.content {
+		width: 100%;
+		max-width: 40rem;
 		height: 100%;
-		grid-area: _content;
 		padding: $padding;
 		padding-right: $padding-edge;
 
@@ -69,6 +70,27 @@
 				.value {
 					font-size: 0.9rem;
 					font-weight: 500;
+				}
+			}
+		}
+
+		.update_btn_container {
+			width: 100%;
+			display: flex;
+			justify-content: flex-end;
+			margin-top: 1rem;
+
+			.update_btn {
+				width: 100%;
+				background-color: var(--btn-bg-color);
+				color: var(--btn-color);
+				padding: 0.5rem 1rem;
+				border-radius: 0.5rem;
+				transition: opacity 0.1s ease-out;
+				height: 2.5rem;
+
+				&:hover {
+					opacity: 0.6;
 				}
 			}
 		}

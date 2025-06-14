@@ -1,14 +1,16 @@
 import { createRef, useEffect, type FormEventHandler, type InputHTMLAttributes } from 'react';
-import styles from '../styles/auth/login_input.module.scss';
+import styles from '../styles/special_input.module.scss';
 
 function SpecialInput({
 	placeholder,
 	inputAttr,
 	value,
+	onChange,
 }: {
 	placeholder: string;
 	inputAttr: InputHTMLAttributes<any>;
 	value?: string;
+	onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }) {
 	const containerRef = createRef<HTMLDivElement>();
 	const inputRef = createRef<HTMLInputElement>();
@@ -34,7 +36,7 @@ function SpecialInput({
 
 	return (
 		<div ref={containerRef} className={styles.container}>
-			<input ref={inputRef} onInput={handle_form_change} {...inputAttr} />
+			<input onChange={onChange} ref={inputRef} onInput={handle_form_change} {...inputAttr} />
 			<div className={styles.placeholder}>{placeholder}</div>
 		</div>
 	);

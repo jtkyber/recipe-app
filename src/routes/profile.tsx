@@ -1,13 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AutocompleteInput from '../components/autocomplete_input';
+import Dropdown from '../components/search_filter/dropdown';
 import SpecialInput from '../components/special_input';
-import { useAppSelector } from '../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { setUser } from '../redux/slices/userSlice';
 import styles from '../styles/profile.module.scss';
 import type { AutocompleteInputName } from '../types/input';
 import type { IAutocompleteIngredient } from '../types/recipe';
 import type { SignUpSelectionType } from '../types/sign_up';
+import { dietValues, intoleranceValues } from '../utils/filter_values';
 
 export const Route = createFileRoute('/profile')({
 	component: RouteComponent,
@@ -24,13 +27,24 @@ function RouteComponent() {
 		'change_password',
 	];
 	const user = useAppSelector(state => state.user);
-	// const dispatch = useAppDispatch();
+	const dispatch = useAppDispatch();
 
-	// const [diet, setDiet] = useState<string>('');
-	// const [intolerances, setIntolerances] = useState<string[]>([]);
+	const [diet, setDiet] = useState<string>('');
+	const [intolerances, setIntolerances] = useState<string[]>([]);
 	const [excludedIngredients, setExcludedIngredients] = useState<string[]>([]);
+	const [username, setUsername] = useState<string>('');
+	// const [password, setPassword] = useState<string>('');
+	// const [confirmPassword, setConfirmPassword] = useState<string>('');
 	const [currentSetting, setCurrentSetting] = useState<Setting>();
-	const [editing, setEditing] = useState<boolean>(false);
+
+	useEffect(() => {
+		setDiet(user.diet);
+		setIntolerances(user.intolerances);
+		setExcludedIngredients(user.excludedIngredients);
+		setUsername(user.username);
+
+		setCurrentSetting('diet');
+	}, []);
 
 	async function get_autocomplete_ingredients(text: string): Promise<string[]> {
 		if (!text.length) return [];
@@ -70,21 +84,74 @@ function RouteComponent() {
 		if (id) setCurrentSetting(id);
 	};
 
-	const render_noneditable_contents = (): React.JSX.Element => {
+	const handle_diet_selection = (e?: React.FormEvent<HTMLDivElement>) => {
+		const target = e?.target as HTMLDivElement;
+		if (!target?.id) return;
+		setDiet(target.id);
+	};
+
+	const handle_intolerance_selection = (e?: React.FormEvent<HTMLDivElement>) => {
+		const target = e?.target as HTMLDivElement;
+		const selectionType = target?.dataset?.filter as SignUpSelectionType;
+		const input = target.querySelector('#checkbox') as HTMLDivElement;
+
+		if (!(target?.id && selectionType && input)) return;
+
+		if (input.dataset.checked === 'false') {
+			if (selectionType === 'intolerances') {
+				setIntolerances([...intolerances, target.id]);
+			}
+		} else {
+			if (selectionType === 'intolerances') {
+				const index = intolerances.indexOf(target.id);
+				const newIntoleranceList = intolerances.slice(0, index).concat(intolerances.slice(index + 1));
+				setIntolerances(newIntoleranceList);
+			}
+		}
+	};
+
+	const handle_username_change = (e?: React.ChangeEvent<HTMLInputElement>) => {
+		const target = e?.target;
+		if (!target?.value) return;
+
+		setUsername(target.value);
+	};
+
+	const render_contents = (): React.JSX.Element => {
 		switch (currentSetting) {
 			case 'diet':
-				return <></>;
+				return (
+					<Dropdown
+						key={'diet_dropdown'}
+						filterName='diet'
+						options={dietValues}
+						inputType='radio'
+						handle_input={handle_diet_selection}
+						selectedDropdownItems={[diet]}>
+						Diet
+					</Dropdown>
+				);
 			case 'intolerances':
-				return <></>;
+				return (
+					<Dropdown
+						key={'intolerance_dropdown'}
+						filterName='intolerances'
+						options={intoleranceValues}
+						inputType='checkbox'
+						handle_input={handle_intolerance_selection}
+						selectedDropdownItems={intolerances}>
+						Intolerances
+					</Dropdown>
+				);
 			case 'excluded_ingredients':
 				return (
-					<div className={styles.user_values}>
-						{user.excludedIngredients.map(ing => (
-							<h5 className={styles.value} key={ing}>
-								{ing}
-							</h5>
-						))}
-					</div>
+					<AutocompleteInput
+						name='excluded_ingredients'
+						handle_selected_ingredient_click={handle_selected_ingredient_click}
+						add_item={add_item}
+						get_autocomplete_list={get_autocomplete_ingredients}
+						selected={excludedIngredients}
+					/>
 				);
 			case 'change_username':
 				return (
@@ -94,6 +161,7 @@ function RouteComponent() {
 							placeholder={'username'}
 							inputAttr={{ type: 'text' }}
 							value={user.username}
+							onChange={handle_username_change}
 						/>
 					</div>
 				);
@@ -118,28 +186,20 @@ function RouteComponent() {
 		}
 	};
 
-	const render_editable_contents = (): React.JSX.Element => {
+	const update_profile = () => {
 		switch (currentSetting) {
 			case 'diet':
-				return <></>;
+				dispatch(setUser({ ...user, diet }));
+				break;
 			case 'intolerances':
-				return <></>;
+				dispatch(setUser({ ...user, intolerances }));
+				break;
 			case 'excluded_ingredients':
-				return (
-					<AutocompleteInput
-						name='excluded_ingredients'
-						handle_selected_ingredient_click={handle_selected_ingredient_click}
-						add_item={add_item}
-						get_autocomplete_list={get_autocomplete_ingredients}
-						selected={excludedIngredients}
-					/>
-				);
+				dispatch(setUser({ ...user, excludedIngredients }));
+				break;
 			case 'change_username':
-				return <></>;
-			case 'change_password':
-				return <></>;
-			default:
-				return <></>;
+				dispatch(setUser({ ...user, username }));
+				break;
 		}
 	};
 
@@ -161,11 +221,14 @@ function RouteComponent() {
 			</div>
 
 			<div className={styles.content}>
-				{editing ? (
-					render_editable_contents()
-				) : (
-					<div className={styles.non_editable}>{render_noneditable_contents()}</div>
-				)}
+				<div className={styles.non_editable}>
+					{render_contents()}
+					<div className={styles.update_btn_container}>
+						<button onClick={update_profile} className={styles.update_btn}>
+							Update Profile
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
