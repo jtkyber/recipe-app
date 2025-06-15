@@ -1,12 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import AutocompleteInput from '../components/autocomplete_input';
 import Dropdown from '../components/search_filter/dropdown';
 import SpecialInput from '../components/special_input';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setUser } from '../redux/slices/userSlice';
 import styles from '../styles/profile.module.scss';
+import type { IAxiosErrorData } from '../types/errors';
 import type { AutocompleteInputName } from '../types/input';
 import type { IAutocompleteIngredient } from '../types/recipe';
 import type { SignUpSelectionType } from '../types/sign_up';
@@ -29,12 +30,15 @@ function RouteComponent() {
 	const user = useAppSelector(state => state.user);
 	const dispatch = useAppDispatch();
 
+	const formRef = createRef<HTMLFormElement>();
+
 	const [diet, setDiet] = useState<string>('');
 	const [intolerances, setIntolerances] = useState<string[]>([]);
 	const [excludedIngredients, setExcludedIngredients] = useState<string[]>([]);
 	const [username, setUsername] = useState<string>('');
-	// const [password, setPassword] = useState<string>('');
-	// const [confirmPassword, setConfirmPassword] = useState<string>('');
+	const [currentPassword, setCurrentPassword] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
+	const [confirmPassword, setConfirmPassword] = useState<string>('');
 	const [currentSetting, setCurrentSetting] = useState<Setting>();
 
 	useEffect(() => {
@@ -110,11 +114,32 @@ function RouteComponent() {
 		}
 	};
 
-	const handle_username_change = (e?: React.ChangeEvent<HTMLInputElement>) => {
+	const handle_username_change = async (e?: React.ChangeEvent<HTMLInputElement>) => {
 		const target = e?.target;
 		if (!target?.value) return;
 
 		setUsername(target.value);
+	};
+
+	const handle_current_password_change = async (e?: React.ChangeEvent<HTMLInputElement>) => {
+		const target = e?.target;
+		if (!target?.value) return;
+
+		setCurrentPassword(target.value);
+	};
+
+	const handle_password_change = async (e?: React.ChangeEvent<HTMLInputElement>) => {
+		const target = e?.target;
+		if (!target?.value) return;
+
+		setPassword(target.value);
+	};
+
+	const handle_confirm_password_change = async (e?: React.ChangeEvent<HTMLInputElement>) => {
+		const target = e?.target;
+		if (!target?.value) return;
+
+		setConfirmPassword(target.value);
 	};
 
 	const render_contents = (): React.JSX.Element => {
@@ -172,12 +197,19 @@ function RouteComponent() {
 							key={'current_password'}
 							placeholder={'Current Password'}
 							inputAttr={{ type: 'password' }}
+							onChange={handle_current_password_change}
 						/>
-						<SpecialInput key={'password'} placeholder={'password'} inputAttr={{ type: 'password' }} />
+						<SpecialInput
+							key={'password'}
+							placeholder={'password'}
+							inputAttr={{ type: 'password' }}
+							onChange={handle_password_change}
+						/>
 						<SpecialInput
 							key={'confirm_password'}
 							placeholder={'confirm password'}
 							inputAttr={{ type: 'password' }}
+							onChange={handle_confirm_password_change}
 						/>
 					</div>
 				);
@@ -186,20 +218,82 @@ function RouteComponent() {
 		}
 	};
 
-	const update_profile = () => {
-		switch (currentSetting) {
-			case 'diet':
-				dispatch(setUser({ ...user, diet }));
-				break;
-			case 'intolerances':
-				dispatch(setUser({ ...user, intolerances }));
-				break;
-			case 'excluded_ingredients':
-				dispatch(setUser({ ...user, excludedIngredients }));
-				break;
-			case 'change_username':
-				dispatch(setUser({ ...user, username }));
-				break;
+	const update_profile = async (e: any) => {
+		e.preventDefault();
+		if (!formRef?.current) return;
+
+		try {
+			switch (currentSetting) {
+				case 'diet':
+					{
+						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateDiet`, {
+							id: user.id,
+							newDiet: diet,
+						});
+
+						const newDiet = await res.data;
+						if (newDiet === diet) dispatch(setUser({ ...user, diet }));
+					}
+					break;
+				case 'intolerances':
+					{
+						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateIntolerances`, {
+							id: user.id,
+							newIntolerances: intolerances,
+						});
+
+						const newIntolerances = await res.data;
+						if (newIntolerances === intolerances) dispatch(setUser({ ...user, intolerances }));
+					}
+					break;
+				case 'excluded_ingredients':
+					{
+						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateExcludedIngredients`, {
+							id: user.id,
+							newExcludedIngredients: excludedIngredients,
+						});
+
+						const newExcludedIngredients = await res.data;
+						if (newExcludedIngredients === excludedIngredients) {
+							dispatch(setUser({ ...user, excludedIngredients }));
+						}
+					}
+					break;
+				case 'change_username':
+					{
+						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateUsername`, {
+							id: user.id,
+							newUsername: username,
+						});
+
+						const newUsername = await res.data;
+						if (newUsername === username) dispatch(setUser({ ...user, username }));
+					}
+					break;
+				case 'change_password':
+					{
+						if (password !== confirmPassword) {
+							alert('Passwords must match');
+							return;
+						}
+
+						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updatePassword`, {
+							id: user.id,
+							password: currentPassword,
+							newPassword: password,
+						});
+
+						const data = await res.data;
+						if (!data) throw new Error('Unable to update password');
+						formRef.current.reset();
+					}
+					break;
+			}
+		} catch (error: any) {
+			const err: IAxiosErrorData = error.response?.data;
+
+			if (err) console.log(err.error);
+			else console.log(error);
 		}
 	};
 
@@ -221,14 +315,14 @@ function RouteComponent() {
 			</div>
 
 			<div className={styles.content}>
-				<div className={styles.non_editable}>
+				<form ref={formRef} className={styles.form}>
 					{render_contents()}
 					<div className={styles.update_btn_container}>
 						<button onClick={update_profile} className={styles.update_btn}>
 							Update Profile
 						</button>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	);
