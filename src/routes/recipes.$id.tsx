@@ -108,7 +108,7 @@ function RouteComponent() {
 		setShortSummary(data);
 	}
 
-	const recipeSaved = user.savedRecipes?.includes(recipe.id);
+	const recipeSaved = user?.savedRecipes?.includes(recipe.id);
 
 	const toggle_save_recipe_id_to_db = async (): Promise<
 		| {
@@ -142,6 +142,8 @@ function RouteComponent() {
 	};
 
 	const toggle_save_recipe = async () => {
+		if (!user?.id) return;
+
 		const savedRecipeIDs = await toggle_save_recipe_id_to_db();
 		if (savedRecipeIDs === undefined) return;
 

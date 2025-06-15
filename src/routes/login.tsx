@@ -9,7 +9,7 @@ export const Route = createFileRoute('/login')({
 });
 
 function RouteComponent() {
-	const [action, setAction] = useState<'login' | 'signup'>('signup');
+	const [action, setAction] = useState<'login' | 'signup'>('login');
 
 	return (
 		<div className={styles.container}>

@@ -8,6 +8,15 @@ export const Route = createFileRoute('/search')({
 });
 
 function RouteComponent() {
+	// const [filters, setFilters] = useState<ISearchFilterState>({
+	// 	query: '',
+	// 	cuisine: [],
+	// 	ingredients: [],
+	// 	type: [],
+	// 	instructionsRequired: true,
+	// 	maxReadyTime: 60,
+	// });
+
 	return (
 		<div className={styles.container}>
 			<SearchFilters />

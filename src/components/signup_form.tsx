@@ -59,13 +59,16 @@ function SignupForm() {
 			if (data.id > 0) navigate({ to: '/search' });
 		} catch (error: any) {
 			const err: IAxiosErrorData = error.response?.data;
-			switch (err?.code) {
-				case '23505':
-					alert('User already exists');
-					break;
-				default:
-					console.log(err);
-			}
+
+			if (err) console.log(err.error);
+			else console.log(error);
+			// switch (err?.code) {
+			// 	case '23505':
+			// 		alert('User already exists');
+			// 		break;
+			// 	default:
+			// 		console.log(err);
+			// }
 		}
 	}
 
