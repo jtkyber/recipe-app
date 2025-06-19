@@ -70,6 +70,7 @@ function RouteComponent() {
 	const dispatch = useAppDispatch();
 	const [servingSize, setServingSize] = useState<number>(recipe.servings);
 	const [shortSummary, setShortSummary] = useState<string>('');
+	const [saveInProgress, setSaveInProgress] = useState<boolean>(false);
 
 	const hasRun = useRef<boolean>(false);
 
@@ -144,12 +145,16 @@ function RouteComponent() {
 	const toggle_save_recipe = async () => {
 		if (!user?.id) return;
 
+		setSaveInProgress(true);
+
 		const savedRecipeIDs = await toggle_save_recipe_id_to_db();
 		if (savedRecipeIDs === undefined) return;
 
 		await toggle_save_recipe_to_indexedDB(savedRecipeIDs.wasAdded);
 
 		dispatch(setSavedRecipes(savedRecipeIDs.payload));
+
+		setSaveInProgress(false);
 	};
 
 	return (
@@ -184,6 +189,7 @@ function RouteComponent() {
 
 					<div className={styles.save_container}>
 						<button
+							disabled={saveInProgress}
 							onClick={toggle_save_recipe}
 							className={`${styles.save_button} ${recipeSaved ? styles.is_saved : null}`}>
 							<h3 className={styles.save_text}>{recipeSaved ? 'Saved' : 'Save'}</h3>

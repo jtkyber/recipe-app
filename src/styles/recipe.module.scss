@@ -106,12 +106,17 @@
 					background-color: inherit;
 					display: flex;
 					flex-flow: row nowrap;
+					justify-content: flex-start;
 					align-items: center;
-					gap: 0.3rem;
+					gap: 0.5rem;
 					padding: 0.5rem 0.8rem;
-					// border: 1px solid #c6302c;
 					background-color: var(--heart-color);
 					border-radius: 0.3rem;
+
+					&.is_saved:disabled,
+					&:disabled {
+						filter: brightness(0.8);
+					}
 
 					&:hover svg path {
 						fill: white;
@@ -130,7 +135,7 @@
 					}
 
 					svg {
-						width: 1.3rem;
+						width: 1.2rem;
 						height: auto;
 
 						path {

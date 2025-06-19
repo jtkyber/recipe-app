@@ -1,45 +1,46 @@
 .container {
-    width: 100%;
-    height: 2.5rem;
-    border: 1px solid var(--input-border-color);
-    border-radius: 1rem;
-    padding: 0 0.8rem;
-    display: flex;
-    align-items: center;
+	width: 100%;
+	height: 2.5rem;
+	border: 1px solid var(--input-border-color);
+	border-radius: 0.5rem;
+	padding: 0 0.5rem;
+	display: flex;
+	align-items: center;
 
-    .search_input {
-        width: 100%;
-        height: 100%;
-        background-color: transparent;
-        border: none;
-        color: black;
-        font-size: medium;
+	.search_input {
+		width: 100%;
+		height: 100%;
+		background-color: transparent;
+		border: none;
+		color: black;
+		font-size: medium;
 
-        &::placeholder {
-            color: var(--placeholder-color);
-        }
+		&::placeholder {
+			color: var(--placeholder-color);
+		}
 
-        &:focus {
-            outline: none;
-        }
-    }
+		&:focus {
+			outline: none;
+		}
+	}
 
-    .search_button {
-        flex: none;
-        width: 1.8rem;
-        height: 1.8rem;
-        border: 2px solid var(--btn-bg-color);
-        border-radius: 50%;
-        background-color: var(--btn-bg-color);
-        color: var(--btn-color);
-        font-size: larger;
-        font-weight: 600;
-        padding-bottom: 0.12rem;
+	.search_button {
+		flex: none;
+		width: 1.8rem;
+		height: 1.8rem;
+		border: 2px solid var(--btn-bg-color);
+		border-radius: 50%;
+		background-color: var(--btn-bg-color);
+		color: var(--btn-color);
+		font-size: larger;
+		font-weight: 600;
+		padding-bottom: 0.12rem;
+		// margin-right: 0.5rem;
 
-        &:hover {
-            background-color: var(--btn-color);
-            color: var(--btn-bg-color);
-            border-color: var(--btn-bg-color);
-        }
-    }
+		&:hover {
+			background-color: var(--btn-color);
+			color: var(--btn-bg-color);
+			border-color: var(--btn-bg-color);
+		}
+	}
 }

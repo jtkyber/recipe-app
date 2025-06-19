@@ -5,6 +5,7 @@
 	height: max-content;
 	display: flex;
 	flex-flow: column nowrap;
+	cursor: pointer;
 
 	* {
 		user-select: none;
@@ -15,8 +16,13 @@
 	}
 
 	&[data-is-solo='true'] {
-		&:active:not(:has(.checkbox)) {
+		&:not(:has(.checkbox)) {
 			pointer-events: none;
+			cursor: crosshair;
+
+			.optionContainer:hover {
+				background-color: inherit;
+			}
 		}
 		.label {
 			width: 100%;
@@ -34,7 +40,6 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: var(--dropdown-section-padding);
-		cursor: pointer;
 
 		&:active {
 			pointer-events: none;
