@@ -1,16 +1,35 @@
-import { Link, useRouterState } from '@tanstack/react-router';
-import heartImg from '../assets/heart.png';
-import profileImg from '../assets/profile.png';
-import { useAppSelector } from '../redux/hooks';
-import styles from '../styles/navigation.module.scss';
-import type { IUser } from '../types/user';
-import SearchSVG from './svg/searchSVG';
+import { Link, useRouter, useRouterState } from '@tanstack/react-router';
+import heartImg from '../../assets/heart.png';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { signOutUser } from '../../redux/slices/userSlice';
+import styles from '../../styles/nav/navigation.module.scss';
+import type { IUser } from '../../types/user';
+import { setCookie } from '../../utils/cookies';
+import SearchSVG from '../svg/searchSVG';
+import NavDropdown from './nav_dropdown';
 
 function Navigation() {
 	const user: IUser = useAppSelector(state => state.user);
+	const dispatch = useAppDispatch();
 	const routerState = useRouterState();
+	const router = useRouter();
 
 	const routeId = routerState.matches[routerState.matches.length - 1]?.routeId;
+
+	const sign_user_out = () => {
+		dispatch(signOutUser());
+		setCookie('id', '', -1);
+		router.navigate({ to: '/login' });
+	};
+
+	const render_profile_dropdown = () => (
+		<NavDropdown iconName='profile'>
+			<Link to='/profile'>
+				<h5>Account Settings</h5>
+			</Link>
+			<h5 onClick={sign_user_out}>Sign Out</h5>
+		</NavDropdown>
+	);
 
 	return (
 		<nav className={styles.container}>
@@ -23,13 +42,14 @@ function Navigation() {
 				{routeId === '/' ? (
 					user.id ? (
 						<>
+							<Link to='/search'>
+								<SearchSVG />
+							</Link>
 							<Link to='/saved'>
 								<img className={styles.heartImg} src={heartImg} alt='Heart Image' />
 							</Link>
 
-							<Link to='/profile'>
-								<img className={styles.profileImg} src={profileImg} alt='Profile Image' />
-							</Link>
+							{render_profile_dropdown()}
 						</>
 					) : (
 						<Link to='/login'>
@@ -42,9 +62,7 @@ function Navigation() {
 							<img className={styles.heartImg} src={heartImg} alt='Heart Image' />
 						</Link>
 
-						<Link to='/profile'>
-							<img className={styles.profileImg} src={profileImg} alt='Profile Image' />
-						</Link>
+						{render_profile_dropdown()}
 					</>
 				) : routeId === '/recipes/$id' ? (
 					user.id ? (
@@ -53,9 +71,7 @@ function Navigation() {
 								<img className={styles.heartImg} src={heartImg} alt='Heart Image' />
 							</Link>
 
-							<Link to='/profile'>
-								<img className={styles.profileImg} src={profileImg} alt='Profile Image' />
-							</Link>
+							{render_profile_dropdown()}
 						</>
 					) : (
 						<Link to='/login'>
@@ -67,9 +83,7 @@ function Navigation() {
 						<Link to='/search'>
 							<SearchSVG />
 						</Link>
-						<Link to='/profile'>
-							<img className={styles.profileImg} src={profileImg} alt='Profile Image' />
-						</Link>
+						{render_profile_dropdown()}
 					</>
 				) : routeId === '/profile' ? (
 					<>

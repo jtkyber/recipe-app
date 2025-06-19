@@ -298,7 +298,7 @@ function RouteComponent() {
 	};
 
 	return (
-		<div className={styles.scrollable_container}>
+		<div className={styles.container}>
 			<div className={styles.settings_container}>
 				<h3 className={styles.settings_header}>Account Settings</h3>
 				<ul className={styles.setting_list}>

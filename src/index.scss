@@ -14,6 +14,8 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
+	--nav-height: 4rem;
+
 	--bg-color-main: white;
 	--input-border-color: rgb(100, 100, 100);
 	--placeholder-color: rgb(130, 130, 130);
@@ -43,8 +45,10 @@
 }
 
 a {
-	font-weight: 500;
-	color: #646cff;
+	// font-weight: 500;
+	font-weight: inherit;
+	// color: #646cff;
+	color: inherit;
 	text-decoration: inherit;
 }
 // a:hover {

@@ -26,9 +26,10 @@ export const userSlice = createSlice({
 		setSavedRecipes: (state, action: PayloadAction<number[]>) => {
 			state.savedRecipes = action.payload;
 		},
+		signOutUser: () => initialState,
 	},
 });
 
-export const { setUser, setSavedRecipes } = userSlice.actions;
+export const { setUser, setSavedRecipes, signOutUser } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 export default userSlice.reducer;

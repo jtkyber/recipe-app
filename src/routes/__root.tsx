@@ -1,6 +1,6 @@
 import { createRootRouteWithContext, Outlet, redirect } from '@tanstack/react-router';
 import axios from 'axios';
-import Navigation from '../components/navigation';
+import Navigation from '../components//nav/navigation';
 import { setUser } from '../redux/slices/userSlice';
 import { router, type RouterContext } from '../router';
 import styles from '../styles/layout.module.scss';

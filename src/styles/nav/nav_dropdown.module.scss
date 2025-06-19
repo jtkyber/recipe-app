@@ -1,0 +1,48 @@
+.icon_container {
+	position: relative;
+	width: max-content;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+
+	svg {
+		width: 1.5rem;
+		height: auto;
+		pointer-events: none;
+	}
+}
+
+.contents {
+	display: none;
+	position: absolute;
+	width: 10rem;
+	height: max-content;
+	top: 3.5rem;
+	user-select: none;
+	flex-flow: column nowrap;
+	background-color: var(--bg-color-main);
+	padding: 0.5rem;
+	border: var(--section-border-style);
+	border-radius: 1rem;
+	box-shadow: 0.15rem 0.15rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+
+	.setting_text {
+		cursor: pointer;
+		padding: 0.5rem 0.5rem;
+		border-radius: 0.5rem;
+
+		h5 {
+			font-weight: 600;
+			opacity: 0.6;
+		}
+
+		&:hover {
+			background-color: rgb(240, 240, 240);
+
+			h5 {
+				opacity: 1;
+			}
+		}
+	}
+}
