@@ -35,7 +35,9 @@ function SearchResultContainer() {
 
 		let startingNum = filters.page >= HALF_MAX_BTN_COUNT ? filters.page - HALF_MAX_BTN_COUNT + 1 : 0;
 
-		if (totalPages >= MAX_BTN_COUNT && filters.page >= totalPages - HALF_MAX_BTN_COUNT) {
+		if (totalPages < MAX_BTN_COUNT) {
+			setShowNextBtn(false);
+		} else if (totalPages >= MAX_BTN_COUNT && filters.page >= totalPages - HALF_MAX_BTN_COUNT) {
 			startingNum = totalPages - MAX_BTN_COUNT;
 			setShowNextBtn(false);
 		} else setShowNextBtn(true);

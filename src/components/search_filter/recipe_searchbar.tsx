@@ -38,7 +38,7 @@ function RecipeSearchbar() {
 		return data;
 	};
 
-	const { fetchStatus } = useQuery({
+	const { fetchStatus, refetch } = useQuery({
 		queryKey: ['recipes', filters.page],
 		queryFn: get_recipes,
 		enabled: fetchAllowed,
@@ -48,6 +48,11 @@ function RecipeSearchbar() {
 	const handle_search_input: (e: ChangeEvent) => void = e => {
 		const target = e.target as HTMLInputElement;
 		dispatch(setQuery(target.value));
+	};
+
+	const handle_search_btn_click = () => {
+		if (fetchAllowed) refetch();
+		else setFetchAllowed(true);
 	};
 
 	return (
@@ -60,7 +65,7 @@ function RecipeSearchbar() {
 			/>
 			<button
 				disabled={fetchStatus !== 'idle'}
-				onClick={() => setFetchAllowed(true)}
+				onClick={handle_search_btn_click}
 				className={styles.search_button}>
 				&#x2192;
 			</button>
