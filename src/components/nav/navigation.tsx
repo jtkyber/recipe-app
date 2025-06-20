@@ -93,6 +93,7 @@ function Navigation() {
 						<Link to='/saved'>
 							<img className={styles.heartImg} src={heartImg} alt='Heart Image' />
 						</Link>
+						{render_profile_dropdown()}
 					</>
 				) : routeId === '/login' ? null : null}
 			</div>

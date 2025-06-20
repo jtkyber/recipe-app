@@ -26,13 +26,14 @@
 	border: var(--section-border-style);
 	border-radius: 1rem;
 	box-shadow: 0.15rem 0.15rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+	z-index: 1;
 
 	.setting_text {
 		cursor: pointer;
-		padding: 0.5rem 0.5rem;
 		border-radius: 0.5rem;
 
 		h5 {
+			padding: 0.5rem 0.5rem;
 			font-weight: 600;
 			opacity: 0.6;
 		}

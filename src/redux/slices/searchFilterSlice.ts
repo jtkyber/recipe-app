@@ -9,6 +9,8 @@ interface ISearchFilterState {
 	type: string[];
 	instructionsRequired: boolean;
 	maxReadyTime: number;
+	count: number;
+	page: number;
 }
 
 const initialState: ISearchFilterState = {
@@ -18,6 +20,8 @@ const initialState: ISearchFilterState = {
 	type: [],
 	instructionsRequired: true,
 	maxReadyTime: 60,
+	count: 10,
+	page: 0,
 };
 
 export const searchFilterSlice = createSlice({
@@ -54,6 +58,9 @@ export const searchFilterSlice = createSlice({
 		setMaxReadyTime: (state, action: PayloadAction<number>) => {
 			state.maxReadyTime = action.payload;
 		},
+		setPage: (state, action: PayloadAction<number>) => {
+			state.page = action.payload;
+		},
 	},
 });
 
@@ -67,6 +74,7 @@ export const {
 	removeType,
 	toggleInstructionsRequired,
 	setMaxReadyTime,
+	setPage,
 } = searchFilterSlice.actions;
 export const selectSearchFilter = (state: RootState) => state.searchFilter;
 export type FilterProperty = 'cuisine' | 'ingredients' | 'type' | 'instructionsRequired' | 'maxReadyTime';

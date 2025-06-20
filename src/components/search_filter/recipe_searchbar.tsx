@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type ChangeEvent } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setQuery } from '../../redux/slices/searchFilterSlice';
 import styles from '../../styles/search_filter/recipe_searchbar.module.scss';
@@ -10,6 +10,8 @@ function RecipeSearchbar() {
 	const filters = useAppSelector(state => state.searchFilter);
 	const user = useAppSelector(state => state.user);
 	const dispatch = useAppDispatch();
+
+	const [fetchAllowed, setFetchAllowed] = useState<boolean>(false);
 
 	const get_recipes = async () => {
 		const res = await axios.get('http://localhost:3000/getRecipes?', {
@@ -24,7 +26,8 @@ function RecipeSearchbar() {
 				mealType: filters.type.join(','),
 				instructionsRequired: filters.instructionsRequired.toString(),
 				maxReadyTime: filters.maxReadyTime.toString(),
-				number: '10',
+				number: filters.count.toString(),
+				page: filters.page.toString(),
 			},
 		});
 		if (!res) throw new Error('Unable to fetch recipes');
@@ -35,10 +38,11 @@ function RecipeSearchbar() {
 		return data;
 	};
 
-	const { refetch } = useQuery({
-		queryKey: ['recipes'],
+	const { fetchStatus } = useQuery({
+		queryKey: ['recipes', filters.page],
 		queryFn: get_recipes,
-		enabled: false,
+		enabled: fetchAllowed,
+		placeholderData: keepPreviousData,
 	});
 
 	const handle_search_input: (e: ChangeEvent) => void = e => {
@@ -54,7 +58,10 @@ function RecipeSearchbar() {
 				type='text'
 				placeholder='Search recipes...'
 			/>
-			<button onClick={() => refetch()} className={styles.search_button}>
+			<button
+				disabled={fetchStatus !== 'idle'}
+				onClick={() => setFetchAllowed(true)}
+				className={styles.search_button}>
 				&#x2192;
 			</button>
 		</div>
