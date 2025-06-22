@@ -18,7 +18,7 @@ function SearchResultContainer() {
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	const { data, fetchStatus } = useQuery<ISearchResult, Error>({
-		queryKey: ['recipes', filters.page],
+		queryKey: ['recipes', filters],
 		queryFn: () => {
 			throw new Error('This queryFn should not be called');
 		},
@@ -65,6 +65,13 @@ function SearchResultContainer() {
 	return (
 		<div ref={containerRef} className={styles.container}>
 			<div className={styles.options}></div>
+			{data?.totalResults ? (
+				<div className={styles.total_results_text_container}>
+					<h4 className={styles.total_results_text}>
+						<span className={styles.result_count}>{data?.totalResults}</span> results
+					</h4>
+				</div>
+			) : null}
 			<div className={styles.results}>
 				{fetchStatus === 'idle'
 					? data?.results.map((recipe: IRecipe) => {

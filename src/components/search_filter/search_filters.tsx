@@ -205,7 +205,8 @@ function SearchFilters() {
 						inputType='number'
 						handle_input={handle_input}
 						inputAttributes={{ min: 0 }}
-						isSolo={true}>
+						isSolo={true}
+						numStep={5}>
 						<>
 							Max Ready Time<span style={{ fontWeight: 200, fontSize: '0.9em' }}>(mins)</span>
 						</>
