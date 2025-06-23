@@ -25,7 +25,10 @@ function Navigation() {
 	const render_profile_dropdown = () => (
 		<NavDropdown iconName='profile'>
 			<Link to='/profile'>
-				<h5>Account Settings</h5>
+				<div className={styles.profile_container}>
+					<h4 className={styles.username}>{user.username}</h4>
+					<h5 className={styles.edit_profile_text}>Edit Profile</h5>
+				</div>
 			</Link>
 			<h5 onClick={sign_user_out}>Sign Out</h5>
 		</NavDropdown>

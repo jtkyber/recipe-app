@@ -16,7 +16,7 @@
 .contents {
 	display: none;
 	position: absolute;
-	width: 10rem;
+	width: 12rem;
 	height: max-content;
 	top: 3.5rem;
 	user-select: none;
@@ -24,7 +24,7 @@
 	background-color: var(--bg-color-main);
 	padding: 0.5rem;
 	border: var(--section-border-style);
-	border-radius: 1rem;
+	border-radius: 0.5rem;
 	box-shadow: 0.15rem 0.15rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 	z-index: 1;
 

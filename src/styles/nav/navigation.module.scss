@@ -32,5 +32,24 @@
 				pointer-events: none;
 			}
 		}
+
+		.profile_container {
+			width: 100%;
+			display: flex;
+			flex-flow: column nowrap;
+			align-items: center;
+			padding-bottom: 0.5rem;
+			border-bottom: var(--section-border-style);
+
+			.username,
+			.edit_profile_text {
+				width: max-content;
+				padding: 0;
+			}
+
+			.edit_profile_text {
+				font-weight: 400;
+			}
+		}
 	}
 }

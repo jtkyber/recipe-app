@@ -70,6 +70,7 @@ export const searchFilterSlice = createSlice({
 		setPage: (state, action: PayloadAction<number>) => {
 			state.page = action.payload;
 		},
+		resetFilters: () => initialState,
 	},
 });
 
@@ -84,6 +85,7 @@ export const {
 	toggleInstructionsRequired,
 	setMaxReadyTime,
 	setPage,
+	resetFilters,
 } = searchFilterSlice.actions;
 export const selectSearchFilter = (state: RootState) => state.searchFilter;
 export type FilterProperty = 'cuisine' | 'ingredients' | 'type' | 'instructionsRequired' | 'maxReadyTime';

@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setQuery } from '../../redux/slices/searchFilterSlice';
 import styles from '../../styles/search_filter/recipe_searchbar.module.scss';
@@ -10,8 +10,6 @@ function RecipeSearchbar() {
 	const filters = useAppSelector(state => state.searchFilter);
 	const user = useAppSelector(state => state.user);
 	const dispatch = useAppDispatch();
-
-	const [fetchAllowed, setFetchAllowed] = useState<boolean>(false);
 
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -46,15 +44,15 @@ function RecipeSearchbar() {
 	const { fetchStatus } = useQuery({
 		queryKey: ['recipes', filters],
 		queryFn: get_recipes,
-		enabled: fetchAllowed,
+		enabled: true,
 		placeholderData: keepPreviousData,
 	});
 
 	const handle_search_btn_click = () => {
 		if (!inputRef?.current) return;
 
-		dispatch(setQuery(inputRef.current.value));
-		setFetchAllowed(true);
+		dispatch(setQuery(inputRef.current.value.toLowerCase().trim()));
+		inputRef.current.value = '';
 	};
 
 	return (

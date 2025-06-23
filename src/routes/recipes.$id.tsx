@@ -256,6 +256,16 @@ function RouteComponent() {
 							);
 						})}
 					</div>
+					{recipe?.sourceUrl ? (
+						<div className={styles.src_container}>
+							<h4 className={styles.src_text}>
+								{'Source: '}
+								<a href={recipe.sourceUrl} target='_blank' className={styles.src_link}>
+									{recipe.sourceName}
+								</a>
+							</h4>
+						</div>
+					) : null}
 				</div>
 			</div>
 		</div>

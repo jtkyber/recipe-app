@@ -1,7 +1,10 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoginForm from '../components/login_form';
 import SignupForm from '../components/signup_form';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { resetFilters } from '../redux/slices/searchFilterSlice';
 import styles from '../styles/auth/login.module.scss';
 
 export const Route = createFileRoute('/login')({
@@ -9,7 +12,16 @@ export const Route = createFileRoute('/login')({
 });
 
 function RouteComponent() {
+	const dispatch = useAppDispatch();
+	const user = useAppSelector(state => state.user);
 	const [action, setAction] = useState<'login' | 'signup'>('login');
+
+	const queryClient = useQueryClient();
+
+	useEffect(() => {
+		dispatch(resetFilters());
+		queryClient.resetQueries();
+	}, [user.id]);
 
 	return (
 		<div className={styles.container}>

@@ -253,6 +253,23 @@
 					}
 				}
 			}
+
+			.src_container {
+				width: 100%;
+				margin-top: 4rem;
+				display: flex;
+				justify-content: center;
+
+				.src_text {
+					font-size: 0.9rem;
+					font-weight: 600;
+
+					.src_link {
+						color: #0000ff;
+						text-decoration: underline;
+					}
+				}
+			}
 		}
 	}
 
