@@ -11,6 +11,7 @@ import {
 	removeIngredient,
 	removeType,
 	setMaxReadyTime,
+	toggleIgnoreProfileFilters,
 	toggleInstructionsRequired,
 	type FilterProperty,
 } from '../../redux/slices/searchFilterSlice';
@@ -31,8 +32,13 @@ function SearchFilters() {
 
 	const [activeTextbox, setActiveTextbox] = useState<HTMLInputElement | null>(null);
 	const [autocompleteText, setAutocompleteText] = useState<string>('');
+
 	const debouncedAutocompleteText = useDebouncedCallback((value: any) => {
 		setAutocompleteText(value);
+	}, 500);
+
+	const debouncedMaxReadyTimeText = useDebouncedCallback((value: any) => {
+		dispatch(setMaxReadyTime(parseInt(value)));
 	}, 500);
 
 	const { refetch, data: autocompleteOptions } = useQuery({
@@ -127,6 +133,9 @@ function SearchFilters() {
 			case 'instructionsRequired':
 				dispatch(toggleInstructionsRequired());
 				break;
+			case 'ignoreProfileFilters':
+				dispatch(toggleIgnoreProfileFilters());
+				break;
 		}
 	};
 
@@ -151,7 +160,7 @@ function SearchFilters() {
 
 		switch (filterName) {
 			case 'maxReadyTime':
-				dispatch(setMaxReadyTime(parseInt(value)));
+				debouncedMaxReadyTimeText(value);
 				break;
 			case 'ingredients':
 				debouncedAutocompleteText(value);
@@ -219,6 +228,15 @@ function SearchFilters() {
 						isSolo={true}
 						selectedDropdownItems={[filters.instructionsRequired.toString()]}>
 						Instructions Required
+					</FilterOption>
+					<FilterOption
+						id='true'
+						filter='ignoreProfileFilters'
+						inputType='checkbox'
+						handle_input={handle_input}
+						isSolo={true}
+						selectedDropdownItems={[filters.ignoreProfileFilters.toString()]}>
+						Ignore Profile Filters
 					</FilterOption>
 				</div>
 			</div>

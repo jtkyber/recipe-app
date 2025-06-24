@@ -76,7 +76,7 @@ export interface IRecipe {
 	vegan: boolean;
 	vegetarian: boolean;
 	veryHealthy: boolean;
-	veryPolular?: boolean;
+	veryPopular: boolean;
 	weightWatcherSmartPoints: number;
 }
 export interface ISearchResult {

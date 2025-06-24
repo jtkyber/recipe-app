@@ -11,6 +11,7 @@ interface ISearchFilterState {
 	maxReadyTime: number;
 	count: number;
 	page: number;
+	ignoreProfileFilters: boolean;
 }
 
 const initialState: ISearchFilterState = {
@@ -22,6 +23,7 @@ const initialState: ISearchFilterState = {
 	maxReadyTime: 60,
 	count: 10,
 	page: 0,
+	ignoreProfileFilters: false,
 };
 
 export const searchFilterSlice = createSlice({
@@ -70,6 +72,9 @@ export const searchFilterSlice = createSlice({
 		setPage: (state, action: PayloadAction<number>) => {
 			state.page = action.payload;
 		},
+		toggleIgnoreProfileFilters: state => {
+			state.ignoreProfileFilters = !state.ignoreProfileFilters;
+		},
 		resetFilters: () => initialState,
 	},
 });
@@ -86,7 +91,14 @@ export const {
 	setMaxReadyTime,
 	setPage,
 	resetFilters,
+	toggleIgnoreProfileFilters,
 } = searchFilterSlice.actions;
 export const selectSearchFilter = (state: RootState) => state.searchFilter;
-export type FilterProperty = 'cuisine' | 'ingredients' | 'type' | 'instructionsRequired' | 'maxReadyTime';
+export type FilterProperty =
+	| 'cuisine'
+	| 'ingredients'
+	| 'type'
+	| 'instructionsRequired'
+	| 'maxReadyTime'
+	| 'ignoreProfileFilters';
 export default searchFilterSlice.reducer;

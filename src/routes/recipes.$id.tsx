@@ -1,5 +1,6 @@
 import { createFileRoute, useLoaderData } from '@tanstack/react-router';
 import axios from 'axios';
+import parse from 'html-react-parser';
 import { useEffect, useRef, useState, type ChangeEventHandler } from 'react';
 import Stars from '../components/stars';
 import ClockSVG from '../components/svg/clock';
@@ -174,6 +175,7 @@ function RouteComponent() {
 					{shortSummary.length ? (
 						<p className={styles.summary}>{shortSummary}</p>
 					) : (
+						// <p className={styles.summary}>{parse(recipe.summary)}</p>
 						<div className={styles.summary_skeleton}>
 							<div className={styles.piece}></div>
 							<div className={styles.piece}></div>

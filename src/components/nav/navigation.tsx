@@ -70,6 +70,9 @@ function Navigation() {
 				) : routeId === '/recipes/$id' ? (
 					user.id ? (
 						<>
+							<Link to='/search'>
+								<SearchSVG />
+							</Link>
 							<Link to='/saved'>
 								<img className={styles.heartImg} src={heartImg} alt='Heart Image' />
 							</Link>

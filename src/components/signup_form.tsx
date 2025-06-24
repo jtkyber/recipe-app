@@ -146,7 +146,7 @@ function SignupForm() {
 		setExcludedIngredients(newIngredientList);
 	};
 
-	const check_password_match: React.ChangeEventHandler = () => {
+	const check_password_match = () => {
 		const password = formRef.current?.querySelector('#password') as HTMLInputElement;
 		const confirmPassword = formRef.current?.querySelector('#confirmPassword') as HTMLInputElement;
 		const inputFocused = document.activeElement === password || document.activeElement === confirmPassword;

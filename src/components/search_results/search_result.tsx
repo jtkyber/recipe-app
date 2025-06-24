@@ -3,11 +3,12 @@ import styles from '../../styles/search_results/search_result.module.scss';
 import type { IRecipe } from '../../types/recipe';
 import Stars from '../stars';
 import ClockSVG from '../svg/clock';
+import PopularityBadge from '../svg/popularityBadgeSVG';
 
 function SearchResult({ recipe }: { recipe: IRecipe | null }) {
 	const router = useRouter();
 
-	const { title, image, spoonacularScore, readyInMinutes, id } = recipe || {
+	const { title, image, spoonacularScore, readyInMinutes, id, veryPopular } = recipe || {
 		title: '',
 		image: '',
 		spoonacularScore: 0,
@@ -27,6 +28,11 @@ function SearchResult({ recipe }: { recipe: IRecipe | null }) {
 
 	return (
 		<div onClick={handle_recipe_click} className={styles.container}>
+			{veryPopular ? (
+				<div className={styles.popularity_badge_container}>
+					<PopularityBadge />
+				</div>
+			) : null}
 			<h3 className={styles.title}>{title}</h3>
 			<img className={styles.meal_image} src={image} alt='Meal Image' />
 			<div className={styles.bottomSection}>

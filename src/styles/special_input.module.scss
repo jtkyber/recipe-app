@@ -1,29 +1,3 @@
-input {
-	width: 100%;
-	height: 2.5rem;
-	border-radius: var(--dropdown-border-radius);
-	padding-left: 0.5rem;
-	border-color: lightgray;
-}
-
-.password input:valid {
-	&.matches {
-		border-color: limegreen;
-	}
-	&.noMatch {
-		border-color: red;
-	}
-}
-
-.confirm_password input:valid {
-	&.matches {
-		border-color: limegreen;
-	}
-	&.noMatch {
-		border-color: red;
-	}
-}
-
 .container {
 	position: relative;
 	width: 100%;
@@ -51,6 +25,23 @@ input {
 		.placeholder {
 			transform: translate(0, -1.8rem);
 			opacity: 1;
+		}
+	}
+
+	input {
+		width: 100%;
+		height: 2.5rem;
+		border-radius: var(--dropdown-border-radius);
+		padding-left: 0.5rem;
+		border-color: lightgray;
+
+		&:valid {
+			&.matches {
+				border-color: limegreen;
+			}
+			&.noMatch {
+				border-color: red;
+			}
 		}
 	}
 }

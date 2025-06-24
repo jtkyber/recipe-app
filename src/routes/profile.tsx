@@ -7,6 +7,7 @@ import SpecialInput from '../components/special_input';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setUser } from '../redux/slices/userSlice';
 import styles from '../styles/profile.module.scss';
+import inputStyles from '../styles/special_input.module.scss';
 import type { IAxiosErrorData } from '../types/errors';
 import type { AutocompleteInputName } from '../types/input';
 import type { IAutocompleteIngredient } from '../types/recipe';
@@ -121,6 +122,34 @@ function RouteComponent() {
 		setUsername(target.value);
 	};
 
+	const check_password_match = () => {
+		const password = formRef.current?.querySelector('#password') as HTMLInputElement;
+		const confirmPassword = formRef.current?.querySelector('#confirmPassword') as HTMLInputElement;
+		const inputFocused = document.activeElement === password || document.activeElement === confirmPassword;
+
+		const toggleClass = (className: string, action: 'add' | 'remove') => {
+			switch (action) {
+				case 'add':
+					password.classList.add(inputStyles[className]);
+					confirmPassword.classList.add(inputStyles[className]);
+					break;
+				case 'remove':
+					password.classList.remove(inputStyles[className]);
+					confirmPassword.classList.remove(inputStyles[className]);
+					break;
+			}
+		};
+
+		if (password.value === confirmPassword.value) {
+			if (inputFocused) toggleClass('matches', 'add');
+			else toggleClass('matches', 'remove');
+			toggleClass('noMatch', 'remove');
+		} else {
+			toggleClass('noMatch', 'add');
+			toggleClass('matches', 'remove');
+		}
+	};
+
 	const handle_current_password_change = async (e?: React.ChangeEvent<HTMLInputElement>) => {
 		const target = e?.target;
 		if (!target?.value) return;
@@ -132,6 +161,7 @@ function RouteComponent() {
 		const target = e?.target;
 		if (!target?.value) return;
 
+		check_password_match();
 		setPassword(target.value);
 	};
 
@@ -139,6 +169,7 @@ function RouteComponent() {
 		const target = e?.target;
 		if (!target?.value) return;
 
+		check_password_match();
 		setConfirmPassword(target.value);
 	};
 
@@ -196,20 +227,32 @@ function RouteComponent() {
 						<SpecialInput
 							key={'current_password'}
 							placeholder={'Current Password'}
-							inputAttr={{ type: 'password' }}
+							inputAttr={{ type: 'password', required: true }}
 							onChange={handle_current_password_change}
 						/>
 						<SpecialInput
 							key={'password'}
 							placeholder={'password'}
-							inputAttr={{ type: 'password' }}
-							onChange={handle_password_change}
+							inputAttr={{
+								type: 'password',
+								onFocus: check_password_match,
+								onBlur: check_password_match,
+								onChange: handle_password_change,
+								id: 'password',
+								required: true,
+							}}
 						/>
 						<SpecialInput
 							key={'confirm_password'}
 							placeholder={'confirm password'}
-							inputAttr={{ type: 'password' }}
-							onChange={handle_confirm_password_change}
+							inputAttr={{
+								type: 'password',
+								onFocus: check_password_match,
+								onBlur: check_password_match,
+								onChange: handle_confirm_password_change,
+								id: 'confirmPassword',
+								required: true,
+							}}
 						/>
 					</div>
 				);
@@ -219,8 +262,8 @@ function RouteComponent() {
 	};
 
 	const update_profile = async (e: any) => {
+		if (!formRef.current?.checkValidity() || !formRef?.current) return;
 		e.preventDefault();
-		if (!formRef?.current) return;
 
 		try {
 			switch (currentSetting) {

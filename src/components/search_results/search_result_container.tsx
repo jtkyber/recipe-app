@@ -29,7 +29,11 @@ function SearchResultContainer() {
 		const MAX_BTN_COUNT = 5;
 		const HALF_MAX_BTN_COUNT = Math.ceil(MAX_BTN_COUNT / 2);
 
-		if (!data?.totalResults) return;
+		if (!data?.totalResults) {
+			setPageCount(0);
+			setPageBtns([]);
+			return;
+		}
 
 		const totalPages = Math.ceil(data?.totalResults / filters.count);
 
@@ -65,7 +69,7 @@ function SearchResultContainer() {
 	return (
 		<div ref={containerRef} className={styles.container}>
 			<div className={styles.options}></div>
-			{data?.totalResults ? (
+			{fetchStatus === 'idle' ? (
 				<div className={styles.total_results_text_container}>
 					<h4 className={styles.total_results_text}>
 						<span className={styles.result_count}>{data?.totalResults}</span> results
