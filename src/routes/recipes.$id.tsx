@@ -2,6 +2,8 @@ import { createFileRoute, useLoaderData } from '@tanstack/react-router';
 import axios from 'axios';
 import parse from 'html-react-parser';
 import { useEffect, useRef, useState, type ChangeEventHandler } from 'react';
+import RecipeDetailsSkeleton from '../components/skeletons/recipe_details_skeleton';
+import SummarySkeleton from '../components/skeletons/summary_skeleton';
 import Stars from '../components/stars';
 import ClockSVG from '../components/svg/clock';
 import HeartSVG from '../components/svg/heart';
@@ -14,6 +16,8 @@ import type { IExtendedIngredientsItem, IRecipe, IRecipeInstructionStep } from '
 export const Route = createFileRoute('/recipes/$id')({
 	loader: ({ params }) => get_recipe(params.id),
 	component: RouteComponent,
+	pendingComponent: () => <RecipeDetailsSkeleton />,
+	pendingMs: 0,
 });
 
 const clean_recipe = (recipe: IRecipe) => {
@@ -159,116 +163,104 @@ function RouteComponent() {
 	};
 
 	return (
-		<div className={styles.bg_container}>
-			<div className={styles.container}>
-				<div className={styles.recipe_container}>
-					<h1 className={styles.title}>{recipe.title}</h1>
+		<div className={styles.container}>
+			<div className={styles.recipe_container}>
+				<h1 className={styles.title}>{recipe.title}</h1>
 
-					<div className={styles.star_time_container}>
-						<Stars starRating={starRating} />
-						<div className={styles.timeToReadyContainer}>
-							<ClockSVG />
-							<span className={styles.timeToReady}>{recipe.readyInMinutes}mins</span>
-						</div>
+				<div className={styles.star_time_container}>
+					<Stars starRating={starRating} />
+					<div className={styles.timeToReadyContainer}>
+						<ClockSVG />
+						<span className={styles.timeToReady}>{recipe.readyInMinutes}mins</span>
 					</div>
+				</div>
 
-					{shortSummary.length ? (
-						<p className={styles.summary}>{shortSummary}</p>
-					) : (
-						// <p className={styles.summary}>{parse(recipe.summary)}</p>
-						<div className={styles.summary_skeleton}>
-							<div className={styles.piece}></div>
-							<div className={styles.piece}></div>
-							<div className={`${styles.piece} ${styles.center_piece}`}>
-								<span></span>
-								<h5 className={styles.skeleton_text}>Generating Summary</h5>
-								<span></span>
-							</div>
-							<div className={styles.piece}></div>
-							<div className={styles.piece}></div>
-						</div>
-					)}
+				{shortSummary.length ? (
+					<p className={styles.summary}>{shortSummary}</p>
+				) : (
+					// <p className={styles.summary}>{parse(recipe.summary)}</p>
+					<SummarySkeleton pulse />
+				)}
 
-					<div className={styles.save_container}>
-						<button
-							disabled={saveInProgress}
-							onClick={toggle_save_recipe}
-							className={`${styles.save_button} ${recipeSaved ? styles.is_saved : null}`}>
-							<h3 className={styles.save_text}>{recipeSaved ? 'Saved' : 'Save'}</h3>
-							<HeartSVG />
-						</button>
+				<div className={styles.save_container}>
+					<button
+						disabled={saveInProgress}
+						onClick={toggle_save_recipe}
+						className={`${styles.save_button} ${recipeSaved ? styles.is_saved : null}`}>
+						<h3 className={styles.save_text}>{recipeSaved ? 'Saved' : 'Save'}</h3>
+						<HeartSVG />
+					</button>
+				</div>
+
+				<div className={styles.image_container}>
+					<img className={styles.image} src={recipe.image} alt='Recipe Image' />
+				</div>
+
+				<div className={styles.ingredient_container}>
+					<h2 className={styles.ingredients_text}>Ingredients</h2>
+					<div className={styles.serving_container}>
+						<label htmlFor='servings'>Servings:</label>
+						<input
+							onChange={handle_servings_change}
+							id='servings'
+							type='text'
+							placeholder={recipe.servings.toString()}
+						/>
 					</div>
-
-					<div className={styles.image_container}>
-						<img className={styles.image} src={recipe.image} alt='Recipe Image' />
-					</div>
-
-					<div className={styles.ingredient_container}>
-						<h2 className={styles.ingredients_text}>Ingredients</h2>
-						<div className={styles.serving_container}>
-							<label htmlFor='servings'>Servings:</label>
-							<input
-								onChange={handle_servings_change}
-								id='servings'
-								type='text'
-								placeholder={recipe.servings.toString()}
-							/>
-						</div>
-						<ul className={styles.ingredient_list}>
-							{recipe.extendedIngredients.map(ingredient => {
-								const { originalName, measures } = ingredient;
-								const units: 'us' | 'metric' = 'us';
-								const { amount, unitLong } = units === 'us' ? measures.us : measures.metric;
-								let amountCalc = amount * (servingSize / recipe.servings);
-								amountCalc = Math.round(amountCalc * 100) / 100;
-
-								return (
-									<li key={originalName} className={styles.ingredient_item}>
-										<span className={styles.amount}>{amountCalc} </span>
-										<span className={styles.unit}>{unitLong} </span>
-										<span className={styles.name}>{originalName}</span>
-									</li>
-								);
-							})}
-						</ul>
-					</div>
-
-					<div className={styles.instructions_container}>
-						<h2 className={styles.instructions_text}>Instructions</h2>
-						{recipe.analyzedInstructions.map(instruction => {
-							const { name } = instruction;
-							const cleanedName = get_cleaned_text(name);
+					<ul className={styles.ingredient_list}>
+						{recipe.extendedIngredients.map(ingredient => {
+							const { originalName, measures } = ingredient;
+							const units: 'us' | 'metric' = 'us';
+							const { amount, unitLong } = units === 'us' ? measures.us : measures.metric;
+							let amountCalc = amount * (servingSize / recipe.servings);
+							amountCalc = Math.round(amountCalc * 100) / 100;
 
 							return (
-								<div key={name} className={styles.instruction_group}>
-									{name ? <h4 className={styles.instruction_group_name}>{cleanedName}</h4> : null}
-									<ol className={styles.instruction_group_list}>
-										{instruction.steps.map((instructionStep: IRecipeInstructionStep) => {
-											const { step, number } = instructionStep;
-											const cleanedStep = get_cleaned_text(step);
-
-											return (
-												<li key={number} className={styles.instruction_step}>
-													{cleanedStep}
-												</li>
-											);
-										})}
-									</ol>
-								</div>
+								<li key={originalName} className={styles.ingredient_item}>
+									<span className={styles.amount}>{amountCalc} </span>
+									<span className={styles.unit}>{unitLong} </span>
+									<span className={styles.name}>{originalName}</span>
+								</li>
 							);
 						})}
-					</div>
-					{recipe?.sourceUrl ? (
-						<div className={styles.src_container}>
-							<h4 className={styles.src_text}>
-								{'Source: '}
-								<a href={recipe.sourceUrl} target='_blank' className={styles.src_link}>
-									{recipe.sourceName}
-								</a>
-							</h4>
-						</div>
-					) : null}
+					</ul>
 				</div>
+
+				<div className={styles.instructions_container}>
+					<h2 className={styles.instructions_text}>Instructions</h2>
+					{recipe.analyzedInstructions.map(instruction => {
+						const { name } = instruction;
+						const cleanedName = get_cleaned_text(name);
+
+						return (
+							<div key={name} className={styles.instruction_group}>
+								{name ? <h4 className={styles.instruction_group_name}>{cleanedName}</h4> : null}
+								<ol className={styles.instruction_group_list}>
+									{instruction.steps.map((instructionStep: IRecipeInstructionStep) => {
+										const { step, number } = instructionStep;
+										const cleanedStep = get_cleaned_text(step);
+
+										return (
+											<li key={number} className={styles.instruction_step}>
+												{cleanedStep}
+											</li>
+										);
+									})}
+								</ol>
+							</div>
+						);
+					})}
+				</div>
+				{recipe?.sourceUrl ? (
+					<div className={styles.src_container}>
+						<h4 className={styles.src_text}>
+							{'Source: '}
+							<a href={recipe.sourceUrl} target='_blank' className={styles.src_link}>
+								{recipe.sourceName}
+							</a>
+						</h4>
+					</div>
+				) : null}
 			</div>
 		</div>
 	);

@@ -1,0 +1,136 @@
+@use '../mixins.scss';
+
+.container {
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	display: flex;
+	justify-content: center;
+
+	.skeleton_container {
+		width: 100%;
+		height: max-content;
+		max-width: 40rem;
+		padding: 2rem;
+		padding-bottom: 10rem;
+
+		@include mixins.skeleton_animation();
+
+		.title_container {
+			.title_top,
+			.title_bottom {
+				background-color: var(--skeleton-primary-color);
+				border-radius: 2rem;
+
+				&.title_top {
+					width: 85%;
+					height: 3rem;
+				}
+				&.title_bottom {
+					width: 40%;
+					height: 3rem;
+					margin-top: 0.5rem;
+				}
+			}
+		}
+
+		.stars_and_time {
+			margin: 1rem 0;
+			white-space: nowrap;
+			max-width: 12rem;
+			display: flex;
+			justify-content: space-between;
+
+			.stars,
+			.time {
+				display: inline-block;
+				height: 1rem;
+				background-color: var(--skeleton-primary-color);
+				border-radius: 1rem;
+
+				&.stars {
+					width: 50%;
+				}
+				&.time {
+					width: 35%;
+				}
+			}
+		}
+
+		.save_btn {
+			max-width: 6rem;
+			aspect-ratio: 5/2;
+			background-color: var(--skeleton-primary-color);
+			margin-top: 1rem;
+			border-radius: 0.5rem;
+		}
+
+		.meal_pic {
+			width: 100%;
+			aspect-ratio: 3/2;
+			background-color: var(--skeleton-primary-color);
+			margin-top: 1rem;
+		}
+
+		.ingredient_container {
+			margin-top: 2rem;
+
+			.ingredient_header {
+				background-color: var(--skeleton-primary-color);
+				max-width: 10rem;
+				height: 1.5rem;
+				border-radius: 1rem;
+			}
+
+			.servings {
+				background-color: var(--skeleton-primary-color);
+				max-width: 6rem;
+				height: 1rem;
+				border-radius: 1rem;
+				margin-top: 1rem;
+			}
+
+			.ingredient_list {
+				max-width: 18rem;
+
+				.ingredient {
+					width: 100%;
+					height: 1rem;
+					border-radius: 1rem;
+					margin-top: 1rem;
+					background-color: var(--skeleton-primary-color);
+				}
+			}
+		}
+
+		.instruction_container {
+			margin-top: 2rem;
+
+			.instruction_header {
+				background-color: var(--skeleton-primary-color);
+				max-width: 10rem;
+				height: 1.5rem;
+				border-radius: 1rem;
+			}
+
+			.instruction_list {
+				.instruction {
+					margin-top: 1rem;
+					.line_one {
+						width: 90%;
+						height: 1rem;
+						background-color: var(--skeleton-primary-color);
+						border-radius: 1rem;
+					}
+					.line_two {
+						width: 30%;
+						height: 1rem;
+						background-color: var(--skeleton-primary-color);
+						border-radius: 1rem;
+						margin-top: 0.5rem;
+					}
+				}
+			}
+		}
+	}
+}

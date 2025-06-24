@@ -1,0 +1,42 @@
+@use '../mixins';
+
+.container {
+	margin-top: 0.5rem;
+	width: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 0.8rem;
+
+	&.pulse {
+		@include mixins.skeleton_animation;
+	}
+
+	.piece {
+		width: 100%;
+		height: 0.8rem;
+		background-color: var(--skeleton-primary-color);
+		border-radius: 0.5rem;
+
+		&.center_piece {
+			background-color: transparent;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			overflow: visible;
+			gap: 1rem;
+
+			span {
+				width: 100%;
+				background-color: var(--skeleton-primary-color);
+				border-radius: 0.5rem;
+			}
+
+			.skeleton_text {
+				width: max-content;
+				height: max-content;
+				flex-shrink: 0;
+				color: var(--skeleton-secondary-color);
+			}
+		}
+	}
+}

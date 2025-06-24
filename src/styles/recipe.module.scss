@@ -1,287 +1,229 @@
-@use './mixins';
-
-.bg_container {
+.container {
+	position: relative;
 	width: 100;
 	height: 100%;
-	position: relative;
+	overflow-y: auto;
+	display: flex;
+	justify-content: center;
 
-	.container {
-		position: relative;
-		width: 100;
-		height: 100%;
-		overflow-y: auto;
-		display: flex;
-		justify-content: center;
+	.recipe_container {
+		width: 100%;
+		max-width: 40rem;
+		height: max-content;
+		padding: 2rem;
+		padding-bottom: 10rem;
 
-		.recipe_container {
+		.title {
 			width: 100%;
-			max-width: 40rem;
-			height: max-content;
-			padding: 2rem;
-			padding-bottom: 10rem;
+			text-align: start;
+			font-size: 2.5rem;
+		}
 
-			.title {
-				width: 100%;
-				text-align: start;
-				font-size: 2.5rem;
+		.star_time_container {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: flex-start;
+			align-items: center;
+			gap: 2rem;
+			margin-top: 0.5rem;
+
+			.timeToReadyContainer {
+				display: flex;
+				flex-flow: row nowrap;
+				align-items: center;
+				gap: 0.5rem;
+
+				svg {
+					width: 1rem;
+					height: auto;
+				}
+
+				.timeToReady {
+				}
 			}
+		}
 
-			.star_time_container {
+		.summary {
+			margin-top: 0.5rem;
+		}
+
+		.save_container {
+			width: 100%;
+			height: max-content;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			margin-top: 0.5rem;
+
+			.save_button {
+				width: max-content;
+				height: max-content;
+				background-color: inherit;
 				display: flex;
 				flex-flow: row nowrap;
 				justify-content: flex-start;
 				align-items: center;
-				gap: 2rem;
-				margin-top: 0.5rem;
+				gap: 0.5rem;
+				padding: 0.5rem 0.8rem;
+				background-color: var(--heart-color);
+				border-radius: 0.3rem;
 
-				.timeToReadyContainer {
-					display: flex;
-					flex-flow: row nowrap;
-					align-items: center;
-					gap: 0.5rem;
-
-					svg {
-						width: 1rem;
-						height: auto;
-					}
-
-					.timeToReady {
-					}
+				&.is_saved:disabled,
+				&:disabled {
+					filter: brightness(0.8);
 				}
-			}
 
-			.summary {
-				margin-top: 0.5rem;
-			}
-			.summary_skeleton {
-				margin-top: 0.5rem;
-				width: 100%;
-				display: flex;
-				flex-flow: column nowrap;
-				gap: 0.8rem;
-
-				.piece {
-					width: 100%;
-					height: 0.8rem;
-					background-color: var(--skeleton-primary-color);
-					border-radius: 0.5rem;
-
-					@include mixins.skeleton_animation;
-
-					&.center_piece {
-						background-color: transparent;
-						display: flex;
-						flex-flow: row nowrap;
-						justify-content: space-between;
-						overflow: visible;
-						gap: 1rem;
-
-						span {
-							width: 100%;
-							background-color: var(--skeleton-primary-color);
-							border-radius: 0.5rem;
-						}
-
-						.skeleton_text {
-							width: max-content;
-							height: max-content;
-							flex-shrink: 0;
-							color: var(--skeleton-secondary-color);
-						}
-					}
+				&:hover svg path {
+					fill: white;
 				}
-			}
 
-			.save_container {
-				width: 100%;
-				height: max-content;
-				display: flex;
-				justify-content: flex-start;
-				align-items: center;
-				margin-top: 0.5rem;
-
-				.save_button {
-					width: max-content;
-					height: max-content;
-					background-color: inherit;
-					display: flex;
-					flex-flow: row nowrap;
-					justify-content: flex-start;
-					align-items: center;
-					gap: 0.5rem;
-					padding: 0.5rem 0.8rem;
-					background-color: var(--heart-color);
-					border-radius: 0.3rem;
-
-					&.is_saved:disabled,
-					&:disabled {
-						filter: brightness(0.8);
-					}
-
-					&:hover svg path {
-						fill: white;
-					}
-
-					&.is_saved svg path {
-						fill: white;
-					}
-					&.is_saved {
-						background-color: #28a745;
-					}
-
-					.save_text {
-						// font-weight: 500;
-						color: white;
-					}
-
-					svg {
-						width: 1.2rem;
-						height: auto;
-
-						path {
-							fill: none;
-							stroke: white;
-							stroke-width: 26px;
-						}
-					}
+				&.is_saved svg path {
+					fill: white;
 				}
-			}
+				&.is_saved {
+					background-color: #28a745;
+				}
 
-			.image_container {
-				width: 100%;
-				height: max-content;
-				margin-top: 1rem;
+				.save_text {
+					// font-weight: 500;
+					color: white;
+				}
 
-				.image {
-					width: 100%;
+				svg {
+					width: 1.2rem;
 					height: auto;
-				}
-			}
 
-			.ingredient_container {
-				display: block;
-				margin-top: 2rem;
-
-				.ingredients_text {
-					margin-bottom: 1rem;
-				}
-
-				.serving_container {
-					display: flex;
-					flex-flow: row nowrap;
-					align-items: center;
-					gap: 0.5rem;
-
-					// label {
-					// }
-
-					input {
-						text-align: center;
-						width: 4ch;
-						height: 1.5rem;
-						box-sizing: border-box;
-						padding: 0;
-
-						&:focus {
-							border-width: 2px;
-						}
-					}
-				}
-
-				.ingredient_list {
-					display: flex;
-					flex-flow: column nowrap;
-					gap: 1rem;
-					list-style-position: inside;
-					margin-left: 0.5rem;
-					margin-top: 0.5rem;
-
-					.ingredient_item {
-						display: list-item;
-
-						&::marker {
-							content: '•';
-						}
-
-						.amount {
-							width: max-content;
-							margin-left: 0.5rem;
-						}
-
-						.unit {
-							width: max-content;
-						}
-
-						.name {
-							width: max-content;
-						}
-					}
-				}
-			}
-
-			.instructions_container {
-				display: block;
-				margin-top: 4rem;
-
-				.instructions_text {
-					display: block;
-				}
-
-				.instruction_group {
-					display: block;
-					margin-top: 1rem;
-
-					.instruction_group_name {
-						display: block;
-						margin-bottom: 0.5rem;
-					}
-
-					.instruction_group_list {
-						display: flex;
-						list-style-position: inside;
-						flex-flow: column nowrap;
-						gap: 1rem;
-						margin-left: 0.5rem;
-
-						.instruction_step {
-							display: list-item;
-
-							&::marker {
-								font-weight: bold;
-							}
-						}
-					}
-				}
-			}
-
-			.src_container {
-				width: 100%;
-				margin-top: 4rem;
-				display: flex;
-				justify-content: center;
-
-				.src_text {
-					font-size: 0.9rem;
-					font-weight: 600;
-
-					.src_link {
-						color: #0000ff;
-						text-decoration: underline;
+					path {
+						fill: none;
+						stroke: white;
+						stroke-width: 26px;
 					}
 				}
 			}
 		}
-	}
 
-	.background_img {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		filter: blur(5px);
-		transform: scale(1.03);
-		opacity: 0.2;
+		.image_container {
+			width: 100%;
+			height: max-content;
+			margin-top: 1rem;
+
+			.image {
+				width: 100%;
+				height: auto;
+			}
+		}
+
+		.ingredient_container {
+			display: block;
+			margin-top: 2rem;
+
+			.ingredients_text {
+				margin-bottom: 1rem;
+			}
+
+			.serving_container {
+				display: flex;
+				flex-flow: row nowrap;
+				align-items: center;
+				gap: 0.5rem;
+
+				// label {
+				// }
+
+				input {
+					text-align: center;
+					width: 4ch;
+					height: 1.5rem;
+					box-sizing: border-box;
+					padding: 0;
+
+					&:focus {
+						border-width: 2px;
+					}
+				}
+			}
+
+			.ingredient_list {
+				display: flex;
+				flex-flow: column nowrap;
+				gap: 1rem;
+				list-style-position: inside;
+				margin-left: 0.5rem;
+				margin-top: 0.5rem;
+
+				.ingredient_item {
+					display: list-item;
+
+					&::marker {
+						content: '•';
+					}
+
+					.amount {
+						width: max-content;
+						margin-left: 0.5rem;
+					}
+
+					.unit {
+						width: max-content;
+					}
+
+					.name {
+						width: max-content;
+					}
+				}
+			}
+		}
+
+		.instructions_container {
+			display: block;
+			margin-top: 4rem;
+
+			.instructions_text {
+				display: block;
+			}
+
+			.instruction_group {
+				display: block;
+				margin-top: 1rem;
+
+				.instruction_group_name {
+					display: block;
+					margin-bottom: 0.5rem;
+				}
+
+				.instruction_group_list {
+					display: flex;
+					list-style-position: inside;
+					flex-flow: column nowrap;
+					gap: 1rem;
+					margin-left: 0.5rem;
+
+					.instruction_step {
+						display: list-item;
+
+						&::marker {
+							font-weight: bold;
+						}
+					}
+				}
+			}
+		}
+
+		.src_container {
+			width: 100%;
+			margin-top: 4rem;
+			display: flex;
+			justify-content: center;
+
+			.src_text {
+				font-size: 0.9rem;
+				font-weight: 600;
+
+				.src_link {
+					color: #0000ff;
+					text-decoration: underline;
+				}
+			}
+		}
 	}
 }
