@@ -1,20 +1,10 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+import type { ISearchFilterState } from '../../types/filters';
 import type { RootState } from '../store';
 
-interface ISearchFilterState {
-	query: string;
-	cuisine: string[];
-	ingredients: string[];
-	type: string[];
-	instructionsRequired: boolean;
-	maxReadyTime: number;
-	count: number;
-	page: number;
-	ignoreProfileFilters: boolean;
-}
-
 const initialState: ISearchFilterState = {
+	sortType: 'meta-score',
 	query: '',
 	cuisine: [],
 	ingredients: [],
@@ -30,6 +20,10 @@ export const searchFilterSlice = createSlice({
 	name: 'searchFilter',
 	initialState,
 	reducers: {
+		setSortType: (state, action: PayloadAction<string>) => {
+			state.sortType = action.payload;
+			state.page = 0;
+		},
 		setQuery: (state, action: PayloadAction<string>) => {
 			state.query = action.payload;
 			state.page = 0;
@@ -80,6 +74,7 @@ export const searchFilterSlice = createSlice({
 });
 
 export const {
+	setSortType,
 	setQuery,
 	addCuisine,
 	removeCuisine,
@@ -94,11 +89,4 @@ export const {
 	toggleIgnoreProfileFilters,
 } = searchFilterSlice.actions;
 export const selectSearchFilter = (state: RootState) => state.searchFilter;
-export type FilterProperty =
-	| 'cuisine'
-	| 'ingredients'
-	| 'type'
-	| 'instructionsRequired'
-	| 'maxReadyTime'
-	| 'ignoreProfileFilters';
 export default searchFilterSlice.reducer;

@@ -23,7 +23,7 @@ function RecipeSearchbar() {
 		const res = await axios.get('http://localhost:3000/getRecipes?', {
 			params: {
 				searchQuery: filters.query,
-				sortOption: 'meta-score',
+				sortOption: filters.sortType,
 				diet: user.diet,
 				intolerances: user.intolerances.join(','),
 				excludedIngredients: user.excludedIngredients.join(','),
@@ -44,7 +44,7 @@ function RecipeSearchbar() {
 			console.log(
 				`Points remaining: ${data.pointsRemaining} \nPoints spent this request: ${data.pointsSpentThisRequest}`
 			);
-		} else console.log('Returned cached recipe (node)');
+		} else console.log('Returned cached recipe (server)');
 		return data;
 	};
 

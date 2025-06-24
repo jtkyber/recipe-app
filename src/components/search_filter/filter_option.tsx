@@ -1,8 +1,9 @@
 import { type InputHTMLAttributes, type MouseEventHandler, type ReactElement } from 'react';
 import { useAppDispatch } from '../../redux/hooks';
-import { removeIngredient, type FilterProperty } from '../../redux/slices/searchFilterSlice';
+import { removeIngredient } from '../../redux/slices/searchFilterSlice';
 import styles from '../../styles/search_filter/filter_option.module.scss';
 import type { InputType } from '../../types/dropdown';
+import type { FilterProperty } from '../../types/filters';
 import type { SignUpSelectionType } from '../../types/sign_up';
 
 function FilterOption({

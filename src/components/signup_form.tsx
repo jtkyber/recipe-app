@@ -223,7 +223,8 @@ function SignupForm() {
 					selectedDropdownItems={[diet]}
 					label_container_styles={{
 						border: '1px solid lightgrey',
-					}}>
+					}}
+					includeNoneOption>
 					Diet
 				</Dropdown>
 			</div>

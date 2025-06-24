@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setPage } from '../../redux/slices/searchFilterSlice';
 import styles from '../../styles/search_results/search_result_container.module.scss';
 import type { IRecipe, ISearchResult } from '../../types/recipe';
-import RecipeResultSkeleton from './recipe_result_skeleton';
+import RecipeResultSkeleton from '../skeletons/recipe_result_skeleton';
 import SearchResult from './search_result';
 
 function SearchResultContainer() {

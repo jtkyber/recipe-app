@@ -1,7 +1,7 @@
 import { useState, type CSSProperties, type JSX } from 'react';
-import type { FilterProperty } from '../../redux/slices/searchFilterSlice';
 import styles from '../../styles/search_filter/dropdown.module.scss';
 import type { InputType } from '../../types/dropdown';
+import type { FilterProperty } from '../../types/filters';
 import type { SignUpSelectionType } from '../../types/sign_up';
 import FilterOption from './filter_option';
 
@@ -13,6 +13,7 @@ function Dropdown({
 	children,
 	selectedDropdownItems,
 	label_container_styles,
+	includeNoneOption,
 }: {
 	filterName: FilterProperty | SignUpSelectionType;
 	options: string[];
@@ -21,6 +22,7 @@ function Dropdown({
 	children: string | JSX.Element | JSX.Element[];
 	selectedDropdownItems?: string[];
 	label_container_styles?: CSSProperties;
+	includeNoneOption?: boolean;
 }) {
 	const [dropped, setDropped] = useState(false);
 	const [searchFilterText, setSearchFilterText] = useState('');
@@ -51,12 +53,12 @@ function Dropdown({
 						placeholder='Filter...'
 					/>
 				) : null}
-				{inputType === 'radio' ? (
+				{inputType === 'radio' && includeNoneOption ? (
 					<FilterOption
 						id='None'
 						filter={filterName}
 						inputType={inputType}
-						selectedDropdownItems={selectedDropdownItems}
+						selectedDropdownItems={selectedDropdownItems?.[0] ? selectedDropdownItems : ['None']}
 						handle_input={handle_input}>
 						None
 					</FilterOption>

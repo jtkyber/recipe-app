@@ -11,15 +11,16 @@ import {
 	removeIngredient,
 	removeType,
 	setMaxReadyTime,
+	setSortType,
 	toggleIgnoreProfileFilters,
 	toggleInstructionsRequired,
-	type FilterProperty,
 } from '../../redux/slices/searchFilterSlice';
 import optionStyles from '../../styles/search_filter/filter_option.module.scss';
 import styles from '../../styles/search_filter/search_filters.module.scss';
 import type { InputType } from '../../types/dropdown';
+import type { FilterProperty } from '../../types/filters';
 import { get_parent_with_class_name } from '../../utils/dom_tools';
-import { cuisineValues, mealTypeValues } from '../../utils/filter_values';
+import { cuisineValues, mealTypeValues, sortValues } from '../../utils/filter_values';
 import AutocompleteDropdown from './autocompleteDropdown';
 import Dropdown from './dropdown';
 import FilterOption from './filter_option';
@@ -101,6 +102,9 @@ function SearchFilters() {
 			case 'checkbox':
 				handle_checkbox(target);
 				break;
+			case 'radio':
+				handle_radio(target);
+				break;
 			case 'number':
 				handle_textbox(target);
 				break;
@@ -135,6 +139,17 @@ function SearchFilters() {
 				break;
 			case 'ignoreProfileFilters':
 				dispatch(toggleIgnoreProfileFilters());
+				break;
+		}
+	};
+
+	const handle_radio = (selectedOption: HTMLDivElement) => {
+		const filterName = selectedOption.dataset.filter as FilterProperty;
+		const label = selectedOption.id;
+
+		switch (filterName) {
+			case 'sortType':
+				dispatch(setSortType(label));
 				break;
 		}
 	};
@@ -181,6 +196,14 @@ function SearchFilters() {
 			</div>
 			<div className={styles.filterContainer}>
 				<div ref={filtersDivRef} className={styles.filters}>
+					<Dropdown
+						filterName='sortType'
+						options={sortValues}
+						inputType='radio'
+						handle_input={handle_input}
+						selectedDropdownItems={[filters.sortType]}>
+						Sort By
+					</Dropdown>
 					<Dropdown
 						filterName='cuisine'
 						options={cuisineValues}

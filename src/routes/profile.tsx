@@ -183,7 +183,8 @@ function RouteComponent() {
 						options={dietValues}
 						inputType='radio'
 						handle_input={handle_diet_selection}
-						selectedDropdownItems={[diet]}>
+						selectedDropdownItems={[diet]}
+						includeNoneOption>
 						Diet
 					</Dropdown>
 				);

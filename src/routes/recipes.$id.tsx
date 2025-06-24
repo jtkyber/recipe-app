@@ -1,6 +1,5 @@
 import { createFileRoute, useLoaderData } from '@tanstack/react-router';
 import axios from 'axios';
-import parse from 'html-react-parser';
 import { useEffect, useRef, useState, type ChangeEventHandler } from 'react';
 import RecipeDetailsSkeleton from '../components/skeletons/recipe_details_skeleton';
 import SummarySkeleton from '../components/skeletons/summary_skeleton';
