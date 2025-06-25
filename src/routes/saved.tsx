@@ -1,71 +1,81 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useLoaderData } from '@tanstack/react-router';
 import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import type { JSX } from 'react';
 import SearchResult from '../components/search_results/search_result';
+import RecipeResultSkeleton from '../components/skeletons/recipe_result_skeleton';
 import { db } from '../db';
-import { useAppSelector } from '../redux/hooks';
 import styles from '../styles/saved.module.scss';
 import type { IRecipe } from '../types/recipe';
+import type { IUser } from '../types/user';
 
 export const Route = createFileRoute('/saved')({
-	component: RouteComponent,
+	loader: ({ context }) => get_saved_recipes(context.getUserData()),
+	component: RouteComponentLoaded,
+	pendingComponent: RouteComponentPending,
+	pendingMs: 0,
 });
 
-function RouteComponent() {
-	const user = useAppSelector(state => state.user);
+const fetch_recipes_not_in_indexedDB = async (ids: number[]): Promise<IRecipe[]> => {
+	const res = await axios.get(`${import.meta.env.VITE_API_BASE}/getRecipeInformationBulk`, {
+		params: {
+			ids: ids.join(','),
+		},
+	});
 
-	const [recipes, setRecipes] = useState<IRecipe[]>();
+	const data: IRecipe[] = await res.data;
 
-	const hasRun = useRef<boolean>(false);
+	return data;
+};
 
-	useEffect(() => {
-		if (hasRun.current) return;
-		get_saved_recipes();
-		hasRun.current = true;
-	}, []);
+const save_recipes_to_indexedDB = (recipes: IRecipe[]) => db.savedRecipes.bulkAdd(recipes);
 
-	const fetch_recipes_not_in_indexedDB = async (ids: number[]): Promise<IRecipe[]> => {
-		const res = await axios.get(`${import.meta.env.VITE_API_BASE}/getRecipeInformationBulk`, {
-			params: {
-				ids: ids.join(','),
-			},
-		});
+async function get_saved_recipes(user: IUser): Promise<IRecipe[]> {
+	const savedRecipes = await db.savedRecipes.toArray();
 
-		const data: IRecipe[] = await res.data;
+	const iDBSavedRecipeIDs = savedRecipes.map(r => r.id);
+	const recipeIDsNotFound = user.savedRecipes.filter(id => !iDBSavedRecipeIDs.includes(id));
 
-		return data;
-	};
+	if (recipeIDsNotFound.length) {
+		let fetchedRecipes = await fetch_recipes_not_in_indexedDB(recipeIDsNotFound);
+		fetchedRecipes = fetchedRecipes || [];
 
-	const save_recipes_to_indexedDB = (recipes: IRecipe[]) => db.savedRecipes.bulkAdd(recipes);
+		await save_recipes_to_indexedDB(fetchedRecipes);
 
-	async function get_saved_recipes(): Promise<void> {
-		const savedRecipes = await db.savedRecipes.toArray();
-
-		const iDBSavedRecipeIDs = savedRecipes.map(r => r.id);
-		const recipeIDsNotFound = user.savedRecipes.filter(id => !iDBSavedRecipeIDs.includes(id));
-
-		if (recipeIDsNotFound.length) {
-			let fetchedRecipes = await fetch_recipes_not_in_indexedDB(recipeIDsNotFound);
-			fetchedRecipes = fetchedRecipes || [];
-
-			await save_recipes_to_indexedDB(fetchedRecipes);
-
-			savedRecipes.push(...fetchedRecipes);
-		}
-
-		setRecipes(savedRecipes);
+		savedRecipes.push(...fetchedRecipes);
 	}
 
+	return savedRecipes;
+}
+
+const SavedComponentLayout = ({ children }: { children: JSX.Element[] }) => {
 	return (
 		<div className={styles.scrollable_container}>
 			<div className={styles.container}>
 				<h1 className={styles.heading_text}>Favorites</h1>
-				<div className={styles.saved_recipe_container}>
-					{recipes?.map(recipe => {
-						return <SearchResult key={recipe.id} recipe={recipe} />;
-					})}
-				</div>
+				<div className={styles.saved_recipe_container}>{children}</div>
 			</div>
 		</div>
+	);
+};
+
+function RouteComponentLoaded() {
+	const recipes = useLoaderData({ from: '/saved' });
+
+	return (
+		<SavedComponentLayout>
+			{recipes?.map(recipe => {
+				return <SearchResult key={recipe.id} recipe={recipe} />;
+			})}
+		</SavedComponentLayout>
+	);
+}
+
+function RouteComponentPending() {
+	return (
+		<SavedComponentLayout>
+			{Array.from({ length: 5 }).map((_, index) => (
+				<RecipeResultSkeleton key={index} />
+			))}
+		</SavedComponentLayout>
 	);
 }

@@ -1,12 +1,4 @@
-export const sortValues: string[] = [
-	'meta-score',
-	'popularity',
-	'healthiness',
-	'price',
-	'time',
-	'random',
-	'calories',
-];
+export const sortValues: string[] = ['meta-score', 'popularity', 'healthiness', 'price', 'time', 'calories'];
 
 export const cuisineValues: string[] = [
 	'African',

@@ -45,8 +45,6 @@ const get_recipe_from_indexedDB = async (id: string): Promise<IRecipe | null> =>
 };
 
 const fetch_recipe = async (id: string): Promise<IRecipe> => {
-	// 715415
-	// 655668
 	const res = await axios.get('http://localhost:3000/getRecipeInformation?', {
 		params: {
 			id: id,
