@@ -39,3 +39,12 @@
 		}
 	}
 }
+
+@mixin nav_icon_bg {
+	border-radius: 0.5rem;
+	padding: 0.8rem;
+
+	&:hover {
+		background-color: var(--hover-bg-color);
+	}
+}

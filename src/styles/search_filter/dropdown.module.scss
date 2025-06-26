@@ -22,7 +22,7 @@
 		}
 
 		&:hover {
-			background-color: var(--section-highlight-color);
+			background-color: var(--hover-bg-color);
 		}
 
 		.dropdown_label {
@@ -74,7 +74,7 @@
 			border-radius: 1rem;
 			padding: 0 0.5rem;
 			font-size: small;
-			margin-bottom: 0.5rem;
+			margin: 0.5rem 0;
 
 			&:focus {
 				outline: none;

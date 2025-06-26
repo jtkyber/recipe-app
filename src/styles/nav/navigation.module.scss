@@ -1,10 +1,12 @@
+@use '../mixins.scss';
+
 .container {
 	width: 100%;
 	height: var(--nav-height);
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 1rem;
+	padding: 0 1rem;
 	border-bottom: var(--section-border-style);
 	flex-shrink: 0;
 
@@ -16,13 +18,14 @@
 		height: 100%;
 		display: flex;
 		align-items: center;
-		gap: 1rem;
 
-		a,
-		.icon_container {
-			height: 100%;
+		a:not(.profile_link) {
+			height: max-content;
 			display: flex;
 			align-items: center;
+			user-select: none;
+
+			@include mixins.nav_icon_bg;
 
 			.heartImg,
 			.profileImg,
@@ -33,22 +36,24 @@
 			}
 		}
 
-		.profile_container {
-			width: 100%;
-			display: flex;
-			flex-flow: column nowrap;
-			align-items: center;
-			padding: 0.5rem 0;
-			border-bottom: var(--section-border-style);
+		.profile_link {
+			.profile_container {
+				width: 100%;
+				display: flex;
+				flex-flow: column nowrap;
+				align-items: center;
+				padding: 0.5rem 0;
+				border-bottom: var(--section-border-style);
 
-			.username,
-			.edit_profile_text {
-				width: max-content;
-				padding: 0;
-			}
+				.username,
+				.edit_profile_text {
+					width: max-content;
+					padding: 0;
+				}
 
-			.edit_profile_text {
-				font-weight: 400;
+				.edit_profile_text {
+					font-weight: 400;
+				}
 			}
 		}
 	}

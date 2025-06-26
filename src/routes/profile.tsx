@@ -184,7 +184,10 @@ function RouteComponent() {
 						inputType='radio'
 						handle_input={handle_diet_selection}
 						selectedDropdownItems={[diet]}
-						includeNoneOption>
+						includeNoneOption
+						label_container_styles={{
+							border: '1px solid lightgrey',
+						}}>
 						Diet
 					</Dropdown>
 				);
@@ -196,7 +199,10 @@ function RouteComponent() {
 						options={intoleranceValues}
 						inputType='checkbox'
 						handle_input={handle_intolerance_selection}
-						selectedDropdownItems={intolerances}>
+						selectedDropdownItems={intolerances}
+						label_container_styles={{
+							border: '1px solid lightgrey',
+						}}>
 						Intolerances
 					</Dropdown>
 				);

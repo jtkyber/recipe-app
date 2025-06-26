@@ -24,7 +24,7 @@ function Navigation() {
 
 	const render_profile_dropdown = () => (
 		<NavDropdown iconName='profile'>
-			<Link to='/profile'>
+			<Link className={styles.profile_link} to='/profile'>
 				<div className={styles.profile_container}>
 					<h4 className={styles.username}>{user.username}</h4>
 					<h5 className={styles.edit_profile_text}>Edit Profile</h5>
