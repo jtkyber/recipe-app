@@ -1,6 +1,7 @@
-import { createFileRoute, useLoaderData } from '@tanstack/react-router';
+import { createFileRoute, useLoaderData, useRouter } from '@tanstack/react-router';
 import axios from 'axios';
 import { useEffect, useRef, useState, type ChangeEventHandler } from 'react';
+import NutritionLabel from '../components/nutrition_label';
 import RecipeDetailsSkeleton from '../components/skeletons/recipe_details_skeleton';
 import SummarySkeleton from '../components/skeletons/summary_skeleton';
 import Stars from '../components/stars';
@@ -74,6 +75,8 @@ function RouteComponent() {
 	const [shortSummary, setShortSummary] = useState<string>('');
 	const [saveInProgress, setSaveInProgress] = useState<boolean>(false);
 
+	const router = useRouter();
+
 	const hasRun = useRef<boolean>(false);
 
 	useEffect(() => {
@@ -145,7 +148,10 @@ function RouteComponent() {
 	};
 
 	const toggle_save_recipe = async () => {
-		if (!user?.id) return;
+		if (!user?.id) {
+			router.navigate({ to: '/login' });
+			return;
+		}
 
 		setSaveInProgress(true);
 
@@ -202,6 +208,7 @@ function RouteComponent() {
 							id='servings'
 							type='text'
 							placeholder={recipe.servings.toString()}
+							autoComplete='off'
 						/>
 					</div>
 					<ul className={styles.ingredient_list}>
@@ -248,6 +255,11 @@ function RouteComponent() {
 						);
 					})}
 				</div>
+				<NutritionLabel
+					nutrients={recipe.nutrition.nutrients}
+					caloricBreakdown={recipe.nutrition.caloricBreakdown}
+					servingMult={servingSize / recipe.servings}
+				/>
 				{recipe?.sourceUrl ? (
 					<div className={styles.src_container}>
 						<h4 className={styles.src_text}>

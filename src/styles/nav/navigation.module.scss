@@ -9,8 +9,12 @@
 	padding: 0 1rem;
 	border-bottom: var(--section-border-style);
 	flex-shrink: 0;
+	// box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.6);
 
 	.left {
+		.title {
+			color: var(--color-secondary);
+		}
 	}
 
 	.right {
@@ -19,13 +23,18 @@
 		display: flex;
 		align-items: center;
 
-		a:not(.profile_link) {
+		.nav_icon_container {
 			height: max-content;
 			display: flex;
 			align-items: center;
 			user-select: none;
+			border-radius: 0.5rem;
+			padding: 0.6rem;
 
-			@include mixins.nav_icon_bg;
+			&:hover,
+			&.active {
+				background-color: var(--color-light-grey);
+			}
 
 			.heartImg,
 			.profileImg,

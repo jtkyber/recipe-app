@@ -1,18 +1,23 @@
 import { Link, useRouter, useRouterState } from '@tanstack/react-router';
+import { useRef } from 'react';
 import heartImg from '../../assets/heart.png';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { signOutUser } from '../../redux/slices/userSlice';
 import styles from '../../styles/nav/navigation.module.scss';
 import type { IUser } from '../../types/user';
 import { setCookie } from '../../utils/cookies';
+import ProfileSVG from '../svg/profileSVG';
 import SearchSVG from '../svg/searchSVG';
 import NavDropdown from './nav_dropdown';
 
 function Navigation() {
 	const user: IUser = useAppSelector(state => state.user);
 	const dispatch = useAppDispatch();
+
 	const routerState = useRouterState();
 	const router = useRouter();
+
+	const iconRef = useRef<HTMLDivElement>(null);
 
 	const routeId = routerState.matches[routerState.matches.length - 1]?.routeId;
 
@@ -22,86 +27,48 @@ function Navigation() {
 		router.navigate({ to: '/login' });
 	};
 
-	const render_profile_dropdown = () => (
-		<NavDropdown iconName='profile'>
-			<Link className={styles.profile_link} to='/profile'>
-				<div className={styles.profile_container}>
-					<h4 className={styles.username}>{user.username}</h4>
-					<h5 className={styles.edit_profile_text}>Edit Profile</h5>
-				</div>
-			</Link>
-			<h5 onClick={sign_user_out}>Sign Out</h5>
-		</NavDropdown>
-	);
-
 	return (
 		<nav className={styles.container}>
 			<div className={styles.left}>
 				<Link to='/'>
-					<h2>Recipe App</h2>
+					<h2 className={styles.title}>Recipe App</h2>
 				</Link>
 			</div>
 			<div className={styles.right}>
-				{routeId === '/' ? (
-					user.id ? (
-						<>
-							<Link to='/search'>
-								<SearchSVG />
-							</Link>
-							<Link to='/saved'>
-								<img className={styles.heartImg} src={heartImg} alt='Heart Image' />
-							</Link>
-
-							{render_profile_dropdown()}
-						</>
-					) : (
-						<Link to='/login'>
-							<h4>Log In</h4>
-						</Link>
-					)
-				) : routeId === '/search' ? (
+				{user.id ? (
 					<>
-						<Link to='/saved'>
+						<Link
+							to='/search'
+							className={`${styles.nav_icon_container} ${routeId === '/search' ? styles.active : null}`}>
+							<SearchSVG />
+						</Link>
+
+						<Link
+							to='/saved'
+							className={`${styles.nav_icon_container} ${routeId === '/saved' ? styles.active : null}`}>
 							<img className={styles.heartImg} src={heartImg} alt='Heart Image' />
 						</Link>
 
-						{render_profile_dropdown()}
-					</>
-				) : routeId === '/recipes/$id' ? (
-					user.id ? (
-						<>
-							<Link to='/search'>
-								<SearchSVG />
+						<div
+							className={`${styles.nav_icon_container} ${routeId === '/profile' ? styles.active : null}`}
+							ref={iconRef}>
+							<ProfileSVG />
+						</div>
+						<NavDropdown iconRef={iconRef}>
+							<Link className={styles.profile_link} to='/profile'>
+								<div className={styles.profile_container}>
+									<h4 className={styles.username}>{user.username}</h4>
+									<h5 className={styles.edit_profile_text}>Edit Profile</h5>
+								</div>
 							</Link>
-							<Link to='/saved'>
-								<img className={styles.heartImg} src={heartImg} alt='Heart Image' />
-							</Link>
-
-							{render_profile_dropdown()}
-						</>
-					) : (
-						<Link to='/login'>
-							<h4>Log In</h4>
-						</Link>
-					)
-				) : routeId === '/saved' ? (
-					<>
-						<Link to='/search'>
-							<SearchSVG />
-						</Link>
-						{render_profile_dropdown()}
+							<h5 onClick={sign_user_out}>Sign Out</h5>
+						</NavDropdown>
 					</>
-				) : routeId === '/profile' ? (
-					<>
-						<Link to='/search'>
-							<SearchSVG />
-						</Link>
-						<Link to='/saved'>
-							<img className={styles.heartImg} src={heartImg} alt='Heart Image' />
-						</Link>
-						{render_profile_dropdown()}
-					</>
-				) : routeId === '/login' ? null : null}
+				) : (
+					<Link to='/login'>
+						<h4>Log In</h4>
+					</Link>
+				)}
 			</div>
 		</nav>
 	);

@@ -5,9 +5,9 @@
 	flex-flow: column nowrap;
 	position: relative;
 	gap: 1rem;
-	padding: var(--filter-margin);
-	padding-top: 2rem;
+	padding: 2rem 0.5rem 0.5rem 1rem;
 	border-right: var(--section-border-style);
+	// box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.6);
 
 	.searchbarContainer {
 		width: 100%;
@@ -16,15 +16,15 @@
 		justify-content: center;
 		align-items: center;
 		flex-shrink: 0;
-		scrollbar-gutter: stable both-edges;
+		scrollbar-gutter: stable;
 	}
 
 	.filterContainer {
 		width: 100%;
 		height: 100%;
-		overflow: auto;
-		scrollbar-gutter: stable both-edges;
+		overflow-y: auto;
 		padding-bottom: 6rem;
+		scrollbar-gutter: stable;
 
 		.filters {
 			width: 100%;

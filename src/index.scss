@@ -4,11 +4,6 @@
 	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
-
-	color-scheme: light;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
-
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
@@ -16,12 +11,46 @@
 
 	--nav-height: 4rem;
 
-	--bg-color-main: white;
+	// --color-background: #ffffff;
+	// --color-text-primary: #333333;
+	// --color-primary: #1e824c;
+	// --color-secondary: #d9ead3;
+	// --color-accent: #fff3c4;
+	// --color-muted-pink: #fce8e6;
+	// --color-light-grey: hsl(0, 0%, 92%);
+
+	/* Base Colors */
+	--color-background: #fafaf7;
+	--color-surface: #ffffff;
+	--color-border: #e2e8f0;
+	--color-text-primary: #2d3748;
+	--color-text-secondary: #718096;
+
+	/* Accent Colors */
+	--color-primary: #5bbfba;
+	--color-primary-hover: #48ada8;
+	--color-secondary: #f4b860;
+
+	/* UI Feedback States */
+	--color-success: #86efac;
+	--color-error: #f56565;
+	--color-warning: #f6ad55;
+	--color-info: #63b3ed;
+
+	/* Special Use */
+	--color-autocomplete-pill-bg: #edf2f7;
+	--color-selected-filter-bg: #e6fffa;
+	--color-pagination-active: #5bbfba;
+	--color-star: #f4b860;
+
 	--input-border-color: rgb(100, 100, 100);
 	--placeholder-color: rgb(130, 130, 130);
 	--btn-bg-color: rgb(50, 50, 50);
 	--btn-color: whitesmoke;
-	--filter-margin: 0 0.5rem;
+
+	--color-protein: hsl(120, 50%, 70%);
+	--color-fats: hsl(0, 50%, 70%);
+	--color-carbs: hsl(194, 50%, 70%);
 
 	--dropdown-section-height: 2.5rem;
 	--dropdown-section-padding: 0 0.5rem;
@@ -64,11 +93,23 @@ input {
 body {
 	width: 100vw;
 	height: 100vh;
+	background-color: var(--color-background);
 }
 
 h1 {
 	font-size: 3.2em;
-	// line-height: 1.1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+button,
+label {
+	color: var(--color-text-primary);
 }
 
 button {
@@ -85,15 +126,13 @@ button {
 //   outline: 4px auto -webkit-focus-ring-color;
 // }
 
-@media (prefers-color-scheme: light) or (prefers-color-scheme: dark) {
-	:root {
-		color: #213547;
-		background-color: var(--bg-color-main);
-	}
-	// a:hover {
-	//   color: #747bff;
-	// }
-	button {
-		background-color: #f9f9f9;
-	}
-}
+// @media (prefers-color-scheme: light) or (prefers-color-scheme: dark) {
+// 	:root {
+// 		--color-background: #f0efef;
+// 		--color-text-primary: #2a2a2a;
+// 		--color-primary: #9dc9b0;
+// 		--color-secondary: #619e88;
+// 		--color-accent: #d4a76a;
+// 	}
+
+// }

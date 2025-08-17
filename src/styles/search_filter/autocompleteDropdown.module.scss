@@ -13,11 +13,11 @@
 		padding: 0.2rem 0.5rem;
 		cursor: pointer;
 		position: relative;
-		background-color: var(--bg-color-main);
+		background-color: var(--color-background);
 		font-weight: 500;
 
 		&:hover {
-			background-color: var(--section-highlight-color);
+			background-color: var(--color-secondary);
 		}
 	}
 }

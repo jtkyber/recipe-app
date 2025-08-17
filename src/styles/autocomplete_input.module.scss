@@ -11,9 +11,7 @@
 
 		.selected_ingredient {
 			@include mixins.selected_autocomplete_item;
-
 			font-weight: 600;
-			color: rgb(50, 50, 50);
 		}
 	}
 }

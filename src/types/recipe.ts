@@ -43,6 +43,22 @@ export interface IExtendedIngredientsItem {
 	unit: string;
 }
 
+export interface INutrient {
+	amount: number;
+	name: string;
+	percentOfDailyNeeds: number;
+	unit: string;
+}
+
+export interface INutrition {
+	caloricBreakdown: any;
+	flavonoids: any;
+	ingredients: any;
+	nutrients: INutrient[];
+	properties: any;
+	weightPerServing: any;
+}
+
 export interface IRecipe {
 	aggregateLikes: number;
 	instructions: string;
@@ -61,6 +77,7 @@ export interface IRecipe {
 	image: string;
 	imageType: string;
 	lowFodmap: boolean;
+	nutrition: INutrition;
 	occasions: string[];
 	pricePerServing: number;
 	readyInMinutes: number;

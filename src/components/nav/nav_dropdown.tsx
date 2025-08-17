@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState, type ReactElement } from 'react';
 import styles from '../../styles/nav/nav_dropdown.module.scss';
-import type { NavIcons } from '../../types/nav';
-import ProfileSVG from '../svg/profileSVG';
 
-function NavDropdown({ children, iconName }: { children: ReactElement[]; iconName: NavIcons }) {
-	const iconRef = useRef<HTMLDivElement>(null);
+function NavDropdown({
+	children,
+	iconRef,
+}: {
+	children: ReactElement[];
+	iconRef: React.RefObject<HTMLDivElement | null>;
+}) {
 	const contentsRef = useRef<HTMLDivElement>(null);
 
 	const [position, setPosition] = useState<{
@@ -51,18 +54,13 @@ function NavDropdown({ children, iconName }: { children: ReactElement[]; iconNam
 	}
 
 	return (
-		<>
-			<div ref={iconRef} className={styles.icon_container}>
-				{iconName === 'profile' ? <ProfileSVG /> : null}
-			</div>
-			<div style={position} ref={contentsRef} className={styles.contents}>
-				{children.map((child, index) => (
-					<div key={index} className={styles.setting_text}>
-						{child}
-					</div>
-				))}
-			</div>
-		</>
+		<div style={position} ref={contentsRef} className={styles.contents}>
+			{children.map((child, index) => (
+				<div key={index} className={styles.setting_text}>
+					{child}
+				</div>
+			))}
+		</div>
 	);
 }
 

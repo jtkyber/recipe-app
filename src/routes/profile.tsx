@@ -293,6 +293,7 @@ function RouteComponent() {
 						});
 
 						const newIntolerances = await res.data;
+
 						if (newIntolerances === intolerances) dispatch(setUser({ ...user, intolerances }));
 					}
 					break;

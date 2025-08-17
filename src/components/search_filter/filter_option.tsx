@@ -17,7 +17,6 @@ function FilterOption({
 	selectedAutocompleteItems = [],
 	selectedDropdownItems = [],
 	isSolo = false,
-	numStep,
 }: {
 	id: string; // Must match casing & spelling in API
 	filter: FilterProperty | SignUpSelectionType;
@@ -29,7 +28,6 @@ function FilterOption({
 	selectedDropdownItems?: string[];
 	selectedAutocompleteItems?: string[];
 	isSolo?: boolean;
-	numStep?: number;
 }) {
 	const dispatch = useAppDispatch();
 
@@ -76,7 +74,6 @@ function FilterOption({
 						className={styles.numberBox}
 						type='number'
 						autoComplete='off'
-						step={numStep}
 					/>
 				) : null}
 			</div>

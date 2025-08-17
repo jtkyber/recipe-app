@@ -1,0 +1,40 @@
+.container {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	font-size: 0.9rem;
+	border-top: 1px solid black;
+	padding: 0.1rem 0;
+
+	&.indented {
+		margin-left: 1rem;
+	}
+
+	.left {
+		display: flex;
+		flex-flow: row nowrap;
+
+		.name {
+			font-weight: normal;
+			margin-right: 0.3rem;
+
+			&.bold {
+				font-weight: 800;
+			}
+		}
+
+		.amount {
+			font-weight: normal;
+		}
+
+		.unit {
+			font-weight: normal;
+		}
+	}
+
+	.right {
+		.dv {
+			font-weight: 800;
+		}
+	}
+}

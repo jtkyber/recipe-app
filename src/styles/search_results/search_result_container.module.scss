@@ -51,17 +51,17 @@
 		gap: 1rem;
 
 		.pagination_btn {
-			color: white;
-			background-color: black;
+			color: var(--color-background);
+			background-color: var(--color-text-primary);
 			width: 2rem;
 			aspect-ratio: 1/1;
-			border: 2px solid black;
+			border: 2px solid var(--color-text-primary);
 			border-radius: 50%;
 
 			&:hover,
 			&.active {
-				background-color: white;
-				color: black;
+				background-color: var(--color-background);
+				color: var(--color-text-primary);
 			}
 		}
 

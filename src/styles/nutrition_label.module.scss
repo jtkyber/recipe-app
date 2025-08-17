@@ -1,0 +1,91 @@
+.container {
+	margin-top: 4rem;
+	width: 100%;
+	height: max-content;
+	display: flex;
+	justify-content: center;
+
+	.nutrition_container {
+		width: 20rem;
+		border: 1px solid black;
+		padding: 0.8rem;
+		display: flex;
+		flex-flow: column nowrap;
+
+		.title_container {
+			border-bottom: 0.7rem solid black;
+			padding-bottom: 0.5rem;
+			text-align: center;
+
+			.title {
+				font-size: 2.4rem;
+				font-weight: 800;
+			}
+		}
+
+		.serving_container {
+		}
+
+		.calories_container {
+			padding-top: 0.5rem;
+			border-bottom: 0.4rem solid black;
+
+			.amt_per_serving_text {
+				font-size: 0.9rem;
+				font-weight: 800;
+			}
+
+			.calorie_amt_container {
+				display: flex;
+				flex-flow: row nowrap;
+				align-items: center;
+				justify-content: space-between;
+
+				.calories_text {
+					font-size: xx-large;
+					font-weight: 800;
+				}
+
+				.calorie_amt_text {
+					font-size: xx-large;
+					font-weight: 800;
+				}
+			}
+		}
+
+		.macros_container {
+			.daily_value_label {
+				width: 100%;
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: flex-end;
+
+				.daily_value_text {
+				}
+			}
+		}
+
+		.micros_container {
+			border-top: 0.7rem solid black;
+		}
+
+		.caloric_breakdown {
+			margin-top: 1rem;
+
+			.bar_chart {
+				width: 100%;
+				height: 2rem;
+			}
+
+			.caloric_categories {
+				position: relative;
+				width: 100%;
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: center;
+				gap: 0.5rem;
+				margin-top: 0.5rem;
+			}
+		}
+	}
+}
