@@ -1,14 +1,16 @@
+@import './variables.scss';
+
 @mixin selected_autocomplete_item {
 	font-size: smaller;
 	font-weight: 400;
-	background-color: var(--color-success);
+	background-color: $color-primary;
 	min-height: 1.4rem;
 	padding: 0 0.5rem;
 	border-radius: 0.3rem;
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-	color: var(--color-text-secondary);
+	color: $color-text-primary;
 	pointer-events: all;
 
 	&::after {
@@ -19,8 +21,8 @@
 	}
 
 	&:hover {
-		background-color: var(--color-error);
-		color: var(--color-text-primary);
+		background-color: $color-accent;
+		color: $color-background;
 	}
 }
 

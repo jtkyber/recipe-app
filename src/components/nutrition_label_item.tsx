@@ -28,7 +28,10 @@ function NutritionLabelItem({
 
 			<span className={styles.right}>
 				<h4 className={styles.dv}>
-					{nutrient?.percentOfDailyNeeds ? (nutrient.percentOfDailyNeeds * servingMult).toFixed() : '**'}%
+					{nutrient?.percentOfDailyNeeds !== undefined
+						? (nutrient.percentOfDailyNeeds * servingMult).toFixed()
+						: '**'}
+					%
 				</h4>
 			</span>
 		</div>

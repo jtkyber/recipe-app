@@ -1,3 +1,5 @@
+@use './styles/variables.scss' as vars;
+
 :root {
 	width: 100%;
 	height: 100%;
@@ -9,62 +11,10 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	--nav-height: 4rem;
-
-	// --color-background: #ffffff;
-	// --color-text-primary: #333333;
-	// --color-primary: #1e824c;
-	// --color-secondary: #d9ead3;
-	// --color-accent: #fff3c4;
-	// --color-muted-pink: #fce8e6;
-	// --color-light-grey: hsl(0, 0%, 92%);
-
-	/* Base Colors */
-	--color-background: #fafaf7;
-	--color-surface: #ffffff;
-	--color-border: #e2e8f0;
-	--color-text-primary: #2d3748;
-	--color-text-secondary: #718096;
-
-	/* Accent Colors */
-	--color-primary: #5bbfba;
-	--color-primary-hover: #48ada8;
-	--color-secondary: #f4b860;
-
-	/* UI Feedback States */
-	--color-success: #86efac;
-	--color-error: #f56565;
-	--color-warning: #f6ad55;
-	--color-info: #63b3ed;
-
-	/* Special Use */
-	--color-autocomplete-pill-bg: #edf2f7;
-	--color-selected-filter-bg: #e6fffa;
-	--color-pagination-active: #5bbfba;
-	--color-star: #f4b860;
-
-	--input-border-color: rgb(100, 100, 100);
-	--placeholder-color: rgb(130, 130, 130);
-	--btn-bg-color: rgb(50, 50, 50);
-	--btn-color: whitesmoke;
-
-	--color-protein: hsl(120, 50%, 70%);
-	--color-fats: hsl(0, 50%, 70%);
-	--color-carbs: hsl(194, 50%, 70%);
-
-	--dropdown-section-height: 2.5rem;
-	--dropdown-section-padding: 0 0.5rem;
-	--dropdown-border-radius: 0.5rem;
-	--filter-option-label-font-weight: 600;
-
-	--section-border-style: 1px solid rgb(220, 220, 220);
-
-	--skeleton-primary-color: rgb(230, 230, 230);
-	--skeleton-secondary-color: rgb(190, 190, 190);
-
-	--heart-color: #d13e39;
-
-	--hover-bg-color: rgba(0, 0, 0, 0.1);
+	--color-protein: #{vars.$color-protein};
+	--color-fats: #{vars.$color-fats};
+	--color-carbs: #{vars.$color-carbs};
+	--color-accent: #{vars.$color-accent};
 }
 
 * {
@@ -72,6 +22,7 @@
 	padding: 0;
 	box-sizing: border-box;
 	overflow: hidden;
+	color: vars.$color-text-primary;
 }
 
 a {
@@ -93,24 +44,24 @@ input {
 body {
 	width: 100vw;
 	height: 100vh;
-	background-color: var(--color-background);
+	background-color: vars.$color-background;
 }
 
 h1 {
 	font-size: 3.2em;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-li,
-button,
-label {
-	color: var(--color-text-primary);
-}
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6,
+// li,
+// button,
+// label {
+// 	color: $color-text-primary;
+// }
 
 button {
 	font-family: inherit;

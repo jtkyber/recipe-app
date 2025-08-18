@@ -1,19 +1,19 @@
-@use '../mixins.scss';
+@import '../variables.scss';
 
 .container {
 	width: 100%;
-	height: var(--nav-height);
+	height: $nav-height;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 1rem;
-	border-bottom: var(--section-border-style);
+	border-bottom: $section-border-style;
 	flex-shrink: 0;
 	// box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.6);
 
 	.left {
 		.title {
-			color: var(--color-secondary);
+			color: $color-accent;
 		}
 	}
 
@@ -30,10 +30,20 @@
 			user-select: none;
 			border-radius: 0.5rem;
 			padding: 0.6rem;
+			cursor: pointer;
 
 			&:hover,
 			&.active {
-				background-color: var(--color-light-grey);
+				background-color: rgba($color-primary, 1);
+
+				.heartImg,
+				.profileImg,
+				svg {
+					* {
+						fill: $color-background;
+						stroke: $color-background;
+					}
+				}
 			}
 
 			.heartImg,
@@ -52,7 +62,7 @@
 				flex-flow: column nowrap;
 				align-items: center;
 				padding: 0.5rem 0;
-				border-bottom: var(--section-border-style);
+				border-bottom: $section-border-style;
 
 				.username,
 				.edit_profile_text {

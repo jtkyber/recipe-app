@@ -1,30 +1,38 @@
+@import '../variables.scss';
+
 .container {
 	position: relative;
 	cursor: pointer;
 	align-self: flex-start;
-	width: 18rem;
 	gap: 0.5rem;
+	height: 20rem;
 	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: max-content max-content 1fr;
+	grid-template-columns: 18rem;
+	grid-template-rows: 1fr max-content max-content;
 	grid-template-areas:
 		'mealImage'
 		'title'
 		'bottomSection';
 	justify-content: center;
-	box-shadow: 0.08rem 0.08rem 0.5rem rgba(0, 0, 0, 0.7);
+	// box-shadow: 0.08rem 0.08rem 0.5rem rgba(0, 0, 0, 0.6);
 	user-select: none;
 	box-sizing: border-box;
 	border-radius: 0.5rem;
+	background-color: $color-surface;
+	padding: 0.5rem;
 
-	transition: transform 0.1s linear;
+	// transition: transform 0.05s linear;
 
 	&:hover {
-		transform: scale(1.03);
+		// transform: scale(1.02);
+
+		box-shadow: 0rem 0rem 0.7rem rgba(0, 0, 0, 0.3);
+
+		// outline: 3px solid $color-primary;
 	}
 
 	> *:not(.meal_image) {
-		padding: 0 0.5rem;
+		// padding: 0 0.5rem;
 	}
 
 	.popularity_badge_container {
@@ -32,7 +40,7 @@
 		width: 100%;
 		display: flex;
 		justify-content: flex-end;
-		padding-top: 0.5rem;
+		border-radius: 0.5rem;
 
 		svg {
 			width: 1.5rem;
@@ -40,12 +48,18 @@
 		}
 	}
 
-	.meal_image {
-		width: 100%;
-		height: auto;
+	.meal_image_container {
 		grid-area: mealImage;
-		object-fit: cover;
-		object-position: center;
+		// padding: 0.5rem;
+		// padding-bottom: 0;
+
+		.meal_image {
+			border-radius: 0.5rem;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
 	}
 
 	.title {

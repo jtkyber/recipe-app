@@ -69,13 +69,14 @@ function SearchResultContainer() {
 	return (
 		<div ref={containerRef} className={styles.container}>
 			<div className={styles.options}></div>
-			{fetchStatus === 'idle' ? (
-				<div className={styles.total_results_text_container}>
-					<h4 className={styles.total_results_text}>
-						<span className={styles.result_count}>{data?.totalResults}</span> results
-					</h4>
-				</div>
-			) : null}
+			<div className={styles.total_results_text_container}>
+				<h4 className={styles.total_results_text}>
+					<span className={styles.result_count}>
+						{fetchStatus === 'idle' ? data?.totalResults : 'searching...'}
+					</span>{' '}
+					{fetchStatus === 'idle' ? 'results' : ''}
+				</h4>
+			</div>
 			<div className={styles.results}>
 				{fetchStatus === 'idle'
 					? data?.results.map((recipe: IRecipe) => {

@@ -1,0 +1,34 @@
+$nav-height: 4rem;
+
+$color-background: #ede8da;
+$color-primary: #9dac9e;
+$color-accent: #a5553d;
+$color-surface: #f7f5f2;
+$color-text-primary: #3b3a37;
+$color-text-secondary: #6b7280;
+
+$input-border-color: rgba(0, 0, 0, 0.6);
+$placeholder-color: rgba(0, 0, 0, 0.5);
+
+$color-protein: rgba($color-primary, 0.85);
+$color-fats: rgba($color-accent, 0.85);
+$color-carbs: rgba($color-text-secondary, 0.85);
+
+$dropdown-section-height: 2.5rem;
+$dropdown-section-padding: 0 0.5rem;
+$dropdown-border-radius: 0.5rem;
+$filter-option-label-font-weight: 600;
+
+$section-border-style: 1px solid rgb(220, 220, 220);
+
+$skeleton-primary-color: rgba($color-text-primary, 0.15);
+$skeleton-secondary-color: rgba($color-text-secondary, 0.15);
+
+$hover-bg-color: rgba(0, 0, 0, 0.1);
+
+:export {
+	colorAccent: $color-accent;
+	colorProtein: $color-protein;
+	colorFats: $color-fats;
+	colorCarbs: $color-carbs;
+}

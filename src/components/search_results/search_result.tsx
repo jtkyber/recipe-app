@@ -34,7 +34,9 @@ function SearchResult({ recipe }: { recipe: IRecipe | null }) {
 				</div>
 			) : null}
 			<h3 className={styles.title}>{title}</h3>
-			<img className={styles.meal_image} src={image} alt='Meal Image' />
+			<div className={styles.meal_image_container}>
+				<img className={styles.meal_image} src={image} alt='Meal Image' />
+			</div>
 			<div className={styles.bottomSection}>
 				<Stars starRating={starRating} />
 				<div className={styles.timeToReadyContainer}>

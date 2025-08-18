@@ -38,7 +38,7 @@ function NutritionLabel({
 	const computedStyle = window.getComputedStyle(document.body);
 	const proteinColor = computedStyle.getPropertyValue('--color-protein');
 	const fatsColor = computedStyle.getPropertyValue('--color-fats');
-	const carbsolor = computedStyle.getPropertyValue('--color-carbs');
+	const carbsColor = computedStyle.getPropertyValue('--color-carbs');
 
 	const generate_organized_nutrients = () => {
 		const organized: IOrganizedNutrients = {
@@ -58,63 +58,45 @@ function NutritionLabel({
 			vitsAndMins: [],
 		};
 
-		for (const n of nutrients) {
+		loop: for (const n of nutrients) {
+			if (['alcohol', 'alcohol %', 'net carbohydrates'].includes(n.name.toLowerCase())) {
+				continue loop;
+			}
+
 			switch (n.name.toLowerCase()) {
 				case 'calories':
 					organized.calories = n;
-					break;
+					continue loop;
 				case 'fat':
 					organized.fat.totalFat = n;
-					break;
+					continue loop;
 				case 'saturated fat':
 					organized.fat.saturatedFat = n;
-					break;
+					continue loop;
 				case 'cholesterol':
 					organized.cholesterol = n;
-					break;
+					continue loop;
 				case 'sodium':
 					organized.sodium = n;
-					break;
+					continue loop;
 				case 'carbohydrates':
 					organized.carbs.totalCarbs = n;
-					break;
+					continue loop;
 				case 'fiber':
 					organized.carbs.dietaryFiber = n;
-					break;
+					continue loop;
 				case 'sugar':
 					organized.carbs.totalSugars = n;
-					break;
+					continue loop;
 				case 'protein':
 					organized.protein = n;
-					break;
+					continue loop;
 			}
 
-			if (
-				[
-					'vitamin a',
-					'manganese',
-					'vitamin b3',
-					'selenium',
-					'phosphorus',
-					'vitamin c',
-					'copper',
-					'vitamin b6',
-					'vitamin b2',
-					'vitamin b1',
-					'potassium',
-					'magnesium',
-					'iron',
-					'folate',
-					'zinc',
-					'vitamin b5',
-					'calcium',
-					'vitamin e',
-					'vitamin k',
-				].includes(n.name.toLowerCase())
-			) {
-				organized.vitsAndMins.push(n);
-			}
+			organized.vitsAndMins.push(n);
 		}
+
+		organized.vitsAndMins.sort((a, b) => b.percentOfDailyNeeds - a.percentOfDailyNeeds);
 
 		setOrganizedNutrients(organized);
 	};
@@ -187,7 +169,7 @@ function NutritionLabel({
 					<div
 						className={styles.bar_chart}
 						style={{
-							background: `linear-gradient(to right, ${proteinColor} 0%, ${proteinColor} ${caloricBreakdown.percentProtein}%, ${fatsColor} ${caloricBreakdown.percentProtein}%, ${fatsColor} ${caloricBreakdown.percentFat + caloricBreakdown.percentProtein}%, ${carbsolor} ${caloricBreakdown.percentFat + caloricBreakdown.percentProtein}%)`,
+							background: `linear-gradient(to right, ${proteinColor} 0%, ${proteinColor} ${caloricBreakdown.percentProtein}%, ${fatsColor} ${caloricBreakdown.percentProtein}%, ${fatsColor} ${caloricBreakdown.percentFat + caloricBreakdown.percentProtein}%, ${carbsColor} ${caloricBreakdown.percentFat + caloricBreakdown.percentProtein}%)`,
 						}}></div>
 					<div className={styles.caloric_categories}>
 						<h5 className={styles.protein} style={{ color: proteinColor }}>
@@ -196,7 +178,7 @@ function NutritionLabel({
 						<h5 className={styles.fats} style={{ color: fatsColor }}>
 							Fats
 						</h5>
-						<h5 className={styles.carbs} style={{ color: carbsolor }}>
+						<h5 className={styles.carbs} style={{ color: carbsColor }}>
 							Carbs
 						</h5>
 					</div>

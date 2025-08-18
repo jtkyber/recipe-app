@@ -1,4 +1,5 @@
 @use '../mixins.scss';
+@import '../variables.scss';
 
 .container {
 	width: 100%;
@@ -19,7 +20,7 @@
 		.title_container {
 			.title_top,
 			.title_bottom {
-				background-color: var(--skeleton-primary-color);
+				background-color: $skeleton-primary-color;
 				border-radius: 2rem;
 
 				&.title_top {
@@ -45,7 +46,7 @@
 			.time {
 				display: inline-block;
 				height: 1rem;
-				background-color: var(--skeleton-primary-color);
+				background-color: $skeleton-primary-color;
 				border-radius: 1rem;
 
 				&.stars {
@@ -60,7 +61,7 @@
 		.save_btn {
 			max-width: 6rem;
 			aspect-ratio: 5/2;
-			background-color: var(--skeleton-primary-color);
+			background-color: $skeleton-primary-color;
 			margin-top: 1rem;
 			border-radius: 0.5rem;
 		}
@@ -68,7 +69,7 @@
 		.meal_pic {
 			width: 100%;
 			aspect-ratio: 3/2;
-			background-color: var(--skeleton-primary-color);
+			background-color: $skeleton-primary-color;
 			margin-top: 1rem;
 		}
 
@@ -76,14 +77,14 @@
 			margin-top: 2rem;
 
 			.ingredient_header {
-				background-color: var(--skeleton-primary-color);
+				background-color: $skeleton-primary-color;
 				max-width: 10rem;
 				height: 1.5rem;
 				border-radius: 1rem;
 			}
 
 			.servings {
-				background-color: var(--skeleton-primary-color);
+				background-color: $skeleton-primary-color;
 				max-width: 6rem;
 				height: 1rem;
 				border-radius: 1rem;
@@ -98,7 +99,7 @@
 					height: 1rem;
 					border-radius: 1rem;
 					margin-top: 1rem;
-					background-color: var(--skeleton-primary-color);
+					background-color: $skeleton-primary-color;
 				}
 			}
 		}
@@ -107,7 +108,7 @@
 			margin-top: 2rem;
 
 			.instruction_header {
-				background-color: var(--skeleton-primary-color);
+				background-color: $skeleton-primary-color;
 				max-width: 10rem;
 				height: 1.5rem;
 				border-radius: 1rem;
@@ -119,13 +120,13 @@
 					.line_one {
 						width: 90%;
 						height: 1rem;
-						background-color: var(--skeleton-primary-color);
+						background-color: $skeleton-primary-color;
 						border-radius: 1rem;
 					}
 					.line_two {
 						width: 30%;
 						height: 1rem;
-						background-color: var(--skeleton-primary-color);
+						background-color: $skeleton-primary-color;
 						border-radius: 1rem;
 						margin-top: 0.5rem;
 					}

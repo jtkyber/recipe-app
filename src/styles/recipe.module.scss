@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 .container {
 	position: relative;
 	width: 100;
@@ -64,7 +66,7 @@
 				align-items: center;
 				gap: 0.5rem;
 				padding: 0.5rem 0.8rem;
-				background-color: var(--heart-color);
+				background-color: $color-accent;
 				border-radius: 0.3rem;
 
 				&.is_saved:disabled,
@@ -73,19 +75,19 @@
 				}
 
 				&:hover svg path {
-					fill: white;
+					fill: $color-background;
 				}
 
 				&.is_saved svg path {
-					fill: white;
+					fill: $color-background;
 				}
 				&.is_saved {
-					background-color: #28a745;
+					background-color: $color-primary;
 				}
 
 				.save_text {
 					// font-weight: 500;
-					color: white;
+					color: $color-background;
 				}
 
 				svg {
@@ -94,7 +96,7 @@
 
 					path {
 						fill: none;
-						stroke: white;
+						stroke: $color-background;
 						stroke-width: 26px;
 					}
 				}

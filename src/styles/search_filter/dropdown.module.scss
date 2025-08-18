@@ -1,3 +1,5 @@
+@import '../variables.scss';
+
 .dropdownContainer {
 	width: 100%;
 	height: max-content;
@@ -10,8 +12,8 @@
 	.dropdown_label_container {
 		width: 100%;
 		height: max-content;
-		padding: var(--dropdown-section-padding);
-		border-radius: var(--dropdown-border-radius);
+		padding: $dropdown-section-padding;
+		border-radius: $dropdown-border-radius;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -22,12 +24,16 @@
 		}
 
 		&:hover {
-			background-color: var(--color-light-grey);
+			background-color: $color-primary;
+
+			.dropdown_label {
+				color: $color-background;
+			}
 		}
 
 		.dropdown_label {
 			width: 100%;
-			font-weight: var(--filter-option-label-font-weight);
+			font-weight: $filter-option-label-font-weight;
 		}
 
 		.dropdown_active_symbol {
@@ -40,13 +46,13 @@
 			}
 		}
 
-		.textbox {
-			width: 5rem;
-			height: 1.5rem;
-			border: 1px solid var(--input-border-color);
-			border-radius: var(--dropdown-border-radiu);
-			padding: 0 0.5rem;
-		}
+		// .textbox {
+		// 	width: 5rem;
+		// 	height: 1.5rem;
+		// 	border: 1px solid $color-text-primary;
+		// 	border-radius: $dropdown-border-radius;
+		// 	padding: 0 0.5rem;
+		// }
 	}
 
 	.options {
@@ -70,7 +76,7 @@
 		.optionSearchbar {
 			width: 100%;
 			height: 2rem;
-			border: 1px solid var(--input-border-color);
+			border: 1px solid $input-border-color;
 			border-radius: 0.5rem;
 			padding: 0 0.5rem;
 			font-size: small;

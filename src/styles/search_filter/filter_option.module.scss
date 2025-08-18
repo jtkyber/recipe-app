@@ -1,4 +1,5 @@
 @use '../mixins.scss';
+@import '../variables.scss';
 
 .option {
 	width: 100%;
@@ -20,33 +21,60 @@
 			pointer-events: none;
 			cursor: crosshair;
 
+			.optionContainer {
+				.label {
+					color: $color-text-primary;
+				}
+			}
 			.optionContainer:hover {
 				background-color: inherit;
 			}
 		}
 		.label {
 			width: 100%;
-			font-weight: var(--filter-option-label-font-weight);
+			font-weight: $filter-option-label-font-weight;
 			text-align: start;
 		}
 	}
 
 	.optionContainer {
 		width: 100%;
-		height: var(--dropdown-section-height);
-		border-radius: var(--dropdown-border-radius);
+		height: $dropdown-section-height;
+		border-radius: $dropdown-border-radius;
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
 		justify-content: space-between;
-		padding: var(--dropdown-section-padding);
+		padding: $dropdown-section-padding;
+
+		// .label,
+		// .checkbox,
+		// .radio {
+		// 	color: $color-text-secondary;
+		// 	border-color: $color-text-secondary;
+
+		// 	&::after {
+		// 		background-color: $color-text-secondary;
+		// 	}
+		// }
 
 		&:active {
 			pointer-events: none;
 		}
 
 		&:hover {
-			background-color: var(--color-light-grey);
+			background-color: $color-primary;
+
+			.label,
+			.checkbox,
+			.radio {
+				color: $color-background;
+				border-color: $color-background;
+
+				&::after {
+					background-color: $color-background;
+				}
+			}
 		}
 
 		.checkbox {
@@ -59,6 +87,10 @@
 			justify-content: center;
 			align-items: center;
 
+			&::after {
+				background-color: black;
+			}
+
 			&[data-checked='true'] {
 				border-width: 2px;
 
@@ -66,7 +98,6 @@
 					content: '';
 					width: 0.45rem;
 					height: 0.45rem;
-					background-color: black;
 					// margin: 0px 0px 1px 0px;
 				}
 			}
@@ -82,6 +113,10 @@
 			justify-content: center;
 			align-items: center;
 
+			&::after {
+				background-color: black;
+			}
+
 			&[data-checked='true'] {
 				border-width: 2px;
 
@@ -90,7 +125,6 @@
 					width: 0.45rem;
 					height: 0.45rem;
 					border-radius: 50%;
-					background-color: black;
 				}
 			}
 		}

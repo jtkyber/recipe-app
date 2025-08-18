@@ -1,6 +1,6 @@
 function ProfileSVG() {
 	return (
-		<svg viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
+		<svg viewBox='-1 -1 32 32' fill='none' xmlns='http://www.w3.org/2000/svg'>
 			<path
 				d='M15 30C6.72852 30 0 23.271 0 15C0 6.729 6.72852 0 15 0C23.2715 0 30 6.729 30 15C30 23.271 23.2715 30 15 30ZM15 2C7.83203 2 2 7.83154 2 15C2 22.1685 7.83203 28 15 28C22.168 28 28 22.1685 28 15C28 7.83154 22.168 2 15 2Z'
 				fill='black'
