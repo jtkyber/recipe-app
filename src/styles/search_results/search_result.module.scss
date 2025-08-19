@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@use '../variables.scss' as vars;
 
 .container {
 	position: relative;
@@ -15,10 +15,11 @@
 		'bottomSection';
 	justify-content: center;
 	// box-shadow: 0.08rem 0.08rem 0.5rem rgba(0, 0, 0, 0.6);
+	box-shadow: 0rem 0rem 0.5rem rgba(0, 0, 0, 0.2);
 	user-select: none;
 	box-sizing: border-box;
 	border-radius: 0.5rem;
-	background-color: $color-surface;
+	background-color: vars.$color-surface;
 	padding: 0.5rem;
 
 	// transition: transform 0.05s linear;
@@ -26,7 +27,7 @@
 	&:hover {
 		// transform: scale(1.02);
 
-		box-shadow: 0rem 0rem 0.7rem rgba(0, 0, 0, 0.3);
+		box-shadow: 0rem 0rem 0.7rem rgba(0, 0, 0, 0.4);
 
 		// outline: 3px solid $color-primary;
 	}
@@ -67,7 +68,7 @@
 		width: 100%;
 		font-size: large;
 		font-weight: 600;
-		color: black;
+		color: vars.$color-text-primary;
 		text-align: start;
 	}
 
@@ -89,12 +90,13 @@
 				height: auto;
 
 				* {
-					stroke: black;
-					fill: black;
+					stroke: vars.$color-text-secondary;
+					fill: vars.$color-text-secondary;
 				}
 			}
 
 			.timeToReady {
+				color: vars.$color-text-secondary;
 			}
 		}
 	}

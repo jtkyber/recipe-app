@@ -1,4 +1,4 @@
-@import './variables.scss';
+@use './variables.scss' as vars;
 
 .container {
 	position: relative;
@@ -33,9 +33,10 @@
 	input {
 		width: 100%;
 		height: 2.5rem;
-		border-radius: $dropdown-border-radius;
+		border-radius: vars.$dropdown-border-radius;
 		padding-left: 0.5rem;
 		border-color: lightgray;
+		background-color: vars.$color-surface;
 
 		&:valid {
 			&.matches {

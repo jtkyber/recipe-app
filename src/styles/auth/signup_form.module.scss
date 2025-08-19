@@ -1,4 +1,5 @@
 @use '../mixins.scss';
+@use '../variables.scss' as vars;
 
 .sign_up_form {
 	display: flex;
@@ -27,8 +28,8 @@
 
 		button {
 			width: 100%;
-			background-color: black;
-			color: whitesmoke;
+			background-color: vars.$color-accent;
+			color: vars.$color-background;
 			padding: 0.8rem 1rem;
 			border-radius: 0.5rem;
 			font-weight: 600;

@@ -1,11 +1,11 @@
-@import '../variables.scss';
+@use '../variables.scss' as vars;
 
 .container {
 	position: fixed;
 	height: max-content;
 	background-color: rgb(150, 150, 150);
 	border: 1px solid black;
-	border-radius: $dropdown-border-radius;
+	border-radius: vars.$dropdown-border-radius;
 	z-index: 1;
 	display: flex;
 	flex-flow: column nowrap;
@@ -15,11 +15,11 @@
 		padding: 0.2rem 0.5rem;
 		cursor: pointer;
 		position: relative;
-		background-color: $color-background;
+		background-color: vars.$color-background;
 		font-weight: 500;
 
 		&:hover {
-			background-color: $color-accent;
+			background-color: vars.$color-accent;
 		}
 	}
 }

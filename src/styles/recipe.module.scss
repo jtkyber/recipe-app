@@ -1,4 +1,4 @@
-@import './variables.scss';
+@use './variables.scss' as vars;
 
 .container {
 	position: relative;
@@ -21,26 +21,62 @@
 			font-size: 2.5rem;
 		}
 
-		.star_time_container {
+		.top_row {
 			display: flex;
 			flex-flow: row nowrap;
-			justify-content: flex-start;
+			justify-content: space-between;
 			align-items: center;
-			gap: 2rem;
 			margin-top: 0.5rem;
 
-			.timeToReadyContainer {
+			.left {
 				display: flex;
 				flex-flow: row nowrap;
-				align-items: center;
-				gap: 0.5rem;
+				gap: 2rem;
 
-				svg {
-					width: 1rem;
-					height: auto;
+				.timeToReadyContainer {
+					display: flex;
+					flex-flow: row nowrap;
+					align-items: center;
+					gap: 0.5rem;
+
+					svg {
+						width: 1rem;
+						height: auto;
+					}
+
+					.timeToReady {
+					}
 				}
+			}
 
-				.timeToReady {
+			.right {
+				.save_button {
+					background-color: inherit;
+					width: 1.8rem;
+					height: 2rem;
+					transition: opacity ease-out 0.1s;
+
+					svg {
+						width: 1.2rem;
+						height: auto;
+
+						path {
+							fill: none;
+							stroke: vars.$color-save;
+							stroke-width: 26px;
+						}
+					}
+
+					&:hover {
+						opacity: 0.8;
+					}
+
+					&.is_saved {
+						svg path {
+							fill: vars.$color-save;
+							stroke: vars.$color-save;
+						}
+					}
 				}
 			}
 		}
@@ -49,59 +85,76 @@
 			margin-top: 0.5rem;
 		}
 
-		.save_container {
-			width: 100%;
-			height: max-content;
-			display: flex;
-			justify-content: flex-start;
-			align-items: center;
-			margin-top: 0.5rem;
+		// .save_container {
+		// 	width: 100%;
+		// 	height: max-content;
+		// 	display: flex;
+		// 	justify-content: flex-start;
+		// 	align-items: center;
+		// 	margin-top: 0.5rem;
+		// 	overflow: visible;
 
-			.save_button {
-				width: max-content;
-				height: max-content;
-				display: flex;
-				flex-flow: row nowrap;
-				justify-content: flex-start;
-				align-items: center;
-				gap: 0.5rem;
-				padding: 0.5rem 0.8rem;
-				background-color: $color-accent;
-				border-radius: 0.3rem;
+		// 	.save_button {
+		// 		width: max-content;
+		// 		height: max-content;
+		// 		display: flex;
+		// 		flex-flow: row nowrap;
+		// 		justify-content: flex-start;
+		// 		align-items: center;
+		// 		gap: 0.5rem;
+		// 		padding: 0.4rem 0.5rem;
+		// 		// background-color: vars.$color-highlight;
+		// 		border: 2px solid vars.$color-primary;
+		// 		border-radius: 0.3rem;
+		// 		// box-shadow: 1px 1px 0.2rem rgba(0, 0, 0, 0.25);
 
-				&.is_saved:disabled,
-				&:disabled {
-					filter: brightness(0.8);
-				}
+		// 		&.is_saved:disabled,
+		// 		&:disabled {
+		// 			filter: brightness(0.8);
+		// 		}
 
-				&:hover svg path {
-					fill: $color-background;
-				}
+		// 		&:hover {
+		// 			box-shadow: none;
 
-				&.is_saved svg path {
-					fill: $color-background;
-				}
-				&.is_saved {
-					background-color: $color-primary;
-				}
+		// 			svg path {
+		// 				fill: vars.$color-primary;
+		// 			}
+		// 		}
 
-				.save_text {
-					// font-weight: 500;
-					color: $color-background;
-				}
+		// 		&.is_saved {
+		// 			background-color: vars.$color-accent;
+		// 			border-color: vars.$color-accent;
 
-				svg {
-					width: 1.2rem;
-					height: auto;
+		// 			box-shadow: none;
 
-					path {
-						fill: none;
-						stroke: $color-background;
-						stroke-width: 26px;
-					}
-				}
-			}
-		}
+		// 			svg path {
+		// 				fill: vars.$color-background;
+		// 				stroke: vars.$color-background;
+		// 			}
+
+		// 			.save_text {
+		// 				color: vars.$color-background;
+		// 			}
+		// 		}
+
+		// 		.save_text {
+		// 			// font-weight: 500;
+		// 			// color: vars.$color-background;
+		// 			color: vars.$color-primary;
+		// 		}
+
+		// 		svg {
+		// 			width: 1.2rem;
+		// 			height: auto;
+
+		// 			path {
+		// 				fill: none;
+		// 				stroke: vars.$color-primary;
+		// 				stroke-width: 26px;
+		// 			}
+		// 		}
+		// 	}
+		// }
 
 		.image_container {
 			width: 100%;

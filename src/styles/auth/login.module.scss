@@ -1,4 +1,5 @@
 @use '../mixins';
+@use '../variables.scss' as vars;
 
 .container {
 	width: 100%;
@@ -10,7 +11,7 @@
 		width: 40%;
 		height: 100%;
 		background:
-			linear-gradient(rgba(0, 0, 0, 0.3)),
+			linear-gradient(rgba(0, 0, 0, 0.2)),
 			center / cover no-repeat url('../../assets/food_sign_up.jpg');
 		display: flex;
 		justify-content: flex-start;
@@ -19,18 +20,18 @@
 
 		.text_container {
 			max-width: 30rem;
-			color: whitesmoke;
 			display: flex;
 			flex-flow: column nowrap;
 
 			h2 {
 				font-size: xx-large;
 				font-weight: 800;
+				color: vars.$color-background;
 			}
 
-			// p {
-
-			// }
+			p {
+				color: vars.$color-background;
+			}
 		}
 	}
 
@@ -54,21 +55,21 @@
 				text-align: center;
 
 				h1 {
-					// margin-bottom: 1rem;
+					color: vars.$color-text-primary;
 				}
 
 				p {
+					color: vars.$color-text-primary;
+
 					a {
 						margin-left: 0.5rem;
 						text-decoration: underline;
-						color: black;
-						opacity: 0.5;
+						color: vars.$color-text-secondary;
 						font-weight: 400;
 						cursor: pointer;
-						transition: opacity 0.1s ease-out;
 
 						&:hover {
-							opacity: 1;
+							color: vars.$color-primary;
 						}
 					}
 				}

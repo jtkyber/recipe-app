@@ -1,5 +1,5 @@
 @use '../mixins.scss';
-@import '../variables.scss';
+@use '../variables.scss' as vars;
 
 .option {
 	width: 100%;
@@ -23,7 +23,7 @@
 
 			.optionContainer {
 				.label {
-					color: $color-text-primary;
+					color: vars.$color-text-primary;
 				}
 			}
 			.optionContainer:hover {
@@ -32,29 +32,29 @@
 		}
 		.label {
 			width: 100%;
-			font-weight: $filter-option-label-font-weight;
+			font-weight: vars.$filter-option-label-font-weight;
 			text-align: start;
 		}
 	}
 
 	.optionContainer {
 		width: 100%;
-		height: $dropdown-section-height;
-		border-radius: $dropdown-border-radius;
+		height: vars.$dropdown-section-height;
+		border-radius: vars.$dropdown-border-radius;
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
 		justify-content: space-between;
-		padding: $dropdown-section-padding;
+		padding: vars.$dropdown-section-padding;
 
 		// .label,
 		// .checkbox,
 		// .radio {
-		// 	color: $color-text-secondary;
-		// 	border-color: $color-text-secondary;
+		// 	color: vars.$color-text-secondary;
+		// 	border-color: vars.$color-text-secondary;
 
 		// 	&::after {
-		// 		background-color: $color-text-secondary;
+		// 		background-color: vars.$color-text-secondary;
 		// 	}
 		// }
 
@@ -63,16 +63,16 @@
 		}
 
 		&:hover {
-			background-color: $color-primary;
+			background-color: vars.$color-highlight;
 
 			.label,
 			.checkbox,
 			.radio {
-				color: $color-background;
-				border-color: $color-background;
+				color: vars.$color-background;
+				border-color: vars.$color-background;
 
 				&::after {
-					background-color: $color-background;
+					background-color: vars.$color-background;
 				}
 			}
 		}
@@ -86,19 +86,21 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			padding: 2px;
 
 			&::after {
+				content: '';
+				width: 100%;
+				height: 100%;
 				background-color: black;
+				visibility: hidden;
 			}
 
 			&[data-checked='true'] {
 				border-width: 2px;
 
 				&::after {
-					content: '';
-					width: 0.45rem;
-					height: 0.45rem;
-					// margin: 0px 0px 1px 0px;
+					visibility: visible;
 				}
 			}
 		}
@@ -112,8 +114,14 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			padding: 2px;
 
 			&::after {
+				content: '';
+				width: 100%;
+				height: 100%;
+				visibility: hidden;
+				border-radius: 50%;
 				background-color: black;
 			}
 
@@ -121,10 +129,7 @@
 				border-width: 2px;
 
 				&::after {
-					content: '';
-					width: 0.45rem;
-					height: 0.45rem;
-					border-radius: 50%;
+					visibility: visible;
 				}
 			}
 		}

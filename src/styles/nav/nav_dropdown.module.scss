@@ -1,5 +1,5 @@
 @use '../mixins.scss';
-@import '../variables.scss';
+@use '../variables.scss' as vars;
 
 .contents {
 	display: none;
@@ -9,9 +9,9 @@
 	top: 3.5rem;
 	user-select: none;
 	flex-flow: column nowrap;
-	background-color: $color-background;
+	background-color: vars.$color-background;
 	padding: 0.5rem;
-	border: $section-border-style;
+	border: vars.$section-border-style;
 	border-radius: 0.5rem;
 	box-shadow: 0.15rem 0.15rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 	z-index: 1;
@@ -21,11 +21,11 @@
 		border-radius: 0.5rem;
 
 		&:hover {
-			background-color: $color-primary;
+			background-color: vars.$color-highlight;
 
 			h4,
 			h5 {
-				color: $color-background;
+				color: vars.$color-background;
 			}
 		}
 

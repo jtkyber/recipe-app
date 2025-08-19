@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@use '../variables.scss' as vars;
 
 .container {
 	width: 25rem;
@@ -8,8 +8,8 @@
 	position: relative;
 	gap: 1rem;
 	padding: 2rem 0.5rem 0.5rem 1rem;
-	border-right: $section-border-style;
-	// box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.6);
+	border-right: vars.$section-border-style;
+	background-color: vars.$color-surface;
 
 	.searchbarContainer {
 		width: 100%;

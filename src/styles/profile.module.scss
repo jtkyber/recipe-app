@@ -1,4 +1,4 @@
-@import './variables.scss';
+@use './variables.scss' as vars;
 
 .container {
 	width: 100%;
@@ -11,7 +11,7 @@
 	.settings_container {
 		width: max-content;
 		height: 100%;
-		border-right: $section-border-style;
+		border-right: vars.$section-border-style;
 		padding: $padding;
 		padding-left: $padding-edge;
 		overflow-y: auto;
@@ -87,8 +87,8 @@
 
 			.update_btn {
 				width: 100%;
-				background-color: $color-accent;
-				color: $color-background;
+				background-color: vars.$color-accent;
+				color: vars.$color-background;
 				padding: 0.5rem 1rem;
 				border-radius: 0.5rem;
 				transition: opacity 0.1s ease-out;

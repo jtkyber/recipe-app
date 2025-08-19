@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@use '../variables.scss' as vars;
 
 .container {
 	width: 100%;
@@ -51,19 +51,20 @@
 		justify-content: center;
 		align-items: center;
 		gap: 1rem;
+		$pag-color: vars.$color-primary;
 
 		.pagination_btn {
-			color: $color-text-primary;
-			background-color: $color-background;
+			color: $pag-color;
+			background-color: vars.$color-background;
 			width: 2rem;
 			aspect-ratio: 1/1;
-			border: 2px solid $color-text-primary;
+			border: 2px solid $pag-color;
 			border-radius: 50%;
 
 			&:hover,
 			&.active {
-				background-color: $color-text-primary;
-				color: $color-background;
+				background-color: $pag-color;
+				color: vars.$color-background;
 			}
 		}
 
@@ -74,12 +75,17 @@
 			align-items: center;
 			gap: 0.3rem;
 
-			.text:hover {
-				text-decoration: underline;
+			.text {
+				color: $pag-color;
+
+				&:hover {
+					text-decoration: underline;
+				}
 			}
 
 			.arrow {
 				font-size: x-large;
+				color: $pag-color;
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-@import './variables.scss';
+@use './variables.scss' as vars;
 
 .container {
 	width: max-content;
@@ -16,8 +16,8 @@
 
 			path {
 				stroke-width: 5px;
-				fill: $color-accent;
-				stroke: $color-accent;
+				fill: vars.$color-stars;
+				stroke: vars.$color-stars;
 			}
 		}
 
