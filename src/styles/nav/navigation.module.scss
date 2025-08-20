@@ -36,8 +36,6 @@
 			&.active {
 				background-color: rgba(vars.$color-highlight, 1);
 
-				.heartImg,
-				.profileImg,
 				svg {
 					* {
 						fill: vars.$color-background;
@@ -46,8 +44,6 @@
 				}
 			}
 
-			.heartImg,
-			.profileImg,
 			svg {
 				width: 1.5rem;
 				height: auto;

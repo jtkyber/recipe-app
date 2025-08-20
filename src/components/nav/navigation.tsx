@@ -1,11 +1,11 @@
 import { Link, useRouter, useRouterState } from '@tanstack/react-router';
 import { useRef } from 'react';
-import heartImg from '../../assets/heart.png';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { signOutUser } from '../../redux/slices/userSlice';
 import styles from '../../styles/nav/navigation.module.scss';
 import type { IUser } from '../../types/user';
 import { setCookie } from '../../utils/cookies';
+import HeartNavSVG from '../svg/heart_navSVG';
 import ProfileSVG from '../svg/profileSVG';
 import SearchSVG from '../svg/searchSVG';
 import NavDropdown from './nav_dropdown';
@@ -46,7 +46,7 @@ function Navigation() {
 						<Link
 							to='/saved'
 							className={`${styles.nav_icon_container} ${routeId === '/saved' ? styles.active : null}`}>
-							<img className={styles.heartImg} src={heartImg} alt='Heart Image' />
+							<HeartNavSVG />
 						</Link>
 
 						<div

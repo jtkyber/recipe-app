@@ -170,11 +170,21 @@ function RouteComponent() {
 			<div className={styles.recipe_container}>
 				<h1 className={styles.title}>{recipe.title}</h1>
 
-				<div className={styles.star_time_container}>
-					<Stars starRating={starRating} />
-					<div className={styles.timeToReadyContainer}>
-						<ClockSVG />
-						<span className={styles.timeToReady}>{recipe.readyInMinutes}mins</span>
+				<div className={styles.top_row}>
+					<div className={styles.left}>
+						<Stars starRating={starRating} />
+						<div className={styles.timeToReadyContainer}>
+							<ClockSVG />
+							<span className={styles.timeToReady}>{recipe.readyInMinutes}mins</span>
+						</div>
+					</div>
+					<div className={styles.right}>
+						<button
+							disabled={saveInProgress}
+							onClick={toggle_save_recipe}
+							className={`${styles.save_button} ${recipeSaved ? styles.is_saved : null}`}>
+							<HeartSVG />
+						</button>
 					</div>
 				</div>
 
@@ -185,7 +195,7 @@ function RouteComponent() {
 					<SummarySkeleton pulse />
 				)}
 
-				<div className={styles.save_container}>
+				{/* <div className={styles.save_container}>
 					<button
 						disabled={saveInProgress}
 						onClick={toggle_save_recipe}
@@ -193,7 +203,7 @@ function RouteComponent() {
 						<h3 className={styles.save_text}>{recipeSaved ? 'Saved' : 'Save'}</h3>
 						<HeartSVG />
 					</button>
-				</div>
+				</div> */}
 
 				<div className={styles.image_container}>
 					<img className={styles.image} src={recipe.image} alt='Recipe Image' />
@@ -255,11 +265,13 @@ function RouteComponent() {
 						);
 					})}
 				</div>
-				<NutritionLabel
-					nutrients={recipe.nutrition.nutrients}
-					caloricBreakdown={recipe.nutrition.caloricBreakdown}
-					servingMult={servingSize / recipe.servings}
-				/>
+				{recipe?.nutrition ? (
+					<NutritionLabel
+						nutrients={recipe.nutrition.nutrients}
+						caloricBreakdown={recipe.nutrition.caloricBreakdown}
+						servingMult={servingSize / recipe.servings}
+					/>
+				) : null}
 				{recipe?.sourceUrl ? (
 					<div className={styles.src_container}>
 						<h4 className={styles.src_text}>

@@ -3,7 +3,7 @@ function StarSVG() {
 		<svg width='96' height='91' viewBox='0 0 96 91' fill='none' xmlns='http://www.w3.org/2000/svg'>
 			<defs>
 				<linearGradient id='grad'>
-					<stop offset='50%' stopColor={'var(--color-accent)'} />
+					<stop offset='50%' stopColor={'var(--color-stars)'} />
 					<stop offset='50%' stopColor='transparent' />
 				</linearGradient>
 			</defs>
