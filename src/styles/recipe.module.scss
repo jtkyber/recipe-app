@@ -2,280 +2,307 @@
 
 .container {
 	position: relative;
-	width: 100;
+	width: 100%;
 	height: 100%;
 	overflow-y: auto;
-	display: flex;
-	justify-content: center;
 
-	.recipe_container {
+	.scrollable_container {
 		width: 100%;
-		max-width: 40rem;
 		height: max-content;
 		padding: 2rem;
 		padding-bottom: 10rem;
+		display: flex;
+		flex-flow: column nowrap;
 
-		.title {
+		.back_btn_container {
 			width: 100%;
-			text-align: start;
-			font-size: 2.5rem;
+			height: max-content;
+
+			.back_btn {
+				transition: opacity ease-out 0.1s;
+
+				svg {
+					width: 2rem;
+					height: auto;
+					path {
+						fill: vars.$color-text-secondary;
+					}
+				}
+
+				&:hover {
+					opacity: 0.6;
+				}
+			}
 		}
 
-		.top_row {
-			display: flex;
-			flex-flow: row nowrap;
-			justify-content: space-between;
-			align-items: center;
-			margin-top: 0.5rem;
+		.recipe_container {
+			align-self: center;
+			width: 100%;
+			max-width: 40rem;
+			height: max-content;
 
-			.left {
+			.title {
+				width: 100%;
+				text-align: start;
+				font-size: 2.5rem;
+			}
+
+			.top_row {
 				display: flex;
 				flex-flow: row nowrap;
-				gap: 2rem;
+				justify-content: space-between;
+				align-items: center;
+				margin-top: 0.5rem;
 
-				.timeToReadyContainer {
+				.left {
+					display: flex;
+					flex-flow: row nowrap;
+					gap: 2rem;
+
+					.timeToReadyContainer {
+						display: flex;
+						flex-flow: row nowrap;
+						align-items: center;
+						gap: 0.5rem;
+
+						svg {
+							width: 1rem;
+							height: auto;
+						}
+
+						.timeToReady {
+						}
+					}
+				}
+
+				.right {
+					.save_button {
+						background-color: inherit;
+						width: 1.8rem;
+						height: 2rem;
+						transition: opacity ease-out 0.1s;
+
+						svg {
+							width: 1.2rem;
+							height: auto;
+
+							path {
+								fill: none;
+								stroke: vars.$color-save;
+								stroke-width: 26px;
+							}
+						}
+
+						&:hover {
+							opacity: 0.8;
+						}
+
+						&.is_saved {
+							svg path {
+								fill: vars.$color-save;
+								stroke: vars.$color-save;
+							}
+						}
+					}
+				}
+			}
+
+			.summary {
+				margin-top: 0.5rem;
+			}
+
+			// .save_container {
+			// 	width: 100%;
+			// 	height: max-content;
+			// 	display: flex;
+			// 	justify-content: flex-start;
+			// 	align-items: center;
+			// 	margin-top: 0.5rem;
+			// 	overflow: visible;
+
+			// 	.save_button {
+			// 		width: max-content;
+			// 		height: max-content;
+			// 		display: flex;
+			// 		flex-flow: row nowrap;
+			// 		justify-content: flex-start;
+			// 		align-items: center;
+			// 		gap: 0.5rem;
+			// 		padding: 0.4rem 0.5rem;
+			// 		// background-color: vars.$color-highlight;
+			// 		border: 2px solid vars.$color-primary;
+			// 		border-radius: 0.3rem;
+			// 		// box-shadow: 1px 1px 0.2rem rgba(0, 0, 0, 0.25);
+
+			// 		&.is_saved:disabled,
+			// 		&:disabled {
+			// 			filter: brightness(0.8);
+			// 		}
+
+			// 		&:hover {
+			// 			box-shadow: none;
+
+			// 			svg path {
+			// 				fill: vars.$color-primary;
+			// 			}
+			// 		}
+
+			// 		&.is_saved {
+			// 			background-color: vars.$color-accent;
+			// 			border-color: vars.$color-accent;
+
+			// 			box-shadow: none;
+
+			// 			svg path {
+			// 				fill: vars.$color-background;
+			// 				stroke: vars.$color-background;
+			// 			}
+
+			// 			.save_text {
+			// 				color: vars.$color-background;
+			// 			}
+			// 		}
+
+			// 		.save_text {
+			// 			// font-weight: 500;
+			// 			// color: vars.$color-background;
+			// 			color: vars.$color-primary;
+			// 		}
+
+			// 		svg {
+			// 			width: 1.2rem;
+			// 			height: auto;
+
+			// 			path {
+			// 				fill: none;
+			// 				stroke: vars.$color-primary;
+			// 				stroke-width: 26px;
+			// 			}
+			// 		}
+			// 	}
+			// }
+
+			.image_container {
+				width: 100%;
+				height: max-content;
+				margin-top: 1rem;
+
+				.image {
+					width: 100%;
+					height: auto;
+				}
+			}
+
+			.ingredient_container {
+				display: block;
+				margin-top: 2rem;
+
+				.ingredients_text {
+					margin-bottom: 1rem;
+				}
+
+				.serving_container {
 					display: flex;
 					flex-flow: row nowrap;
 					align-items: center;
 					gap: 0.5rem;
 
-					svg {
-						width: 1rem;
-						height: auto;
-					}
+					// label {
+					// }
 
-					.timeToReady {
-					}
-				}
-			}
+					input {
+						text-align: center;
+						width: 4ch;
+						height: 1.5rem;
+						box-sizing: border-box;
+						padding: 0;
 
-			.right {
-				.save_button {
-					background-color: inherit;
-					width: 1.8rem;
-					height: 2rem;
-					transition: opacity ease-out 0.1s;
-
-					svg {
-						width: 1.2rem;
-						height: auto;
-
-						path {
-							fill: none;
-							stroke: vars.$color-save;
-							stroke-width: 26px;
-						}
-					}
-
-					&:hover {
-						opacity: 0.8;
-					}
-
-					&.is_saved {
-						svg path {
-							fill: vars.$color-save;
-							stroke: vars.$color-save;
+						&:focus {
+							border-width: 2px;
 						}
 					}
 				}
-			}
-		}
 
-		.summary {
-			margin-top: 0.5rem;
-		}
-
-		// .save_container {
-		// 	width: 100%;
-		// 	height: max-content;
-		// 	display: flex;
-		// 	justify-content: flex-start;
-		// 	align-items: center;
-		// 	margin-top: 0.5rem;
-		// 	overflow: visible;
-
-		// 	.save_button {
-		// 		width: max-content;
-		// 		height: max-content;
-		// 		display: flex;
-		// 		flex-flow: row nowrap;
-		// 		justify-content: flex-start;
-		// 		align-items: center;
-		// 		gap: 0.5rem;
-		// 		padding: 0.4rem 0.5rem;
-		// 		// background-color: vars.$color-highlight;
-		// 		border: 2px solid vars.$color-primary;
-		// 		border-radius: 0.3rem;
-		// 		// box-shadow: 1px 1px 0.2rem rgba(0, 0, 0, 0.25);
-
-		// 		&.is_saved:disabled,
-		// 		&:disabled {
-		// 			filter: brightness(0.8);
-		// 		}
-
-		// 		&:hover {
-		// 			box-shadow: none;
-
-		// 			svg path {
-		// 				fill: vars.$color-primary;
-		// 			}
-		// 		}
-
-		// 		&.is_saved {
-		// 			background-color: vars.$color-accent;
-		// 			border-color: vars.$color-accent;
-
-		// 			box-shadow: none;
-
-		// 			svg path {
-		// 				fill: vars.$color-background;
-		// 				stroke: vars.$color-background;
-		// 			}
-
-		// 			.save_text {
-		// 				color: vars.$color-background;
-		// 			}
-		// 		}
-
-		// 		.save_text {
-		// 			// font-weight: 500;
-		// 			// color: vars.$color-background;
-		// 			color: vars.$color-primary;
-		// 		}
-
-		// 		svg {
-		// 			width: 1.2rem;
-		// 			height: auto;
-
-		// 			path {
-		// 				fill: none;
-		// 				stroke: vars.$color-primary;
-		// 				stroke-width: 26px;
-		// 			}
-		// 		}
-		// 	}
-		// }
-
-		.image_container {
-			width: 100%;
-			height: max-content;
-			margin-top: 1rem;
-
-			.image {
-				width: 100%;
-				height: auto;
-			}
-		}
-
-		.ingredient_container {
-			display: block;
-			margin-top: 2rem;
-
-			.ingredients_text {
-				margin-bottom: 1rem;
-			}
-
-			.serving_container {
-				display: flex;
-				flex-flow: row nowrap;
-				align-items: center;
-				gap: 0.5rem;
-
-				// label {
-				// }
-
-				input {
-					text-align: center;
-					width: 4ch;
-					height: 1.5rem;
-					box-sizing: border-box;
-					padding: 0;
-
-					&:focus {
-						border-width: 2px;
-					}
-				}
-			}
-
-			.ingredient_list {
-				display: flex;
-				flex-flow: column nowrap;
-				gap: 1rem;
-				list-style-position: inside;
-				margin-left: 0.5rem;
-				margin-top: 0.5rem;
-
-				.ingredient_item {
-					display: list-item;
-
-					&::marker {
-						content: '•';
-					}
-
-					.amount {
-						width: max-content;
-						margin-left: 0.5rem;
-					}
-
-					.unit {
-						width: max-content;
-					}
-
-					.name {
-						width: max-content;
-					}
-				}
-			}
-		}
-
-		.instructions_container {
-			display: block;
-			margin-top: 4rem;
-
-			.instructions_text {
-				display: block;
-			}
-
-			.instruction_group {
-				display: block;
-				margin-top: 1rem;
-
-				.instruction_group_name {
-					display: block;
-					margin-bottom: 0.5rem;
-				}
-
-				.instruction_group_list {
+				.ingredient_list {
 					display: flex;
-					list-style-position: inside;
 					flex-flow: column nowrap;
 					gap: 1rem;
+					list-style-position: inside;
 					margin-left: 0.5rem;
+					margin-top: 0.5rem;
 
-					.instruction_step {
+					.ingredient_item {
 						display: list-item;
 
 						&::marker {
-							font-weight: bold;
+							content: '•';
+						}
+
+						.amount {
+							width: max-content;
+							margin-left: 0.5rem;
+						}
+
+						.unit {
+							width: max-content;
+						}
+
+						.name {
+							width: max-content;
 						}
 					}
 				}
 			}
-		}
 
-		.src_container {
-			width: 100%;
-			margin-top: 4rem;
-			display: flex;
-			justify-content: center;
+			.instructions_container {
+				display: block;
+				margin-top: 4rem;
 
-			.src_text {
-				font-size: 0.9rem;
-				font-weight: 600;
+				.instructions_text {
+					display: block;
+				}
 
-				.src_link {
-					color: #0000ff;
-					text-decoration: underline;
+				.instruction_group {
+					display: block;
+					margin-top: 1rem;
+
+					.instruction_group_name {
+						display: block;
+						margin-bottom: 0.5rem;
+					}
+
+					.instruction_group_list {
+						display: flex;
+						list-style-position: inside;
+						flex-flow: column nowrap;
+						gap: 1rem;
+						margin-left: 0.5rem;
+
+						.instruction_step {
+							display: list-item;
+
+							&::marker {
+								font-weight: bold;
+							}
+						}
+					}
+				}
+			}
+
+			.src_container {
+				width: 100%;
+				margin-top: 4rem;
+				display: flex;
+				justify-content: center;
+
+				.src_text {
+					font-size: 0.9rem;
+					font-weight: 600;
+
+					.src_link {
+						color: #0000ff;
+						text-decoration: underline;
+					}
 				}
 			}
 		}
