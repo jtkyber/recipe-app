@@ -24,17 +24,22 @@
 			pointer-events: none;
 		}
 
-		&:hover {
-			background-color: vars.$color-highlight;
+		.dropdown_label,
+		.dropdown_active_symbol {
+			color: vars.$color-text-primary;
+		}
 
-			.dropdown_label {
-				color: vars.$color-background;
-			}
+		&:hover {
+			background-color: vars.$color-hover;
+
+			// .dropdown_label,
+			// .dropdown_active_symbol {
+			// 	color: vars.$color-text-primary;
+			// }
 		}
 
 		.dropdown_label {
 			width: 100%;
-			font-weight: vars.$filter-option-label-font-weight;
 		}
 
 		.dropdown_active_symbol {

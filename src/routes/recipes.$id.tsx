@@ -5,7 +5,6 @@ import NutritionLabel from '../components/nutrition_label';
 import RecipeDetailsSkeleton from '../components/skeletons/recipe_details_skeleton';
 import SummarySkeleton from '../components/skeletons/summary_skeleton';
 import Stars from '../components/stars';
-import BackArrowSVG from '../components/svg/back_arrowSVG';
 import ClockSVG from '../components/svg/clock';
 import HeartSVG from '../components/svg/heart';
 import { db } from '../db';
@@ -171,7 +170,7 @@ function RouteComponent() {
 			<div className={styles.scrollable_container}>
 				<div className={styles.back_btn_container}>
 					<Link className={styles.back_btn} to='/search'>
-						<BackArrowSVG />
+						&#x2190;
 					</Link>
 				</div>
 				<div className={styles.recipe_container}>

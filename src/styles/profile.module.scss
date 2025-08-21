@@ -39,7 +39,6 @@
 				font-size: 0.85rem;
 				width: max-content;
 				opacity: 0.6;
-				transition: opacity 0.1s ease-out;
 
 				&.selected {
 					opacity: 1;
@@ -91,7 +90,6 @@
 				color: vars.$color-background;
 				padding: 0.5rem 1rem;
 				border-radius: 0.5rem;
-				transition: opacity 0.1s ease-out;
 				height: 2.5rem;
 
 				&:hover {

@@ -51,7 +51,7 @@ const SavedComponentLayout = ({ children }: { children: JSX.Element[] }) => {
 	return (
 		<div className={styles.scrollable_container}>
 			<div className={styles.container}>
-				<h1 className={styles.heading_text}>Favorites</h1>
+				<h1 className={styles.heading_text}>Saved Recipes</h1>
 				<div className={styles.saved_recipe_container}>{children}</div>
 			</div>
 		</div>

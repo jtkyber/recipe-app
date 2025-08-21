@@ -21,18 +21,21 @@
 		border-radius: 0.5rem;
 
 		&:hover {
-			background-color: vars.$color-highlight;
+			background-color: vars.$color-hover;
 
-			h4,
-			h5 {
-				color: vars.$color-background;
-			}
+			// h4,
+			// h5 {
+			// 	color: vars.$color-accent;
+			// }
 		}
 
 		h5 {
 			padding: 0.5rem 0.5rem;
 			font-weight: 600;
-			opacity: 0.6;
+			color: vars.$color-text-secondary;
+		}
+		h4 {
+			color: vars.$color-text-secondary;
 		}
 	}
 }

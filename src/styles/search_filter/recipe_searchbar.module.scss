@@ -14,11 +14,12 @@
 		height: 100%;
 		background-color: transparent;
 		border: none;
-		color: black;
+		color: vars.$color-text-primary;
 		font-size: medium;
 
 		&::placeholder {
-			color: vars.$placeholder-color;
+			color: vars.$color-placeholder;
+			opacity: 0.8;
 		}
 
 		&:focus {
@@ -30,13 +31,13 @@
 		flex: none;
 		width: 1.8rem;
 		height: 1.8rem;
-		border: 2px solid vars.$color-primary;
+		border: 1px solid vars.$color-text-secondary;
 		border-radius: 50%;
-		background-color: vars.$color-background;
-		color: vars.$color-primary;
-		font-size: larger;
-		font-weight: 600;
-		padding-bottom: 0.12rem;
+		background-color: inherit;
+		color: vars.$color-text-secondary;
+		font-size: 1.3rem;
+		line-height: 1rem;
+		padding-bottom: 0.1rem;
 
 		&:hover {
 			background-color: vars.$color-primary;

@@ -1,15 +1,5 @@
 $nav-height: 4rem;
 
-// $color-background: #ede8da;
-// $color-primary: #9dac9e;
-// $color-accent: #a5553d;
-// $color-surface: #f7f5f2;
-// $color-text-primary: #3b3a37;
-// $color-text-secondary: #6b7280;
-// $color-highlight: #d6c8b6;
-// $color-stars: #e2b85c;
-// $color-save: #e15252;
-
 $color-background: #f5f6f7;
 $color-primary: #475569;
 $color-accent: #3b82a0;
@@ -19,9 +9,10 @@ $color-text-secondary: #6b7280;
 $color-highlight: #d6c8b6;
 $color-stars: #e2b85c;
 $color-save: #e15252;
+$color-hover: rgba($color-text-secondary, 0.1);
 
 $input-border-color: rgba(0, 0, 0, 0.6);
-$placeholder-color: rgba(0, 0, 0, 0.5);
+$color-placeholder: $color-text-secondary;
 
 $color-protein: rgba($color-accent, 0.85);
 $color-fats: rgba($color-highlight, 0.85);
@@ -30,18 +21,8 @@ $color-carbs: rgba($color-primary, 0.85);
 $dropdown-section-height: 2.5rem;
 $dropdown-section-padding: 0 0.5rem;
 $dropdown-border-radius: 0.5rem;
-$filter-option-label-font-weight: 600;
 
 $section-border-style: 1px solid rgba($color-text-secondary, 0.4);
 
 $skeleton-primary-color: rgba($color-text-primary, 0.15);
 $skeleton-secondary-color: rgba($color-text-secondary, 0.15);
-
-$hover-bg-color: rgba(0, 0, 0, 0.1);
-
-:export {
-	colorAccent: $color-accent;
-	colorProtein: $color-protein;
-	colorFats: $color-fats;
-	colorCarbs: $color-carbs;
-}

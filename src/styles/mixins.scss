@@ -2,7 +2,6 @@
 
 @mixin selected_autocomplete_item {
 	font-size: smaller;
-	font-weight: 400;
 	background-color: vars.$color-highlight;
 	min-height: 1.4rem;
 	padding: 0 0.5rem;
@@ -10,8 +9,9 @@
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-	color: vars.$color-text-primary;
+	color: vars.$color-primary;
 	pointer-events: all;
+	font-family: font_semibold;
 
 	&::after {
 		content: 'X';

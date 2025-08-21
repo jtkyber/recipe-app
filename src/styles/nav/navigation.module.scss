@@ -14,6 +14,8 @@
 	.left {
 		.title {
 			color: vars.$color-accent;
+			font-size: 2rem;
+			font-family: font_semibold;
 		}
 	}
 
@@ -31,15 +33,16 @@
 			border-radius: 0.5rem;
 			padding: 0.6rem;
 			cursor: pointer;
+			border: 1px solid transparent;
 
 			&:hover,
 			&.active {
-				background-color: rgba(vars.$color-highlight, 1);
+				background-color: vars.$color-hover;
 
 				svg {
 					* {
-						fill: vars.$color-background;
-						stroke: vars.$color-background;
+						fill: vars.$color-primary;
+						stroke: vars.$color-primary;
 					}
 				}
 			}
@@ -48,6 +51,11 @@
 				width: 1.5rem;
 				height: auto;
 				pointer-events: none;
+
+				* {
+					fill: vars.$color-text-secondary;
+					stroke: vars.$color-text-secondary;
+				}
 			}
 		}
 
@@ -66,8 +74,12 @@
 					padding: 0;
 				}
 
+				.username {
+					font-family: font_semibold;
+				}
+
 				.edit_profile_text {
-					font-weight: 400;
+					// font-weight: 400;
 				}
 			}
 		}

@@ -1,3 +1,5 @@
+@use './variables.scss' as vars;
+
 .scrollable_container {
 	width: 100%;
 	height: 100%;
@@ -11,11 +13,10 @@
 		.heading_text {
 			width: 100%;
 			text-align: center;
-			text-decoration: underline;
-			text-decoration-thickness: 2px;
-			text-underline-offset: 0.5rem;
 			font-weight: 300;
 			padding: 1rem;
+			font-size: xx-large;
+			color: vars.$color-text-primary;
 		}
 
 		.saved_recipe_container {

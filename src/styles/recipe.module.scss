@@ -9,7 +9,7 @@
 	.scrollable_container {
 		width: 100%;
 		height: max-content;
-		padding: 2rem;
+		padding: 1rem;
 		padding-bottom: 10rem;
 		display: flex;
 		flex-flow: column nowrap;
@@ -19,15 +19,9 @@
 			height: max-content;
 
 			.back_btn {
-				transition: opacity ease-out 0.1s;
-
-				svg {
-					width: 2rem;
-					height: auto;
-					path {
-						fill: vars.$color-text-secondary;
-					}
-				}
+				font-size: xx-large;
+				line-height: 1rem;
+				color: vars.$color-primary;
 
 				&:hover {
 					opacity: 0.6;
@@ -68,9 +62,14 @@
 						svg {
 							width: 1rem;
 							height: auto;
+							path {
+								fill: vars.$color-text-secondary;
+								stroke: vars.$color-text-secondary;
+							}
 						}
 
 						.timeToReady {
+							color: vars.$color-text-secondary;
 						}
 					}
 				}
@@ -80,7 +79,6 @@
 						background-color: inherit;
 						width: 1.8rem;
 						height: 2rem;
-						transition: opacity ease-out 0.1s;
 
 						svg {
 							width: 1.2rem;
@@ -94,7 +92,7 @@
 						}
 
 						&:hover {
-							opacity: 0.8;
+							opacity: 0.6;
 						}
 
 						&.is_saved {
@@ -300,7 +298,7 @@
 					font-weight: 600;
 
 					.src_link {
-						color: #0000ff;
+						color: vars.$color-accent;
 						text-decoration: underline;
 					}
 				}

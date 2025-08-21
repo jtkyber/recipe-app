@@ -21,6 +21,7 @@
 	border-radius: 0.5rem;
 	background-color: vars.$color-surface;
 	padding: 0.5rem;
+	overflow: visible;
 
 	// transition: transform 0.05s linear;
 
@@ -42,8 +43,10 @@
 		display: flex;
 		justify-content: flex-end;
 		border-radius: 0.5rem;
+		overflow: visible;
 
 		svg {
+			transform: translate(30%, -30%);
 			width: 1.5rem;
 			height: auto;
 		}
