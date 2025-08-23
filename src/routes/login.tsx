@@ -27,11 +27,8 @@ function RouteComponent() {
 		<div className={styles.container}>
 			<div className={styles.left_container}>
 				<div className={styles.text_container}>
-					<h2>Title text</h2>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus rem deleniti, quis soluta
-						ratione, et dolor fugit laboriosam earum similique magnam quibusdam.
-					</p>
+					<h2>{`Search Less, \nCook More`}</h2>
+					<p>Effortlessly find delicious meals that match your dietary needs</p>
 				</div>
 			</div>
 			<div className={styles.form_container_scrollable}>

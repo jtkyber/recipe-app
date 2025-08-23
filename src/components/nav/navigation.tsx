@@ -31,7 +31,7 @@ function Navigation() {
 		<nav className={styles.container}>
 			<div className={styles.left}>
 				<Link to='/'>
-					<h2 className={styles.title}>Recipe App</h2>
+					<h2 className={styles.title}>RecipeMe</h2>
 				</Link>
 			</div>
 			<div className={styles.right}>

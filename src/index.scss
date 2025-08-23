@@ -21,6 +21,10 @@
 		src: url('./assets/source-sans-pro/SourceSansPro-Semibold.ttf');
 	}
 	@font-face {
+		font-family: font_bold;
+		src: url('./assets/source-sans-pro/SourceSansPro-Bold.ttf');
+	}
+	@font-face {
 		font-family: font_default;
 		src: url('./assets/source-sans-pro/SourceSansPro-Regular.ttf');
 	}
@@ -64,6 +68,7 @@ h4,
 h5,
 h6,
 li,
+p,
 button,
 label,
 input,
