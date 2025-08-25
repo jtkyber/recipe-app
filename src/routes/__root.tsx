@@ -19,7 +19,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 		const loggedInOnlyRoutes: FilePath[] = ['/search', '/saved', '/profile'];
 
 		if (!loggedIn && cookie.length) {
-			const res = await axios.get('http://localhost:3000/getUser', {
+			const res = await axios.get(`${import.meta.env.VITE_API_BASE}/getUser`, {
 				params: {
 					id: cookie,
 				},

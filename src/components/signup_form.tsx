@@ -39,7 +39,7 @@ function SignupForm() {
 
 			if (!(username?.value && password?.value && confirmPassword?.value)) return;
 
-			const res = await axios.post('http://localhost:3000/signUp', {
+			const res = await axios.post(`${import.meta.env.VITE_API_BASE}/signUp`, {
 				username: username.value.trim(),
 				password: password.value,
 				confirmPassword: confirmPassword.value,
@@ -75,7 +75,7 @@ function SignupForm() {
 	async function get_autocomplete_ingredients(text: string): Promise<string[]> {
 		if (!text.length) return [];
 
-		const res = await axios('http://localhost:3000/getRecipeAutocomplete?', {
+		const res = await axios(`${import.meta.env.VITE_API_BASE}/getRecipeAutocomplete?`, {
 			params: {
 				text: text,
 				count: '10',

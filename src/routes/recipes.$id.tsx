@@ -46,7 +46,7 @@ const get_recipe_from_indexedDB = async (id: string): Promise<IRecipe | null> =>
 };
 
 const fetch_recipe = async (id: string): Promise<IRecipe> => {
-	const res = await axios.get('http://localhost:3000/getRecipeInformation?', {
+	const res = await axios.get(`${import.meta.env.VITE_API_BASE}/getRecipeInformation?`, {
 		params: {
 			id: id,
 		},
@@ -105,7 +105,7 @@ function RouteComponent() {
 	const get_cleaned_text = (value: string) => value.replace(/\.([^\s])/g, '. $1');
 
 	async function fetch_summary(): Promise<void> {
-		const res = await axios.get('http://localhost:3000/getRecipeSummary?', {
+		const res = await axios.get(`${import.meta.env.VITE_API_BASE}/getRecipeSummary?`, {
 			params: {
 				summary: recipe.summary,
 			},

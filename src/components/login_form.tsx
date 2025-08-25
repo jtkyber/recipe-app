@@ -26,7 +26,7 @@ function LoginForm() {
 
 			if (!(username?.value && password?.value)) return;
 
-			const res = await axios.post('http://localhost:3000/login', {
+			const res = await axios.post(`${import.meta.env.VITE_API_BASE}/login`, {
 				username: username.value.trim(),
 				password: password.value,
 			});

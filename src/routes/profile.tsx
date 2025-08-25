@@ -54,7 +54,7 @@ function RouteComponent() {
 	async function get_autocomplete_ingredients(text: string): Promise<string[]> {
 		if (!text.length) return [];
 
-		const res = await axios('http://localhost:3000/getRecipeAutocomplete?', {
+		const res = await axios(`${import.meta.env.VITE_API_BASE}/getRecipeAutocomplete?`, {
 			params: {
 				text: text,
 				count: '10',

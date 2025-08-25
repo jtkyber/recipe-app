@@ -20,7 +20,7 @@ function RecipeSearchbar() {
 			inputRef.current.value = '';
 			return [];
 		}
-		const res = await axios.get('http://localhost:3000/getRecipes?', {
+		const res = await axios.get(`${import.meta.env.VITE_API_BASE}/getRecipes?`, {
 			params: {
 				searchQuery: filters.query,
 				sortOption: filters.sortType,
