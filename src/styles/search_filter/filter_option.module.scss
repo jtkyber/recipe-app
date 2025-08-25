@@ -7,13 +7,10 @@
 	display: flex;
 	flex-flow: column nowrap;
 	cursor: pointer;
+	$label-font-weight: 400;
 
 	* {
 		user-select: none;
-	}
-
-	.label {
-		font-weight: 400;
 	}
 
 	&[data-is-solo='true'] {
@@ -23,7 +20,8 @@
 
 			.optionContainer {
 				.label {
-					color: vars.$color-text-primary;
+					color: vars.$filter-dropdown-color;
+					font-weight: vars.$filter-dropdown-font-weight;
 				}
 			}
 			.optionContainer:hover {
@@ -35,11 +33,12 @@
 			.label,
 			.checkbox,
 			.radio {
-				color: vars.$color-text-primary;
-				border-color: vars.$color-text-primary;
+				color: vars.$filter-dropdown-color;
+				border-color: vars.$filter-dropdown-color;
+				font-weight: vars.$filter-dropdown-font-weight;
 
 				&::after {
-					background-color: vars.$color-text-primary;
+					background-color: vars.$filter-dropdown-color;
 				}
 			}
 
@@ -94,6 +93,7 @@
 
 		.label {
 			color: vars.$color-text-secondary;
+			font-weight: vars.$filter-option-font-weight;
 		}
 
 		.checkbox,
@@ -142,8 +142,10 @@
 			height: 1.5rem;
 			padding: 0 0.5ch;
 			font-size: medium;
-			font-weight: 400;
+			font-weight: vars.$filter-option-font-weight;
 			pointer-events: all;
+			border: 1px solid vars.$color-text-primary;
+			border-radius: 0.3rem;
 		}
 
 		.textbox {
@@ -151,8 +153,10 @@
 			height: 1.5rem;
 			padding: 0 0.5ch;
 			font-size: medium;
-			font-weight: 400;
+			font-weight: vars.$filter-option-font-weight;
 			pointer-events: all;
+			border: 1px solid vars.$color-text-primary;
+			border-radius: 0.3rem;
 		}
 	}
 

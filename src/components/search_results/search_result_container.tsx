@@ -89,7 +89,7 @@ function SearchResultContainer() {
 					{pageBtns[0] > 0 ? (
 						<button onClick={() => handle_page_change(filters.page - 1)} className={styles.side_btns}>
 							<span className={styles.arrow}>&lsaquo;</span>
-							<span className={styles.text}>Prev</span>
+							{/* <span className={styles.text}>Prev</span> */}
 						</button>
 					) : null}
 					{pageBtns.map(page => {
@@ -104,7 +104,7 @@ function SearchResultContainer() {
 					})}
 					{showNextBtn ? (
 						<button onClick={() => handle_page_change(filters.page + 1)} className={styles.side_btns}>
-							<span className={styles.text}>Next</span>
+							{/* <span className={styles.text}>Next</span> */}
 							<span className={styles.arrow}>&rsaquo;</span>
 						</button>
 					) : null}

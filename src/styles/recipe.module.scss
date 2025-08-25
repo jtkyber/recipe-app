@@ -70,6 +70,7 @@
 
 						.timeToReady {
 							color: vars.$color-text-secondary;
+							font-size: 1rem;
 						}
 					}
 				}
@@ -300,6 +301,10 @@
 					.src_link {
 						color: vars.$color-accent;
 						text-decoration: underline;
+
+						&:hover {
+							opacity: 0.6;
+						}
 					}
 				}
 			}

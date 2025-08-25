@@ -29,7 +29,6 @@
 
 			.result_count {
 				color: vars.$color-text-secondary;
-				font-family: font_semibold;
 			}
 		}
 	}
@@ -52,19 +51,19 @@
 		justify-content: center;
 		align-items: center;
 		gap: 1rem;
-		$pag-color: vars.$color-primary;
+		$pag-color: vars.$color-text-secondary;
 
 		.pagination_btn {
 			color: $pag-color;
 			background-color: vars.$color-background;
-			width: 2rem;
+			width: 1.8rem;
 			aspect-ratio: 1/1;
-			border: 2px solid $pag-color;
 			border-radius: 50%;
 
 			&:hover,
 			&.active {
 				background-color: $pag-color;
+				font-weight: 700;
 				color: vars.$color-background;
 			}
 		}
@@ -76,17 +75,24 @@
 			align-items: center;
 			gap: 0.3rem;
 
-			.text {
-				color: $pag-color;
+			// .text {
+			// 	color: $pag-color;
 
-				&:hover {
-					text-decoration: underline;
-				}
+			// 	&:hover {
+			// 		text-decoration: underline;
+			// 	}
+			// }
+
+			&:hover .arrow {
+				background-color: $pag-color;
+				color: vars.$color-background;
 			}
 
 			.arrow {
+				padding: 0.1rem 0.3rem;
 				font-size: x-large;
 				color: $pag-color;
+				margin-bottom: 0.2rem;
 			}
 		}
 	}

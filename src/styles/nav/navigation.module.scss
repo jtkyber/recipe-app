@@ -15,7 +15,7 @@
 		.title {
 			color: vars.$color-accent;
 			font-size: 2rem;
-			font-family: font_bold;
+			font-weight: 400;
 		}
 	}
 
@@ -24,6 +24,10 @@
 		height: 100%;
 		display: flex;
 		align-items: center;
+
+		.login_text {
+			font-weight: 400;
+		}
 
 		.nav_icon_container {
 			height: max-content;
@@ -75,7 +79,7 @@
 				}
 
 				.username {
-					font-family: font_semibold;
+					// font-family: font_semibold;
 				}
 
 				.edit_profile_text {

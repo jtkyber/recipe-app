@@ -31,7 +31,7 @@ function Navigation() {
 		<nav className={styles.container}>
 			<div className={styles.left}>
 				<Link to='/'>
-					<h2 className={styles.title}>RecipeMe</h2>
+					<h2 className={styles.title}>The Custom Kitchen</h2>
 				</Link>
 			</div>
 			<div className={styles.right}>
@@ -64,11 +64,11 @@ function Navigation() {
 							<h5 onClick={sign_user_out}>Sign Out</h5>
 						</NavDropdown>
 					</>
-				) : (
+				) : routeId !== '/login' ? (
 					<Link to='/login'>
-						<h4>Log In</h4>
+						<h4 className={styles.login_text}>Log In</h4>
 					</Link>
-				)}
+				) : null}
 			</div>
 		</nav>
 	);

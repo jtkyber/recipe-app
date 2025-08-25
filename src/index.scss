@@ -15,18 +15,11 @@
 	--color-carbs: #{vars.$color-carbs};
 	--color-stars: #{vars.$color-stars};
 	--color-popularity: #{vars.$color-stars};
+	--color-input-border: #{vars.$color-input-border};
 
 	@font-face {
-		font-family: font_semibold;
-		src: url('./assets/source-sans-pro/SourceSansPro-Semibold.ttf');
-	}
-	@font-face {
-		font-family: font_bold;
-		src: url('./assets/source-sans-pro/SourceSansPro-Bold.ttf');
-	}
-	@font-face {
 		font-family: font_default;
-		src: url('./assets/source-sans-pro/SourceSansPro-Regular.ttf');
+		src: url('./assets/Inter.ttf');
 	}
 }
 
@@ -36,15 +29,13 @@
 	box-sizing: border-box;
 	overflow: hidden;
 	color: vars.$color-text-primary;
+	font-family: font_default;
 }
 
 a {
 	color: inherit;
 	text-decoration: inherit;
 }
-// a:hover {
-//   color: #535bf2;
-// }
 
 input {
 	outline: none;
@@ -61,34 +52,12 @@ h1 {
 	font-size: 3.2em;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-li,
-p,
-button,
-label,
-input,
-a {
-	font-family: font_default;
-}
-
 button {
 	cursor: pointer;
 	border: none;
-	font-family: font_semibold;
+	font-weight: 500;
+	font-size: 0.9rem;
 }
-
-// button:hover {
-//   border-color: #646cff;
-// }
-// button:focus,
-// button:focus-visible {
-//   outline: 4px auto -webkit-focus-ring-color;
-// }
 
 // @media (prefers-color-scheme: light) or (prefers-color-scheme: dark) {
 // 	:root {

@@ -186,7 +186,7 @@ function RouteComponent() {
 						selectedDropdownItems={[diet]}
 						includeNoneOption
 						label_container_styles={{
-							border: '1px solid lightgrey',
+							border: '1px solid var(--color-input-border)',
 						}}>
 						Diet
 					</Dropdown>
@@ -201,7 +201,7 @@ function RouteComponent() {
 						handle_input={handle_intolerance_selection}
 						selectedDropdownItems={intolerances}
 						label_container_styles={{
-							border: '1px solid lightgrey',
+							border: '1px solid var(--color-input-border)',
 						}}>
 						Intolerances
 					</Dropdown>

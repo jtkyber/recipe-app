@@ -11,7 +11,7 @@ $color-stars: #e2b85c;
 $color-save: #e15252;
 $color-hover: rgba($color-text-secondary, 0.1);
 
-$input-border-color: rgba(0, 0, 0, 0.6);
+$color-input-border: rgba($color-text-secondary, 0.3);
 $color-placeholder: $color-text-secondary;
 
 $color-protein: rgba($color-accent, 0.85);
@@ -26,3 +26,7 @@ $section-border-style: 1px solid rgba($color-text-secondary, 0.4);
 
 $skeleton-primary-color: rgba($color-text-primary, 0.15);
 $skeleton-secondary-color: rgba($color-text-secondary, 0.15);
+
+$filter-dropdown-font-weight: 400;
+$filter-dropdown-color: $color-text-primary;
+$filter-option-font-weight: 400;

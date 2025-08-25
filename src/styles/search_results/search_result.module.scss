@@ -70,7 +70,7 @@
 		grid-area: title;
 		width: 100%;
 		font-size: large;
-		font-weight: 600;
+		font-weight: 400;
 		color: vars.$color-text-primary;
 		text-align: start;
 	}
@@ -86,10 +86,11 @@
 			width: max-content;
 			display: flex;
 			flex-flow: row nowrap;
+			align-items: center;
 			gap: 0.2rem;
 
 			svg {
-				width: 1rem;
+				width: 0.9rem;
 				height: auto;
 
 				* {
@@ -100,6 +101,7 @@
 
 			.timeToReady {
 				color: vars.$color-text-secondary;
+				font-size: 0.9rem;
 			}
 		}
 	}

@@ -14,7 +14,6 @@
 		left: 0;
 		font-size: 0.9rem;
 		font-weight: 400;
-		font-family: font_semibold;
 		pointer-events: none;
 		transform: translate(0.5rem, 0.5rem);
 		transition:
@@ -37,7 +36,7 @@
 		height: 2.5rem;
 		border-radius: vars.$dropdown-border-radius;
 		padding-left: 0.5rem;
-		border-color: lightgray;
+		border-color: vars.$color-input-border;
 		background-color: vars.$color-surface;
 
 		&:valid {

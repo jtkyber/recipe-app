@@ -11,7 +11,7 @@
 		width: 40%;
 		height: 100%;
 		background:
-			linear-gradient(rgba(0, 0, 0, 0.2)),
+			linear-gradient(rgba(0, 0, 0, 0.3)),
 			center / cover no-repeat url('../../assets/food_sign_up.jpg');
 		display: flex;
 		justify-content: flex-start;
@@ -22,18 +22,20 @@
 			max-width: 30rem;
 			display: flex;
 			flex-flow: column nowrap;
+			word-wrap: break-word;
 
 			h2 {
-				font-size: 2.8rem;
-				font-family: font_semibold;
+				font-size: 2.7rem;
+				font-weight: 500;
 				color: vars.$color-background;
 				line-height: normal;
-				white-space: pre;
+				white-space: pre-wrap;
 			}
 
 			p {
 				color: vars.$color-background;
-				font-size: 1.5rem;
+				font-size: 1.4rem;
+				font-weight: 400;
 			}
 		}
 	}
@@ -59,6 +61,8 @@
 
 				h1 {
 					color: vars.$color-text-primary;
+					font-weight: 600;
+					font-size: 2.8rem;
 				}
 
 				p {

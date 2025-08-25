@@ -28,7 +28,7 @@ function RouteComponent() {
 			<div className={styles.left_container}>
 				<div className={styles.text_container}>
 					<h2>{`Search Less, \nCook More`}</h2>
-					<p>Effortlessly find delicious meals that match your dietary needs</p>
+					<p>Effortlessly find and save delicious meals that match your dietary needs</p>
 				</div>
 			</div>
 			<div className={styles.form_container_scrollable}>
