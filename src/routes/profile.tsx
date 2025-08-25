@@ -41,6 +41,7 @@ function RouteComponent() {
 	const [password, setPassword] = useState<string>('');
 	const [confirmPassword, setConfirmPassword] = useState<string>('');
 	const [currentSetting, setCurrentSetting] = useState<Setting>();
+	const [updating, setUpdating] = useState<boolean>(false);
 
 	useEffect(() => {
 		setDiet(user.diet);
@@ -271,14 +272,16 @@ function RouteComponent() {
 	const update_profile = async (e: any) => {
 		if (!formRef.current?.checkValidity() || !formRef?.current) return;
 		e.preventDefault();
+		setUpdating(true);
 
 		try {
 			switch (currentSetting) {
 				case 'diet':
 					{
-						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateDiet`, {
+						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateProfile`, {
 							id: user.id,
-							newDiet: diet,
+							updateParam: 'diet',
+							payload: diet,
 						});
 
 						const newDiet = await res.data;
@@ -287,9 +290,10 @@ function RouteComponent() {
 					break;
 				case 'intolerances':
 					{
-						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateIntolerances`, {
+						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateProfile`, {
 							id: user.id,
-							newIntolerances: intolerances,
+							updateParam: 'intolerances',
+							payload: intolerances,
 						});
 
 						const newIntolerances = await res.data;
@@ -299,9 +303,10 @@ function RouteComponent() {
 					break;
 				case 'excluded_ingredients':
 					{
-						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateExcludedIngredients`, {
+						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateProfile`, {
 							id: user.id,
-							newExcludedIngredients: excludedIngredients,
+							updateParam: 'excluded_ingredients',
+							payload: excludedIngredients,
 						});
 
 						const newExcludedIngredients = await res.data;
@@ -312,9 +317,10 @@ function RouteComponent() {
 					break;
 				case 'change_username':
 					{
-						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateUsername`, {
+						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateProfile`, {
 							id: user.id,
-							newUsername: username,
+							updateParam: 'username',
+							payload: username,
 						});
 
 						const newUsername = await res.data;
@@ -328,10 +334,13 @@ function RouteComponent() {
 							return;
 						}
 
-						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updatePassword`, {
+						const res = await axios.put(`${import.meta.env.VITE_API_BASE}/updateProfile`, {
 							id: user.id,
-							password: currentPassword,
-							newPassword: password,
+							updateParam: 'password',
+							payload: {
+								password: currentPassword,
+								newPassword: password,
+							},
 						});
 
 						const data = await res.data;
@@ -345,6 +354,8 @@ function RouteComponent() {
 
 			if (err) console.log(err.error);
 			else console.log(error);
+		} finally {
+			setUpdating(false);
 		}
 	};
 
@@ -369,8 +380,8 @@ function RouteComponent() {
 				<form ref={formRef} className={styles.form}>
 					{render_contents()}
 					<div className={styles.update_btn_container}>
-						<button onClick={update_profile} className={styles.update_btn}>
-							Update Profile
+						<button disabled={updating} onClick={update_profile} className={styles.update_btn}>
+							{updating ? 'Saving...' : 'Update Profile'}
 						</button>
 					</div>
 				</form>

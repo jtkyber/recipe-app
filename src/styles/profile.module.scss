@@ -93,8 +93,13 @@
 				height: 2.5rem;
 				font-size: 0.9rem;
 
-				&:hover {
+				&:hover,
+				&:disabled {
 					opacity: 0.6;
+
+					&:disabled {
+						cursor: default;
+					}
 				}
 			}
 		}
