@@ -1,21 +1,7 @@
 @use '../variables.scss' as vars;
 
-.filters_btn {
-	display: none;
-	position: absolute;
-	right: 1rem;
-	top: calc(vars.$nav-height + 0.5rem);
-	width: max-content;
-	height: max-content;
-	padding: 0.4rem 0.7rem;
-	background-color: vars.$color-primary;
-	color: vars.$color-background;
-	font-size: 1rem;
-	z-index: 1;
-	border-radius: 0.5rem;
-}
-
 .container {
+	position: relative;
 	width: 25rem;
 	height: 100%;
 	display: flex;
@@ -25,6 +11,17 @@
 	padding: 2rem 0.5rem 0.5rem 1rem;
 	border-right: vars.$section-border-style;
 	background-color: vars.$color-surface;
+
+	.filters_btn {
+		display: none;
+		width: max-content;
+		height: max-content;
+		padding: 0.4rem 0.7rem;
+		background-color: vars.$color-primary;
+		color: vars.$color-background;
+		font-size: 1rem;
+		border-radius: 0.5rem;
+	}
 
 	.searchbarContainer {
 		width: 100%;
@@ -56,25 +53,37 @@
 }
 
 @media (max-width: vars.$mobile-max-width) {
-	.filters_btn {
-		display: block;
-	}
-
 	.container {
+		position: absolute;
 		width: 100%;
 		height: max-content;
 		z-index: 1;
 		padding: 0;
 		align-items: flex-end;
 		background-color: inherit;
-		display: none;
 		padding: 1rem;
+
+		.filters_btn {
+			display: block;
+		}
+
+		.searchbarContainer,
+		.filterContainer {
+			display: none;
+		}
 
 		&.show {
 			display: flex;
 			position: absolute;
 			height: 100%;
 			background-color: vars.$color-background;
+
+			.searchbarContainer {
+				display: flex;
+			}
+			.filterContainer {
+				display: block;
+			}
 		}
 	}
 }

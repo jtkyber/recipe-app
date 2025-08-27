@@ -199,10 +199,10 @@ function SearchFilters() {
 
 	return (
 		<>
-			<button className={styles.filters_btn} onClick={handle_filters_toggle}>
-				Filters
-			</button>
 			<div className={styles.container} ref={containerRef}>
+				<button className={styles.filters_btn} onClick={handle_filters_toggle}>
+					Filters
+				</button>
 				<div className={styles.searchbarContainer}>
 					<RecipeSearchbar />
 				</div>

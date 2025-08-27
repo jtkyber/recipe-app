@@ -89,3 +89,21 @@
 		}
 	}
 }
+
+@media (max-width: vars.$mobile-max-width) {
+	.container {
+		.left {
+			.title {
+				text-indent: -99999px;
+
+				&::before {
+					text-indent: 0;
+					content: 'TCK';
+					float: left;
+					font-weight: 600;
+					font-size: 2.3rem;
+				}
+			}
+		}
+	}
+}
