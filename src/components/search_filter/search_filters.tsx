@@ -29,6 +29,7 @@ import RecipeSearchbar from './recipe_searchbar';
 function SearchFilters() {
 	const filters = useAppSelector(state => state.searchFilter);
 	const dispatch = useAppDispatch();
+	const containerRef = createRef<HTMLDivElement>();
 	const filtersDivRef = createRef<HTMLDivElement>();
 
 	const [activeTextbox, setActiveTextbox] = useState<HTMLInputElement | null>(null);
@@ -189,89 +190,101 @@ function SearchFilters() {
 		if (activeTextbox) activeTextbox.value = '';
 	};
 
+	const handle_filters_toggle = () => {
+		containerRef.current?.classList.toggle(styles.show);
+	};
+	useEffect(() => {
+		containerRef.current?.classList.remove(styles.show);
+	}, [filters.query]);
+
 	return (
-		<div className={styles.container}>
-			<div className={styles.searchbarContainer}>
-				<RecipeSearchbar />
-			</div>
-			<div className={styles.filterContainer}>
-				<div ref={filtersDivRef} className={styles.filters}>
-					<Dropdown
-						filterName='sortType'
-						options={sortValues}
-						inputType='radio'
-						handle_input={handle_input}
-						selectedDropdownItems={[filters.sortType]}>
-						Sort By
-					</Dropdown>
-					<Dropdown
-						filterName='cuisine'
-						options={cuisineValues}
-						inputType='checkbox'
-						handle_input={handle_input}
-						selectedDropdownItems={filters.cuisine}>
-						Cuisine
-					</Dropdown>
-					<Dropdown
-						filterName='type'
-						options={mealTypeValues}
-						inputType='checkbox'
-						handle_input={handle_input}
-						selectedDropdownItems={filters.type}>
-						Meal Type
-					</Dropdown>
-					<FilterOption
-						id='Ingredients'
-						filter='ingredients'
-						inputType='text'
-						handle_input={handle_input}
-						inputAttributes={{ placeholder: 'Search...' }}
-						selectedAutocompleteItems={filters.ingredients}
-						isSolo={true}>
-						Ingredients
-					</FilterOption>
-
-					<FilterOption
-						id='Max Ready Time'
-						filter='maxReadyTime'
-						inputType='number'
-						handle_input={handle_input}
-						inputAttributes={{ min: 0, step: 5 }}
-						isSolo={true}>
-						<>
-							Max Ready Time<span style={{ fontWeight: 200, fontSize: '0.9em' }}>(mins)</span>
-						</>
-					</FilterOption>
-					<FilterOption
-						id='true'
-						filter='instructionsRequired'
-						inputType='checkbox'
-						handle_input={handle_input}
-						isSolo={true}
-						selectedDropdownItems={[filters.instructionsRequired.toString()]}>
-						Instructions Required
-					</FilterOption>
-					<FilterOption
-						id='true'
-						filter='ignoreProfileFilters'
-						inputType='checkbox'
-						handle_input={handle_input}
-						isSolo={true}
-						selectedDropdownItems={[filters.ignoreProfileFilters.toString()]}>
-						Ignore Profile Filters
-					</FilterOption>
+		<>
+			<button className={styles.filters_btn} onClick={handle_filters_toggle}>
+				Filters
+			</button>
+			<div className={styles.container} ref={containerRef}>
+				<div className={styles.searchbarContainer}>
+					<RecipeSearchbar />
 				</div>
-			</div>
+				<div className={styles.filterContainer}>
+					<div ref={filtersDivRef} className={styles.filters}>
+						<Dropdown
+							filterName='sortType'
+							options={sortValues}
+							inputType='radio'
+							handle_input={handle_input}
+							selectedDropdownItems={[filters.sortType]}>
+							Sort By
+						</Dropdown>
+						<Dropdown
+							filterName='cuisine'
+							options={cuisineValues}
+							inputType='checkbox'
+							handle_input={handle_input}
+							selectedDropdownItems={filters.cuisine}>
+							Cuisine
+						</Dropdown>
+						<Dropdown
+							filterName='type'
+							options={mealTypeValues}
+							inputType='checkbox'
+							handle_input={handle_input}
+							selectedDropdownItems={filters.type}>
+							Meal Type
+						</Dropdown>
+						<FilterOption
+							id='Ingredients'
+							filter='ingredients'
+							inputType='text'
+							handle_input={handle_input}
+							inputAttributes={{ placeholder: 'Search...' }}
+							selectedAutocompleteItems={filters.ingredients}
+							isSolo={true}>
+							Ingredients
+						</FilterOption>
 
-			{activeTextbox instanceof HTMLInputElement && autocompleteOptions?.length ? (
-				<AutocompleteDropdown
-					options={autocompleteOptions.map((o: any) => o.name)}
-					activeTextbox={activeTextbox}
-					handle_autocomplete_click={handle_autocomplete_click}
-					selected={filters.ingredients}
-				/>
-			) : null}
-		</div>
+						<FilterOption
+							id='Max Ready Time'
+							filter='maxReadyTime'
+							inputType='number'
+							handle_input={handle_input}
+							inputAttributes={{ min: 0, step: 5 }}
+							isSolo={true}>
+							<>
+								Max Ready Time<span style={{ fontWeight: 200, fontSize: '0.9em' }}>(mins)</span>
+							</>
+						</FilterOption>
+						<FilterOption
+							id='true'
+							filter='instructionsRequired'
+							inputType='checkbox'
+							handle_input={handle_input}
+							isSolo={true}
+							selectedDropdownItems={[filters.instructionsRequired.toString()]}>
+							Instructions Required
+						</FilterOption>
+						<FilterOption
+							id='true'
+							filter='ignoreProfileFilters'
+							inputType='checkbox'
+							handle_input={handle_input}
+							isSolo={true}
+							selectedDropdownItems={[filters.ignoreProfileFilters.toString()]}>
+							Ignore Profile Filters
+						</FilterOption>
+					</div>
+				</div>
+
+				{activeTextbox instanceof HTMLInputElement && autocompleteOptions?.length ? (
+					<AutocompleteDropdown
+						options={autocompleteOptions.map((o: any) => o.name)}
+						activeTextbox={activeTextbox}
+						handle_autocomplete_click={handle_autocomplete_click}
+						selected={filters.ingredients}
+					/>
+				) : null}
+			</div>
+		</>
 	);
 }
 

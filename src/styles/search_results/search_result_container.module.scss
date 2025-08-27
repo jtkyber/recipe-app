@@ -97,3 +97,11 @@
 		}
 	}
 }
+
+@media (max-width: vars.$mobile-max-width) {
+	.container {
+		.results {
+			justify-content: center;
+		}
+	}
+}

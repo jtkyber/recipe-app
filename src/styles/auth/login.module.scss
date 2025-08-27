@@ -85,15 +85,34 @@
 	}
 }
 
-@media (max-width: 50rem) {
+@media (max-width: vars.$mobile-max-width-login) {
 	.container {
 		flex-flow: column nowrap;
 
 		.left_container {
 			width: 100%;
-			height: 12rem;
+			height: max-content;
 			justify-content: flex-start;
 			align-items: center;
+			padding: 2rem;
+
+			.text_container {
+				max-width: 100%;
+
+				h2 {
+					font-size: 2.3rem;
+					white-space: unset;
+				}
+
+				p {
+					font-size: 1.2rem;
+				}
+			}
+		}
+
+		.form_container_scrollable {
+			.form_container {
+			}
 		}
 	}
 }

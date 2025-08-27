@@ -4,7 +4,8 @@
 .sign_up_form {
 	display: flex;
 	flex-flow: column nowrap;
-	width: 30rem;
+	max-width: 30rem;
+	width: 100%;
 	gap: 1rem;
 
 	$input_section_padding: 1.5rem;

@@ -30,3 +30,13 @@
 		}
 	}
 }
+
+@media (max-width: vars.$mobile-max-width) {
+	.scrollable_container {
+		.container {
+			.saved_recipe_container {
+				justify-content: center;
+			}
+		}
+	}
+}

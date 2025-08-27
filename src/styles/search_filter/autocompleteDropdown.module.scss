@@ -3,10 +3,10 @@
 .container {
 	position: fixed;
 	height: max-content;
-	background-color: rgb(150, 150, 150);
-	border: 1px solid black;
+	background-color: vars.$color-text-primary;
+	border: 1px solid vars.$color-text-primary;
 	border-radius: vars.$dropdown-border-radius;
-	z-index: 1;
+	z-index: 2;
 	display: flex;
 	flex-flow: column nowrap;
 	gap: 1px;
@@ -19,7 +19,7 @@
 		font-weight: 500;
 
 		&:hover {
-			background-color: vars.$color-accent;
+			background-color: vars.$color-highlight;
 		}
 	}
 }

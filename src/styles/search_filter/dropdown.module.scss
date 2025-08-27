@@ -12,7 +12,7 @@
 	.dropdown_label_container {
 		width: 100%;
 		height: max-content;
-		background-color: vars.$color-surface;
+		background-color: inherit;
 		padding: vars.$dropdown-section-padding;
 		border-radius: vars.$dropdown-border-radius;
 		display: flex;
