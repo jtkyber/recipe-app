@@ -1,6 +1,12 @@
+@use './variables.scss' as vars;
+
 .container {
 	display: flex;
 	flex-flow: column nowrap;
 	width: 100vw;
 	height: 100vh;
+
+	@media (max-width: vars.$mobile-max-width) {
+		height: 100dvh;
+	}
 }
