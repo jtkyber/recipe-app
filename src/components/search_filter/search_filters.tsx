@@ -19,8 +19,10 @@ import optionStyles from '../../styles/search_filter/filter_option.module.scss';
 import styles from '../../styles/search_filter/search_filters.module.scss';
 import type { InputType } from '../../types/dropdown';
 import type { FilterProperty } from '../../types/filters';
+import type { ISearchResult } from '../../types/recipe';
 import { get_parent_with_class_name } from '../../utils/dom_tools';
 import { cuisineValues, mealTypeValues, sortValues } from '../../utils/filter_values';
+import FilterSVG from '../svg/filterSVG';
 import AutocompleteDropdown from './autocompleteDropdown';
 import Dropdown from './dropdown';
 import FilterOption from './filter_option';
@@ -46,6 +48,14 @@ function SearchFilters() {
 	const { refetch, data: autocompleteOptions } = useQuery({
 		queryKey: ['autocomplete'],
 		queryFn: get_autocomplete_ingredients,
+		enabled: false,
+	});
+
+	const { data, fetchStatus } = useQuery<ISearchResult, Error>({
+		queryKey: ['recipes', filters],
+		queryFn: () => {
+			throw new Error('This queryFn should not be called');
+		},
 		enabled: false,
 	});
 
@@ -193,16 +203,24 @@ function SearchFilters() {
 	const handle_filters_toggle = () => {
 		containerRef.current?.classList.toggle(styles.show);
 	};
-	useEffect(() => {
-		containerRef.current?.classList.remove(styles.show);
-	}, [filters.query]);
+	// useEffect(() => {
+	// 	containerRef.current?.classList.remove(styles.show);
+	// }, [filters.query]);
 
 	return (
 		<>
 			<div className={styles.container} ref={containerRef}>
-				<button className={styles.filters_btn} onClick={handle_filters_toggle}>
-					Filters
-				</button>
+				<div className={styles.mobile_top_div}>
+					<h4 className={styles.total_results_text}>
+						<span className={styles.result_count}>
+							{fetchStatus === 'idle' ? data?.totalResults : 'searching...'}
+						</span>{' '}
+						{fetchStatus === 'idle' ? 'results' : ''}
+					</h4>
+					<button className={styles.filters_btn} onClick={handle_filters_toggle}>
+						<FilterSVG />
+					</button>
+				</div>
 				<div className={styles.searchbarContainer}>
 					<RecipeSearchbar />
 				</div>

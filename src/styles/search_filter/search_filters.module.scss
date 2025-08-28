@@ -12,16 +12,43 @@
 	border-right: vars.$section-border-style;
 	background-color: vars.$color-surface;
 
-	.filters_btn {
-		display: none;
-		width: max-content;
+	.mobile_top_div {
+		width: 100%;
 		height: max-content;
-		padding: 0.4rem 0.7rem;
-		background-color: vars.$color-primary;
-		color: vars.$color-background;
-		font-size: 1rem;
-		border-radius: 0.5rem;
-		flex: none;
+		display: none;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+
+		.total_results_text {
+			visibility: hidden;
+			color: vars.$color-text-secondary;
+
+			.result_count {
+				color: vars.$color-text-secondary;
+			}
+		}
+
+		.filters_btn {
+			width: max-content;
+			height: max-content;
+			background-color: transparent;
+			flex: none;
+
+			svg {
+				width: 2rem;
+				height: auto;
+
+				path {
+					fill: vars.$color-primary;
+					// stroke: vars.$color-text-primary;
+
+					&:first-child {
+						fill: transparent;
+						// stroke: transparent;
+					}
+				}
+			}
+		}
 	}
 
 	.searchbarContainer {
@@ -64,8 +91,12 @@
 		background-color: inherit;
 		padding: 1rem;
 
-		.filters_btn {
-			display: block;
+		.mobile_top_div {
+			display: flex;
+
+			.filters_btn {
+				display: block;
+			}
 		}
 
 		.searchbarContainer,
@@ -78,6 +109,12 @@
 			position: absolute;
 			height: 100%;
 			background-color: vars.$color-background;
+
+			.mobile_top_div {
+				.total_results_text {
+					visibility: visible;
+				}
+			}
 
 			.searchbarContainer {
 				display: flex;
