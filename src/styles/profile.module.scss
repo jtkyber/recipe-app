@@ -1,106 +1,145 @@
 @use './variables.scss' as vars;
 
-.container {
+.scrollable_container {
 	width: 100%;
 	height: 100%;
-	display: flex;
-	flex-flow: row nowrap;
-	$padding: 2rem 4rem;
-	$padding-edge: 1rem;
 
-	.settings_container {
-		width: max-content;
+	.container {
+		width: 100%;
 		height: 100%;
-		border-right: vars.$section-border-style;
-		padding: $padding;
-		padding-left: $padding-edge;
-		overflow-y: auto;
+		display: flex;
+		flex-flow: row nowrap;
+		$padding: 2rem 4rem;
+		$padding-edge: 1rem;
 
-		.settings_header {
+		.settings_container {
 			width: max-content;
-			text-align: left;
-			margin-bottom: 2rem;
+			height: 100%;
+			border-right: vars.$section-border-style;
+			padding: $padding;
+			padding-left: $padding-edge;
+			overflow-y: auto;
+
+			.settings_header {
+				width: max-content;
+				text-align: left;
+				margin-bottom: 2rem;
+				color: vars.$color-text-primary;
+			}
+
+			.setting_list {
+				width: max-content;
+				height: max-content;
+				list-style: none;
+				display: flex;
+				flex-flow: column nowrap;
+				align-items: flex-start;
+				gap: 1rem;
+
+				.setting {
+					cursor: pointer;
+					text-transform: capitalize;
+					text-decoration: underline;
+					font-weight: 400;
+					font-size: 0.85rem;
+					width: max-content;
+					opacity: 0.6;
+					color: vars.$color-text-primary;
+
+					&.selected {
+						opacity: 1;
+						text-decoration: none;
+						font-weight: 500;
+					}
+
+					&:hover {
+						opacity: 1;
+					}
+				}
+			}
 		}
 
-		.setting_list {
-			width: max-content;
-			height: max-content;
-			list-style: none;
+		.content {
+			width: 100%;
+			height: 100%;
+			padding: $padding;
+			padding-right: $padding-edge;
+			overflow-y: auto;
 			display: flex;
-			flex-flow: column nowrap;
-			align-items: flex-start;
-			gap: 1rem;
+			justify-content: flex-start;
 
-			.setting {
-				cursor: pointer;
-				text-transform: capitalize;
-				text-decoration: underline;
-				font-weight: 400;
-				font-size: 0.85rem;
-				width: max-content;
-				opacity: 0.6;
+			.form {
+				width: 100%;
+				max-width: 40rem;
+				height: max-content;
 
-				&.selected {
-					opacity: 1;
-					text-decoration: none;
+				.user_values {
+					display: flex;
+					flex-flow: row wrap;
+					gap: 1rem;
+
+					.value {
+						font-size: 0.9rem;
+						font-weight: 500;
+					}
 				}
+			}
 
-				&:hover {
-					opacity: 1;
+			.update_btn_container {
+				width: 100%;
+				display: flex;
+				justify-content: flex-end;
+				margin-top: 1rem;
+
+				.update_btn {
+					width: 100%;
+					background-color: vars.$color-accent;
+					color: vars.$color-background;
+					padding: 0.5rem 1rem;
+					border-radius: 0.5rem;
+					height: 2.5rem;
+					font-size: 0.9rem;
+
+					&:hover,
+					&:disabled {
+						opacity: 0.6;
+
+						&:disabled {
+							cursor: default;
+						}
+					}
 				}
 			}
 		}
 	}
+}
 
-	.content {
+@media (max-width: vars.$mobile-max-width) {
+	.scrollable_container {
 		width: 100%;
 		height: 100%;
-		padding: $padding;
-		padding-right: $padding-edge;
 		overflow-y: auto;
-		display: flex;
-		justify-content: flex-start;
 
-		.form {
-			width: 100%;
-			max-width: 40rem;
+		.container {
 			height: max-content;
+			flex-flow: column nowrap;
 
-			.user_values {
-				display: flex;
-				flex-flow: row wrap;
-				gap: 1rem;
+			.settings_container {
+				width: 100%;
+				height: max-content;
+				border: none;
+				border-bottom: 1px solid vars.$color-input-border;
+				overflow: hidden;
 
-				.value {
-					font-size: 0.9rem;
-					font-weight: 500;
+				.settings_header {
+					font-weight: 600;
 				}
 			}
-		}
 
-		.update_btn_container {
-			width: 100%;
-			display: flex;
-			justify-content: flex-end;
-			margin-top: 1rem;
-
-			.update_btn {
-				width: 100%;
-				background-color: vars.$color-accent;
-				color: vars.$color-background;
-				padding: 0.5rem 1rem;
-				border-radius: 0.5rem;
-				height: 2.5rem;
-				font-size: 0.9rem;
-
-				&:hover,
-				&:disabled {
-					opacity: 0.6;
-
-					&:disabled {
-						cursor: default;
-					}
-				}
+			.content {
+				justify-content: center;
+				padding: 2rem;
+				overflow: hidden;
 			}
 		}
 	}

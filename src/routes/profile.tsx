@@ -361,31 +361,33 @@ function RouteComponent() {
 	};
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.settings_container}>
-				<h3 className={styles.settings_header}>Account Settings</h3>
-				<ul className={styles.setting_list}>
-					{settings.map(name => (
-						<li
-							key={name}
-							onClick={e => handle_setting_click(e)}
-							id={name}
-							className={`${styles.setting} ${name === currentSetting ? styles.selected : null}`}>
-							{name.replace('_', ' ')}
-						</li>
-					))}
-				</ul>
-			</div>
+		<div className={styles.scrollable_container}>
+			<div className={styles.container}>
+				<div className={styles.settings_container}>
+					<h3 className={styles.settings_header}>Account Settings</h3>
+					<ul className={styles.setting_list}>
+						{settings.map(name => (
+							<li
+								key={name}
+								onClick={e => handle_setting_click(e)}
+								id={name}
+								className={`${styles.setting} ${name === currentSetting ? styles.selected : null}`}>
+								{name.replace('_', ' ')}
+							</li>
+						))}
+					</ul>
+				</div>
 
-			<div className={styles.content}>
-				<form ref={formRef} className={styles.form}>
-					{render_contents()}
-					<div className={styles.update_btn_container}>
-						<button disabled={updating} onClick={update_profile} className={styles.update_btn}>
-							{updating ? 'Saving...' : 'Update Profile'}
-						</button>
-					</div>
-				</form>
+				<div className={styles.content}>
+					<form ref={formRef} className={styles.form}>
+						{render_contents()}
+						<div className={styles.update_btn_container}>
+							<button disabled={updating} onClick={update_profile} className={styles.update_btn}>
+								{updating ? 'Saving...' : 'Update Profile'}
+							</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	);

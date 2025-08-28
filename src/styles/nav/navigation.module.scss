@@ -10,6 +10,7 @@
 	border-bottom: vars.$section-border-style;
 	flex-shrink: 0;
 	background-color: vars.$color-surface;
+	z-index: 10;
 
 	.left {
 		.title {
