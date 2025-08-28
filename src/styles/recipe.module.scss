@@ -38,7 +38,8 @@
 			.title {
 				width: 100%;
 				text-align: start;
-				font-size: 2.5rem;
+				font-size: 2.3rem;
+				font-weight: 600;
 			}
 
 			.top_row {
@@ -118,77 +119,6 @@
 			.summary {
 				margin-top: 0.5rem;
 			}
-
-			// .save_container {
-			// 	width: 100%;
-			// 	height: max-content;
-			// 	display: flex;
-			// 	justify-content: flex-start;
-			// 	align-items: center;
-			// 	margin-top: 0.5rem;
-			// 	overflow: visible;
-
-			// 	.save_button {
-			// 		width: max-content;
-			// 		height: max-content;
-			// 		display: flex;
-			// 		flex-flow: row nowrap;
-			// 		justify-content: flex-start;
-			// 		align-items: center;
-			// 		gap: 0.5rem;
-			// 		padding: 0.4rem 0.5rem;
-			// 		// background-color: vars.$color-highlight;
-			// 		border: 2px solid vars.$color-primary;
-			// 		border-radius: 0.3rem;
-			// 		// box-shadow: 1px 1px 0.2rem rgba(0, 0, 0, 0.25);
-
-			// 		&.is_saved:disabled,
-			// 		&:disabled {
-			// 			filter: brightness(0.8);
-			// 		}
-
-			// 		&:hover {
-			// 			box-shadow: none;
-
-			// 			svg path {
-			// 				fill: vars.$color-primary;
-			// 			}
-			// 		}
-
-			// 		&.is_saved {
-			// 			background-color: vars.$color-accent;
-			// 			border-color: vars.$color-accent;
-
-			// 			box-shadow: none;
-
-			// 			svg path {
-			// 				fill: vars.$color-background;
-			// 				stroke: vars.$color-background;
-			// 			}
-
-			// 			.save_text {
-			// 				color: vars.$color-background;
-			// 			}
-			// 		}
-
-			// 		.save_text {
-			// 			// font-weight: 500;
-			// 			// color: vars.$color-background;
-			// 			color: vars.$color-primary;
-			// 		}
-
-			// 		svg {
-			// 			width: 1.2rem;
-			// 			height: auto;
-
-			// 			path {
-			// 				fill: none;
-			// 				stroke: vars.$color-primary;
-			// 				stroke-width: 26px;
-			// 			}
-			// 		}
-			// 	}
-			// }
 
 			.image_container {
 				width: 100%;
@@ -315,6 +245,18 @@
 							opacity: 0.6;
 						}
 					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: vars.$mobile-max-width) {
+	.container {
+		.scrollable_container {
+			.recipe_container {
+				.title {
+					font-size: 1.8rem;
 				}
 			}
 		}
