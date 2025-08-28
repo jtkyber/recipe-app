@@ -6,13 +6,15 @@ import AutocompleteDropdown from './search_filter/autocompleteDropdown';
 import SpecialInput from './special_input';
 
 function AutocompleteInput({
+	id,
 	name,
 	handle_selected_ingredient_click,
 	add_item,
 	get_autocomplete_list,
 	selected,
 }: {
-	name: AutocompleteInputName;
+	id: AutocompleteInputName;
+	name: string;
 	handle_selected_ingredient_click: React.MouseEventHandler;
 	add_item: (item: string, inputName: AutocompleteInputName) => void;
 	get_autocomplete_list: (text: string) => Promise<string[]>;
@@ -30,7 +32,7 @@ function AutocompleteInput({
 
 	useEffect(() => {
 		const containerEl = containerRef.current;
-		const inputEl = containerEl?.querySelector(`#${name}`);
+		const inputEl = containerEl?.querySelector(`#${id}`);
 		if (!inputEl) return;
 
 		inputEl.addEventListener('focusin', handle_focus_in, true);
@@ -65,7 +67,7 @@ function AutocompleteInput({
 		const option = (e.target as HTMLHeadingElement).id;
 
 		if (activeTextbox && !selected.includes(option)) {
-			add_item(option, name);
+			add_item(option, id);
 			activeTextbox.value = '';
 			setAutocompleteOptions([]);
 		}
@@ -77,7 +79,7 @@ function AutocompleteInput({
 				placeholder={name}
 				inputAttr={{
 					onChange: handle_ingredient_input,
-					id: name,
+					id: id,
 					type: 'text',
 				}}
 			/>

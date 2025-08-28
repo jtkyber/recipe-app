@@ -207,7 +207,8 @@ function SignupForm() {
 			</div>
 
 			<AutocompleteInput
-				name='excluded_ingredients'
+				id='excluded_ingredients'
+				name='Excluded Ingredients'
 				handle_selected_ingredient_click={handle_selected_ingredient_click}
 				add_item={add_item}
 				get_autocomplete_list={get_autocomplete_ingredients}

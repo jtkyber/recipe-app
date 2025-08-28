@@ -95,12 +95,13 @@
 			justify-content: flex-start;
 			align-items: center;
 			padding: 2rem;
+			display: none;
 
 			.text_container {
 				max-width: 100%;
 
 				h2 {
-					font-size: 2.3rem;
+					font-size: 2rem;
 					white-space: unset;
 				}
 
@@ -112,6 +113,13 @@
 
 		.form_container_scrollable {
 			.form_container {
+				gap: 1rem;
+
+				header {
+					h1 {
+						font-size: 2.2rem;
+					}
+				}
 			}
 		}
 	}

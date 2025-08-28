@@ -6,7 +6,7 @@
 	flex-flow: column nowrap;
 	max-width: 30rem;
 	width: 100%;
-	gap: 1rem;
+	// gap: 1rem;
 
 	$input_section_padding: 1.5rem;
 
@@ -18,8 +18,7 @@
 
 	.diet,
 	.intolerances {
-		// @include input_section_shared();
-		margin-top: $input_section_padding;
+		margin: $input_section_padding 0;
 	}
 
 	.submitBtnContainer {
@@ -37,6 +36,15 @@
 			&:hover {
 				opacity: 0.6;
 			}
+		}
+	}
+}
+
+@media (max-width: vars.$mobile-max-width-login) {
+	.sign_up_form {
+		.password_container {
+			flex-flow: column nowrap;
+			gap: 0;
 		}
 	}
 }
