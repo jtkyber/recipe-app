@@ -81,6 +81,10 @@
 						width: 1.8rem;
 						height: 2rem;
 
+						* {
+							pointer-events: none;
+						}
+
 						svg {
 							width: 1.2rem;
 							height: auto;
@@ -92,8 +96,13 @@
 							}
 						}
 
-						&:hover {
+						&:hover,
+						&:disabled {
 							opacity: 0.6;
+
+							&:disabled {
+								cursor: default;
+							}
 						}
 
 						&.is_saved {

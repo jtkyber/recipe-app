@@ -147,11 +147,15 @@ function RouteComponent() {
 		}
 	};
 
-	const toggle_save_recipe = async () => {
+	const toggle_save_recipe = async (e: any) => {
 		if (!user?.id) {
 			router.navigate({ to: '/login' });
 			return;
 		}
+
+		const saveBtn = e.target as HTMLButtonElement;
+
+		saveBtn.classList.toggle(styles.is_saved);
 
 		setSaveInProgress(true);
 
