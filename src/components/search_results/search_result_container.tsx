@@ -66,49 +66,61 @@ function SearchResultContainer() {
 
 	const handle_page_change = (page: number) => dispatch(setPage(page));
 
+	const limit_reached = (data?.pointsRemaining && data.pointsRemaining <= 0) || false;
+
 	return (
 		<div ref={containerRef} className={styles.container}>
 			<div className={styles.options}></div>
 			<div className={styles.total_results_text_container}>
-				<h4 className={styles.total_results_text}>
-					<span className={styles.result_count}>
-						{fetchStatus === 'idle' ? data?.totalResults : 'searching...'}
-					</span>{' '}
-					{fetchStatus === 'idle' ? 'results' : ''}
+				<h4 className={`${styles.total_results_text} ${limit_reached ? styles.limit_reached : null}`}>
+					{limit_reached ? (
+						'The recipe API limit has been reached. Please wait until midnight UTC to make new searches. You may still be able to view your saved recipes or use previous searches.'
+					) : (
+						<>
+							<span className={styles.result_count}>
+								{fetchStatus === 'idle' ? data?.totalResults : 'searching...'}
+							</span>{' '}
+							{fetchStatus === 'idle' ? 'results' : ''}
+						</>
+					)}
 				</h4>
 			</div>
-			<div className={styles.results}>
-				{fetchStatus === 'idle'
-					? data?.results.map((recipe: IRecipe) => {
-							return <SearchResult key={recipe.id} recipe={recipe} />;
-						})
-					: Array.from({ length: filters.count }, (_, index) => <RecipeResultSkeleton key={index} />)}
-			</div>
-			{pageCount > 1 ? (
-				<footer className={styles.pagination}>
-					{pageBtns[0] > 0 ? (
-						<button onClick={() => handle_page_change(filters.page - 1)} className={styles.side_btns}>
-							<span className={styles.arrow}>&lsaquo;</span>
-							{/* <span className={styles.text}>Prev</span> */}
-						</button>
+			{!limit_reached ? (
+				<>
+					<div className={styles.results}>
+						{fetchStatus === 'idle'
+							? data?.results.map((recipe: IRecipe) => {
+									return <SearchResult key={recipe.id} recipe={recipe} />;
+								})
+							: Array.from({ length: filters.count }, (_, index) => <RecipeResultSkeleton key={index} />)}
+					</div>
+					{pageCount > 1 ? (
+						<footer className={styles.pagination}>
+							{pageBtns[0] > 0 ? (
+								<button onClick={() => handle_page_change(filters.page - 1)} className={styles.side_btns}>
+									<span className={styles.arrow}>&lsaquo;</span>
+									{/* <span className={styles.text}>Prev</span> */}
+								</button>
+							) : null}
+							{pageBtns.map(page => {
+								return (
+									<button
+										onClick={() => handle_page_change(page)}
+										key={page}
+										className={`${styles.pagination_btn} ${page === filters.page ? styles.active : null}`}>
+										{page + 1}
+									</button>
+								);
+							})}
+							{showNextBtn ? (
+								<button onClick={() => handle_page_change(filters.page + 1)} className={styles.side_btns}>
+									{/* <span className={styles.text}>Next</span> */}
+									<span className={styles.arrow}>&rsaquo;</span>
+								</button>
+							) : null}
+						</footer>
 					) : null}
-					{pageBtns.map(page => {
-						return (
-							<button
-								onClick={() => handle_page_change(page)}
-								key={page}
-								className={`${styles.pagination_btn} ${page === filters.page ? styles.active : null}`}>
-								{page + 1}
-							</button>
-						);
-					})}
-					{showNextBtn ? (
-						<button onClick={() => handle_page_change(filters.page + 1)} className={styles.side_btns}>
-							{/* <span className={styles.text}>Next</span> */}
-							<span className={styles.arrow}>&rsaquo;</span>
-						</button>
-					) : null}
-				</footer>
+				</>
 			) : null}
 		</div>
 	);

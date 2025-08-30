@@ -27,6 +27,12 @@
 		.total_results_text {
 			color: vars.$color-text-secondary;
 
+			&.limit_reached {
+				color: vars.$color-save;
+				font-weight: 500;
+				font-size: 0.9rem;
+			}
+
 			.result_count {
 				color: vars.$color-text-secondary;
 			}
