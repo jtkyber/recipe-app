@@ -21,7 +21,7 @@ First, create an account, selecting your current diet, intolerances and the ingr
 * Spoonacular score (a rating calculated by the Spoonacular API by blending things like nutritional balance, popularity, flavor complementarity, etc. Basically, it shows the quality of the recipe as a whole)
 * The estimated time to complete the recipe from start to finish
 * Save button
-* AI summary (transforms the long/ugly default summary from the recipe API to one that's more vibrant, relevant and concise
+* AI summary (transforms the long/ugly default summary from the recipe API to one that's more vibrant, relevant and concise)
 * Photo of the finished meal
 * A list of ingredients and their quantities (change the amount of servings to change the recipe quantities)
 * A list of ordered instructions
